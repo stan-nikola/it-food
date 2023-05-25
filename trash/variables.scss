@@ -1,0 +1,38 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: block;
+}
+
+#example-app {
+  --primary-color: #000;
+  --color: #fff;
+  --spacing: 10px;
+}
+
+@media (min-width: 768px) {
+  #example-app {
+    --spacing: 20px;
+  }
+}
+
+#example-app {
+  display: block;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: var(--color);
+  padding: var(--spacing);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+p,
+h1,
+button {
+  margin-bottom: var(--spacing);
+}

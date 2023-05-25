@@ -1,16 +1,16 @@
+import s from './App.module.scss';
+import { TopBar } from './TopBar/TopBar';
+import { LeftSideBar } from './LeftSideBar/LeftSideBar';
+import { RightSideBar } from './RightSideBar/RightSideBar';
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
-      }}
-    >
-      React pet project template
-    </div>
+    <>
+      <TopBar />
+      <div className={s.container}>
+        <LeftSideBar />
+        <RightSideBar />
+      </div>
+    </>
   );
 };
