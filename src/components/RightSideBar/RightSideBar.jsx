@@ -1,5 +1,5 @@
 import s from './RightSideBar.module.scss';
 
 export const RightSideBar = () => {
-  return <div className={s.container}>RightSideBar</div>;
+  return <section className={s.container}>RightSideBar</section>;
 };
