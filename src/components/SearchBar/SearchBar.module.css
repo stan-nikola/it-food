@@ -1,5 +1,4 @@
 .wrapper {
-    box-sizing: border-box;
   padding: 22px 24px 22px 58px;
   margin: 0;
   width: 477px;
@@ -9,7 +8,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 150%;
-  color: #C2C2C2;
+  color: #c2c2c2;
 
   outline: 1px solid blue;
 }

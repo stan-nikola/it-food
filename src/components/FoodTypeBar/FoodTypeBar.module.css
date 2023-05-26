@@ -1,5 +1,4 @@
 .wraper {
-      box-sizing: border-box;
   display: flex;
   gap: 10px;
 
@@ -7,6 +6,5 @@
 
   padding: 16px 24px;
 
-    outline: 1px solid brown;
-
+  outline: 1px solid brown;
 }

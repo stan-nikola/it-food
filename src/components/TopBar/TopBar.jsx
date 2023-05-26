@@ -1,5 +1,5 @@
-import scss from './TopBar.module.scss';
+import s from './TopBar.module.css';
 
 export const TopBar = () => {
-  return <nav className={scss.container}>TopBar</nav>;
+  return <nav className={s.container}>TopBar</nav>;
 };

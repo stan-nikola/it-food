@@ -1,11 +1,10 @@
 .wrapper {
-        box-sizing: border-box;
   padding: 12px 8px 16px 8px;
-  
+
   /* margin: 16px; */
   width: 219px;
-  background-color: #FFFFFF;
-border-radius: 16px;
+  background-color: #ffffff;
+  border-radius: 16px;
 
   outline: 1px solid green;
 }
@@ -15,35 +14,34 @@ border-radius: 16px;
   height: 158px;
   border-radius: 16px;
   border: 1px solid black;
-  
 }
 
 .foodName {
   margin: 0;
   margin-top: 12px;
   font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 150%;
-    text-align: center;
-    color: #19191C;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: #19191c;
 }
 
 .foodPrice {
   margin: 0;
   margin-top: 4px;
   font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 150%; 
-    text-align: center;  
-    color: #FF5C00;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: #ff5c00;
 }
 
 .buttonsWrapper {
-    display: flex;
+  display: flex;
   justify-content: space-between;
   margin-top: 8px;
 }
