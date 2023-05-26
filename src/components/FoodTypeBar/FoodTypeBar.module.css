@@ -1,0 +1,12 @@
+.wraper {
+      box-sizing: border-box;
+  display: flex;
+  gap: 10px;
+
+  width: 477px;
+
+  padding: 16px 24px;
+
+    outline: 1px solid brown;
+
+}

@@ -1,0 +1,20 @@
+.buttonText {
+  padding: 8px 16px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 140%;
+  color: #19191C;
+
+  background-color: #FFFFFF;
+  border: 1px solid #E4E4E4;
+  border-radius: 40px;
+}
+
+.active {
+  color: #FF5C00;
+  background: #FFF5EE;
+    border: 1px solid #FF5C00;
+}
