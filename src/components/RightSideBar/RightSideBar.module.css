@@ -1,6 +1,226 @@
 .container {
-    height: calc(100vh - 100px);
-    width: 360px;
-    border-left: 1px solid #E4E4E4;
+  margin: 0 auto;
+  height: calc(100vh - 100px);
+  width: 360px;
+  border-left: 1px solid #e4e4e4;
+}
+.orderOption_wrapper {
+  padding: 24px 24px;
+  border-bottom: 1px solid #e4e4e4;
+}
 
+.orderOption {
+  display: flex;
+  align-items: center;
+  width: 312px;
+  height: 44px;
+  padding: 4px;
+  background: #f8f9fd;
+  border-radius: 80px;
+  overflow: hidden;
+  border: none;
+  background-color: #f8f9fd;
+  margin-bottom: 24px;
+}
+
+.orderOption_button:not(:last-child) {
+  margin-right: 5px;
+}
+.orderOption_button {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  border-radius: 80px;
+  overflow: visible;
+  background: transparent;
+  height: 100%;
+  width: calc(100% / 3);
+  background-color: #ffffff;
+  text-align: center;
+  transition: all 0.35s;
+}
+
+.orderOption_button:hover {
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.orderOption_button_active {
+  color: #ffffff;
+  background-color: #ff5c00;
+  scale: 1.05;
+  z-index: 1;
+}
+
+.orderOption_text {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 150%;
+  margin-bottom: 16px;
+}
+
+.orderOption_name {
+  width: 316px;
+  height: 52px;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  color: #c2c2c2;
+  border: 1px solid #e4e4e4;
+  border-radius: 58px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  margin-bottom: 12px;
+}
+
+.orderOption_phone {
+  width: 316px !important;
+  height: 52px !important;
+  border: 0 !important;
+  background-color: #ffffff;
+
+  border: 1px solid #e4e4e4 !important;
+  border-radius: 58px;
+  margin-bottom: 16px;
+}
+
+.orderOption_phone_input {
+  width: 314px !important ;
+  height: 50px !important;
+  padding: 12px 16px 12px 62px !important;
+
+  color: #c2c2c2 !important;
+  border: 0 !important;
+  border-radius: 58px !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 150% !important;
+  margin-bottom: 12px !important;
+}
+
+.orderOption_phone_flag {
+  border-radius: 3000px;
+  margin-left: 5px;
+  background-color: transparent !important;
+  border: 0 !important;
+}
+.orderOption_phone_flag > div {
+  border-radius: 58px !important;
+  top: 5px;
+  height: 38px !important;
+  width: 42px !important;
+  transition: all 0.35s;
+}
+
+.orderOption_phone_flag > div:hover {
+  background-color: #fbb085 !important;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.orderOption_addNote_btn {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  width: 316px;
+  height: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  background: #fff5ee;
+  border-radius: 58px;
+  cursor: pointer;
+  transition: all 0.35s;
+
+  margin-bottom: 24px;
+}
+
+.orderOption_addNote_btn:hover {
+  background-color: #ff5c00;
+  color: #fff;
+}
+
+.orderOption_detail {
+  padding: 24px 24px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.orderOption_detail_img {
+  border-radius: 12px;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin-right: 12px;
+}
+.orderOption_card {
+  display: flex;
+  border-bottom: 1px solid #e4e4e4;
+}
+.orderOption_detail_food_name {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  margin-bottom: 8px;
+}
+
+.orderOption_detail_food_price {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 130%;
+  margin-bottom: 2px;
+}
+
+.orderOption_detail_food_price_cost {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ff5c00;
+}
+
+.orderOption_detail_change {
+  display: flex;
+  align-items: center;
+}
+.orderOption_detail_change p {
+  margin-right: 12px;
+}
+.orderOption_detail_change_btn:not(:last-child) {
+  margin-right: 12px;
+}
+.orderOption_detail_sup_change {
+  display: flex;
+  margin-bottom: 16px;
+}
+.orderOption_detail_sub_change {
+  margin-right: 90px;
+}
+.orderOption_detail_change_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 58px;
+  overflow: visible;
+  transition: all 0.35s;
+}
+
+.orderOption_detail_change_btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.orderOption_detail_change_icon {
+  width: 36px;
+  height: 36px;
+}
+
+.orderOption_detail_change_icon_plus {
+  fill: #19191c;
+}
+.orderOption_detail_change_icon_minus {
+  fill: #9a9a9a;
 }

@@ -1,8 +1,8 @@
 import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
 import { BiHomeAlt, BiFile, BiTimeFive } from 'react-icons/bi';
+import { Link, NavLink } from 'react-router-dom';
 
 import s from './TopBar.module.css';
-import { Link, NavLink } from 'react-router-dom';
 
 export const TopBar = () => {
   return (
@@ -11,10 +11,10 @@ export const TopBar = () => {
         <LogoIcon className={s.header__logo_icon} />
         <div>
           <p className={s.header__logo_mainText}>IT FOOD</p>
-          <p className={s.header__logo_primaryText}>Coca coffeetalk</p>
+          <p className={s.header__logo_primaryText}>IT coffeetalk</p>
         </div>
       </Link>
-      <nav id="nav" className={s.header__nav}>
+      <nav className={s.header__nav}>
         <NavLink
           className={({ isActive }) =>
             isActive ? s.header__nav_link_active : s.header__nav_link
@@ -45,8 +45,18 @@ export const TopBar = () => {
           <BiTimeFive className={s.header__nav_icon} />
           <p>History</p>
         </NavLink>
+
+        <button type="button" className={s.header__nav_option}>
+          Dinning option
+        </button>
+        <button type="button" className={s.header__nav_avatar}>
+          <img
+            className={s.header__nav_avatar_img}
+            src="https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg"
+            alt="user avatar"
+          />
+        </button>
       </nav>
-      <div></div>
     </header>
   );
 };

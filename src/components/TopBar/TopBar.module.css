@@ -13,6 +13,7 @@
 .header__nav_link,
 .header__nav_link_active {
   display: flex;
+  align-items: center;
 }
 
 .header__logo {
@@ -34,11 +35,6 @@
   color: #828487;
 }
 
-.header__nav_link,
-.header__nav_link_active {
-  align-items: center;
-}
-
 .header__nav_link:not(:last-child) {
   margin-right: 20px;
 }
@@ -51,7 +47,7 @@
 }
 
 .header__nav_link_active {
-  color: red;
+  color: #ff5c00;
 }
 
 .header__nav_icon {
@@ -59,4 +55,51 @@
   width: 22px;
   height: 22px;
   color: currentColor;
+}
+
+.header__nav_option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-right: 20px;
+  padding: 8px;
+  width: 144px;
+  height: 36px;
+  background: #fff5ee;
+  border-radius: 58px;
+
+  padding: 0;
+
+  cursor: pointer;
+  transition: color 250ms linear, box-shadow 250ms linear;
+}
+.header__nav_option:hover,
+.header__nav_option:hover {
+  color: #ff5c00;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.header__nav_avatar {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: hidden;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: transparent;
+  transition: color 250ms linear, box-shadow 250ms linear;
+}
+
+.header__nav_avatar:hover,
+.header__nav_avatar:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.header__nav_avatar_img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
 }
