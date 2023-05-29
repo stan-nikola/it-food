@@ -5,7 +5,7 @@ import PhoneInput from 'react-phone-input-2';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 
 export const RightSideBar = () => {
-  const [orderOption, setOrderOption] = useState('dineIn');
+  const [, setOrderOption] = useState('dineIn');
   const [customerName, setCustomerName] = useState('');
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
 
