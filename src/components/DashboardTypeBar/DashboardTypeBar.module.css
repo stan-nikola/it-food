@@ -8,5 +8,8 @@
   font-size: 12px;
   line-height: 150%;
 
-  outline: 1px solid orange;
+  border: 1px solid #E4E4E4;
+  border-top: none;
+  border-bottom: none;
+
 }

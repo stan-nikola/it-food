@@ -1,10 +1,12 @@
 .wraper {
   display: flex;
-  gap: 10px;
-
+  gap: 7px;
   width: 477px;
 
-  padding: 16px 24px;
+  padding: 16px 19px;
+  
+  border: 1px solid #E4E4E4;
+  border-left: none;
 
-  outline: 1px solid brown;
+
 }
