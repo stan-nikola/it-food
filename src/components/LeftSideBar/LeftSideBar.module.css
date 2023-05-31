@@ -1,3 +1,17 @@
 .container{
     width: 125px;
 }
+
+.wrapper {
+    
+    padding: 24px 24px 0 24px;
+
+    outline: 1px solid red;
+}
+
+.listItem:not(:first-child) {
+
+    margin-top: 10px;
+
+    outline: 1px solid green;
+}
