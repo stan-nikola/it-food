@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 78px;
+  height: 64px;
   padding: 16px 24px;
   border-bottom: 1px solid #e4e4e4;
 }
@@ -34,11 +34,7 @@
   font-size: 16px;
   color: #828487;
 }
-
-.header__nav_link:not(:last-child) {
-  margin-right: 20px;
-}
-.header__nav_link_active:not(:last-child) {
+.header__nav_item:not(:last-child) {
   margin-right: 20px;
 }
 

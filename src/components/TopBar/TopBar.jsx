@@ -15,47 +15,56 @@ export const TopBar = () => {
         </div>
       </Link>
       <nav className={s.header__nav}>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? s.header__nav_link_active : s.header__nav_link
-          }
-          to="/"
-          end
-        >
-          <BiHomeAlt className={s.header__nav_icon} />
-          <p>Home</p>
-        </NavLink>
-
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? s.header__nav_link_active : s.header__nav_link
-          }
-          to="/order"
-        >
-          <BiFile className={s.header__nav_icon} />
-          <p>Order</p>
-        </NavLink>
-
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? s.header__nav_link_active : s.header__nav_link
-          }
-          to="/history"
-        >
-          <BiTimeFive className={s.header__nav_icon} />
-          <p>History</p>
-        </NavLink>
-
-        <button type="button" className={s.header__nav_option}>
-          Dinning option
-        </button>
-        <button type="button" className={s.header__nav_avatar}>
-          <img
-            className={s.header__nav_avatar_img}
-            src="https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg"
-            alt="user avatar"
-          />
-        </button>
+        <ul className={s.header__nav_list}>
+          <li className={s.header__nav_item}>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? s.header__nav_link_active : s.header__nav_link
+              }
+              to="/"
+              end
+            >
+              <BiHomeAlt className={s.header__nav_icon} />
+              <p>Home</p>
+            </NavLink>
+          </li>
+          <li className={s.header__nav_item}>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? s.header__nav_link_active : s.header__nav_link
+              }
+              to="/order"
+            >
+              <BiFile className={s.header__nav_icon} />
+              <p>Order</p>
+            </NavLink>
+          </li>
+          <li className={s.header__nav_item}>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? s.header__nav_link_active : s.header__nav_link
+              }
+              to="/history"
+            >
+              <BiTimeFive className={s.header__nav_icon} />
+              <p>History</p>
+            </NavLink>
+          </li>
+          <li className={s.header__nav_item}>
+            <button type="button" className={s.header__nav_option}>
+              Dinning option
+            </button>
+          </li>
+          <li className={s.header__nav_item}>
+            <button type="button" className={s.header__nav_avatar}>
+              <img
+                className={s.header__nav_avatar_img}
+                src="https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg"
+                alt="user avatar"
+              />
+            </button>
+          </li>
+        </ul>
       </nav>
     </header>
   );

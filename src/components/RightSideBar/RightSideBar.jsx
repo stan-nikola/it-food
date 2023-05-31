@@ -3,17 +3,15 @@ import 'react-phone-input-2/lib/style.css';
 import { useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
+import { arrayOfSmallCards } from 'recipes-3';
 
 export const RightSideBar = () => {
-  const [, setOrderOption] = useState('dineIn');
+  const [orderOption, setOrderOption] = useState('dineIn');
   const [customerName, setCustomerName] = useState('');
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
 
-  const [active, setActive] = useState(null);
-
   const handleOrderOptionChange = e => {
     setOrderOption(e.target.value);
-    setActive(e.target.value);
   };
 
   // const handleSubmit = e => {
@@ -23,36 +21,42 @@ export const RightSideBar = () => {
 
   return (
     <section className={s.container}>
-      <div className={s.orderOption_wrapper}>
-        <div className={s.orderOption}>
-          <button
-            onClick={handleOrderOptionChange}
-            className={`${s.orderOption_button} ${
-              active === 'dineIn' && s.orderOption_button_active
-            }`}
-            value="dineIn"
-          >
-            Dine In
-          </button>
-          <button
-            onClick={handleOrderOptionChange}
-            className={`${s.orderOption_button} ${
-              active === 'delivery' && s.orderOption_button_active
-            }`}
-            value="delivery"
-          >
-            Delivery
-          </button>
-          <button
-            onClick={handleOrderOptionChange}
-            className={`${s.orderOption_button} ${
-              active === 'pickup' && s.orderOption_button_active
-            }`}
-            value="pickup"
-          >
-            Pickup
-          </button>
-        </div>
+      <div className={s.orderOption_button_group}>
+        <ul className={s.orderOption_list}>
+          <li className={s.orderOption_item}>
+            <button
+              onClick={handleOrderOptionChange}
+              className={`${s.orderOption_button} ${
+                orderOption === 'dineIn' && s.orderOption_button_active
+              }`}
+              value="dineIn"
+            >
+              Dine In
+            </button>
+          </li>
+          <li className={s.orderOption_item}>
+            <button
+              onClick={handleOrderOptionChange}
+              className={`${s.orderOption_button} ${
+                orderOption === 'delivery' && s.orderOption_button_active
+              }`}
+              value="delivery"
+            >
+              Delivery
+            </button>
+          </li>
+          <li className={s.orderOption_item}>
+            <button
+              onClick={handleOrderOptionChange}
+              className={`${s.orderOption_button} ${
+                orderOption === 'pickup' && s.orderOption_button_active
+              }`}
+              value="pickup"
+            >
+              Pickup
+            </button>
+          </li>
+        </ul>
         <p className={s.orderOption_text}>Customer information</p>
         <form>
           <input
@@ -79,47 +83,65 @@ export const RightSideBar = () => {
             value={customerPhoneNumber}
             onChange={e => setCustomerPhoneNumber(e)}
           />
+          <button className={s.orderOption_addNote_btn} type="button">
+            Add note
+          </button>
         </form>
-        <button className={s.orderOption_addNote_btn} type="button">
-          Add note
-        </button>
       </div>
-      <div className={s.orderOption_detail}>
-        <p className={s.orderOption_text}>Orders details</p>
-        <div className={s.orderOption_card}>
-          <img
-            className={s.orderOption_detail_img}
-            src="https://people.com/thmb/FuphaVojr0vzvu5gbDuxvar2qkM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(749x0:751x2)/purple-carrot-buffalo-tempeh-quinoa-bowl-roasted-peppers-dill-sour-cream-8549bec1976a46fd8b6cd77fa82c68cd.jpg"
-            alt="user meal"
-          ></img>
-          <div className={s.orderOption_detail_change}>
-            <div>
-              <p className={s.orderOption_detail_food_name}>Steak sapi bakar</p>
-              <div className={s.orderOption_detail_sup_change}>
-                <div className={s.orderOption_detail_sub_change}>
-                  <p className={s.orderOption_detail_food_price}>Price</p>
-                  <p className={s.orderOption_detail_food_price_cost}>
-                    $ 25.26
-                  </p>
-                </div>
-                <div className={s.orderOption_detail_change}>
-                  <button className={s.orderOption_detail_change_btn}>
-                    <AiFillMinusCircle
-                      className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_minus}`}
-                    />
-                  </button>
-                  <p>1</p>
-                  <button className={s.orderOption_detail_change_btn}>
-                    <AiFillPlusCircle
-                      className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_plus}`}
-                    />
-                  </button>
+      <ul className={s.orderOption_detail}>
+        <li>
+          <p className={s.orderOption_text}>Orders details</p>
+        </li>
+        {arrayOfSmallCards.map(item => (
+          <li key={item._id.$oid} className={s.orderOption_card}>
+            <img
+              className={s.orderOption_detail_img}
+              src={item.preview}
+              alt={item.title}
+            ></img>
+            <div className={s.orderOption_detail_change}>
+              <div>
+                <p className={s.orderOption_detail_food_name}>{item.title}</p>
+                <div className={s.orderOption_detail_sup_change}>
+                  <div className={s.orderOption_detail_sub_change}>
+                    <p className={s.orderOption_detail_food_price}>Price</p>
+                    <p className={s.orderOption_detail_food_price_cost}>
+                      $ {item.time}
+                    </p>
+                  </div>
+                  <div className={s.orderOption_detail_change}>
+                    <button className={s.orderOption_detail_change_btn}>
+                      <AiFillMinusCircle
+                        className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_minus}`}
+                      />
+                    </button>
+                    <p>1</p>
+                    <button className={s.orderOption_detail_change_btn}>
+                      <AiFillPlusCircle
+                        className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_plus}`}
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </li>
+        ))}
+      </ul>
+      <ul className={s.orderOption_pay}>
+        <li className={s.orderOption_pay_Text}>
+          <p className={s.pay_text}>Total</p>
+          <p className={`${s.pay_text} ${s.pay_textPrice}`}>$ 62.13</p>
+        </li>
+        <li>
+          <button
+            type="button"
+            className={`${s.orderOption_pay_btn} ${s.pay_btn}`}
+          >
+            Pay Now
+          </button>
+        </li>
+      </ul>
     </section>
   );
 };

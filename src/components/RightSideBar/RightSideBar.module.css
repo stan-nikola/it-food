@@ -1,15 +1,16 @@
 .container {
   margin: 0 auto;
-  height: calc(100vh - 100px);
   width: 360px;
   border-left: 1px solid #e4e4e4;
+  height: calc(100vh - 64px);
 }
-.orderOption_wrapper {
-  padding: 24px 24px;
+.orderOption_button_group {
+  padding: 12px 24px 0px 24px;
   border-bottom: 1px solid #e4e4e4;
+  height: 276px;
 }
 
-.orderOption {
+.orderOption_list {
   display: flex;
   align-items: center;
   width: 312px;
@@ -20,11 +21,15 @@
   overflow: hidden;
   border: none;
   background-color: #f8f9fd;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
+}
+.orderOption_item {
+  width: calc(100% / 3);
+  height: 100%;
 }
 
-.orderOption_button:not(:last-child) {
-  margin-right: 5px;
+.orderOption_item:not(:last-child) {
+  margin-right: 4px;
 }
 .orderOption_button {
   cursor: pointer;
@@ -34,7 +39,7 @@
   overflow: visible;
   background: transparent;
   height: 100%;
-  width: calc(100% / 3);
+  width: 100%;
   background-color: #ffffff;
   text-align: center;
   transition: all 0.35s;
@@ -48,20 +53,19 @@
 .orderOption_button_active {
   color: #ffffff;
   background-color: #ff5c00;
-  scale: 1.05;
   z-index: 1;
 }
 
 .orderOption_text {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 150%;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .orderOption_name {
   width: 316px;
-  height: 52px;
+  height: 40px;
   padding: 12px 16px;
   background-color: #ffffff;
   color: #c2c2c2;
@@ -75,7 +79,7 @@
 
 .orderOption_phone {
   width: 316px !important;
-  height: 52px !important;
+  height: 42px !important;
   border: 0 !important;
   background-color: #ffffff;
 
@@ -86,8 +90,8 @@
 
 .orderOption_phone_input {
   width: 314px !important ;
-  height: 50px !important;
-  padding: 12px 16px 12px 62px !important;
+  height: 40px !important;
+  /* padding: 12px -6px 12px 62px !important; */
 
   color: #c2c2c2 !important;
   border: 0 !important;
@@ -100,31 +104,32 @@
 
 .orderOption_phone_flag {
   border-radius: 3000px;
-  margin-left: 5px;
+  margin-left: 2px;
   background-color: transparent !important;
   border: 0 !important;
 }
 .orderOption_phone_flag > div {
   border-radius: 58px !important;
-  top: 5px;
-  height: 38px !important;
+  top: 2px;
+  height: 36px !important;
   width: 42px !important;
   transition: all 0.35s;
 }
 
 .orderOption_phone_flag > div:hover {
-  background-color: #fbb085 !important;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  background-color: #fff5ee !important;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
-.orderOption_addNote_btn {
+.orderOption_addNote_btn,
+.orderOption_pay_btn {
   border: none;
   margin: 0;
   padding: 0;
   width: auto;
   overflow: visible;
   width: 316px;
-  height: 50px;
+  height: 42px;
   font-weight: 600;
   font-size: 16px;
   line-height: 150%;
@@ -133,7 +138,7 @@
   cursor: pointer;
   transition: all 0.35s;
 
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .orderOption_addNote_btn:hover {
@@ -142,26 +147,61 @@
 }
 
 .orderOption_detail {
-  padding: 24px 24px;
+  padding: 12px 24px 0px 24px;
   border-bottom: 1px solid #e4e4e4;
+  height: calc(100vh - 466px);
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+.orderOption_detail {
+  scrollbar-width: auto;
+  scrollbar-color: #c2c2c2 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+.orderOption_detail::-webkit-scrollbar {
+  width: 9px;
+}
+
+.orderOption_detail::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.orderOption_detail::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 4px;
+  border: 3px solid #ffffff;
 }
 
 .orderOption_detail_img {
   border-radius: 12px;
-  width: 72px;
-  height: 72px;
+  width: 58px;
+  height: 58px;
   object-fit: contain;
   margin-right: 12px;
 }
 .orderOption_card {
   display: flex;
   border-bottom: 1px solid #e4e4e4;
+  transition: all 0.35s;
+  padding: 6px 4px 0 4px;
+  border-radius: 16px;
+}
+.orderOption_card:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.orderOption_card:not(:first-child) {
+  margin-top: 12px;
 }
 .orderOption_detail_food_name {
   font-weight: 600;
-  font-size: 16px;
-  line-height: 150%;
-  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 60%;
+  margin-bottom: 6px;
 }
 
 .orderOption_detail_food_price {
@@ -169,6 +209,7 @@
   font-size: 12px;
   line-height: 130%;
   margin-bottom: 2px;
+  color: #9c9c9c;
 }
 
 .orderOption_detail_food_price_cost {
@@ -190,7 +231,7 @@
 }
 .orderOption_detail_sup_change {
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 .orderOption_detail_sub_change {
   margin-right: 50px;
@@ -223,4 +264,32 @@
 }
 .orderOption_detail_change_icon_minus {
   fill: #9a9a9a;
+}
+
+.orderOption_pay {
+  padding: 12px 24px 0px 24px;
+}
+
+.orderOption_pay_Text {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.pay_text {
+  font-size: 16px;
+  color: #828487;
+}
+.pay_textPrice {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ff5c00;
+}
+
+.pay_btn {
+  color: #fff;
+  background-color: #ff5c00;
+}
+.pay_btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
