@@ -1,7 +1,10 @@
 @import '../node_modules/modern-normalize/modern-normalize.css';
 
 body {
-  margin: 0;
+  width: 1471px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
   font-family: 'Poppins', sans-serif;
 }
 
