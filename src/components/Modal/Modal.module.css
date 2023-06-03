@@ -1,33 +1,3 @@
-/* import styled from '@emotion/styled';
-
-export const Backdrop = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  backdrop-filter: blur(3px);
-`;
-
-export const ModalWindow = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  height: 480px;
-  width: 300px;
-  padding: ${p => p.theme.space[3]};
-  background-color: ${p => p.theme.colors.secondaryBg};
-  box-shadow: ${p => p.theme.shadows.items};
-  @media screen and (min-width: 768px) {
-    width: 400px;
-    height: 450px;
-  }
-`;
-
- */
-
 .backdrop {
   position: fixed;
   width: 100%;
@@ -35,16 +5,37 @@ export const ModalWindow = styled.div`
   top: 0;
   left: 0;
   backdrop-filter: blur(3px);
+  background-color: rgba(6, 6, 5, 0.771);
+  transition: background-color 250ms linear, backdrop-filter 200ms linear;
+}
+.backdrop_unmount {
+  backdrop-filter: 0;
+  background-color: transparent;
 }
 
 .modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 
-  height: 480px;
-  width: 300px;
-  padding: 6px;
-  background-color: green;
+  position: absolute;
+  width: 374px;
+
+  top: 1%;
+  left: 70%;
+  transform: translate(0%, 0%);
+  background: #ffffff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  border-radius: 12px;
+  transition: opacity 250ms linear, transform 250ms linear;
+  opacity: 1;
+}
+
+.modal_unmount {
+  transform: translate(0%, 50%);
+  opacity: 0;
 }
