@@ -2,12 +2,38 @@ import { useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import s from './AuthForm.module.css';
 import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
+import { useDispatch } from 'react-redux';
+import { signUp, verification } from 'redux/auth/operations';
 
 export const SignInForm = () => {
-  const [customerName, setCustomerName] = useState('');
-  const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
-  const [customerEmail, setCustomerEmail] = useState('');
-  const [customerPassword, setCustomerPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showVerification, setShowVerification] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
+
+  const avatar =
+    'https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg';
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    dispatch(
+      signUp({
+        name,
+        phone,
+        email,
+        password,
+        avatar,
+      })
+    );
+    setShowVerification(prev => !prev);
+  };
+
+  const handleVerification = () => {
+    dispatch(verification({ email, verificationCode }));
+  };
 
   return (
     <div className={s.signIn}>
@@ -20,52 +46,76 @@ export const SignInForm = () => {
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
         incidunt facere laborum!
       </p>
-      <form className={s.signIn_form}>
-        <input
-          placeholder="Name"
-          className={s.signIn_name}
-          type="text"
-          name="customerName"
-          onChange={e => setCustomerName(e.target.value)}
-          value={customerName}
-        />
-        <input
-          placeholder="Email"
-          className={s.signIn_name}
-          type="email"
-          name="customerEmail"
-          onChange={e => setCustomerEmail(e.target.value)}
-          value={customerEmail}
-        />
+      {showVerification ? (
+        <div>
+          <form className={s.signIn_form}>
+            <input
+              placeholder="vilificationCode"
+              className={s.signIn_name}
+              type="number"
+              name="vilificationCode"
+              onChange={e => setVerificationCode(e.target.value)}
+              value={verificationCode}
+            />
+            <button
+              onClick={handleVerification}
+              className={s.signIn_btn}
+              type="button"
+            >
+              SIGN IN
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div>
+          <form className={s.signIn_form}>
+            <input
+              placeholder="Name"
+              className={s.signIn_name}
+              type="text"
+              name="customerName"
+              onChange={e => setName(e.target.value)}
+              value={name}
+            />
+            <input
+              placeholder="Email"
+              className={s.signIn_name}
+              type="email"
+              name="customerEmail"
+              onChange={e => setEmail(e.target.value)}
+              value={email}
+            />
 
-        <PhoneInput
-          className={s.signIn_phone}
-          inputClass={s.signIn_phone_input}
-          buttonClass={s.signIn_phone_flag}
-          isValid={value => {
-            if (value.length < 12) {
-              return;
-            } else {
-              return true;
-            }
-          }}
-          type="phone"
-          country={'ua'}
-          value={customerPhoneNumber}
-          onChange={e => setCustomerPhoneNumber(e)}
-        />
-        <input
-          placeholder="Password"
-          className={s.signIn_name}
-          type="password"
-          name="customerPassword"
-          onChange={e => setCustomerPassword(e.target.value)}
-          value={customerPassword}
-        />
-      </form>
-      <button className={s.signIn_btn} type="button">
-        SIGN IN
-      </button>
+            <PhoneInput
+              className={s.signIn_phone}
+              inputClass={s.signIn_phone_input}
+              buttonClass={s.signIn_phone_flag}
+              isValid={value => {
+                if (value.length < 12) {
+                  return;
+                } else {
+                  return true;
+                }
+              }}
+              type="phone"
+              country={'ua'}
+              value={phone}
+              onChange={e => setPhone(e)}
+            />
+            <input
+              placeholder="Password"
+              className={s.signIn_name}
+              type="password"
+              name="customerPassword"
+              onChange={e => setPassword(e.target.value)}
+              value={password}
+            />
+          </form>
+          <button onClick={handleSubmit} className={s.signIn_btn} type="button">
+            SIGN IN
+          </button>
+        </div>
+      )}
     </div>
   );
 };

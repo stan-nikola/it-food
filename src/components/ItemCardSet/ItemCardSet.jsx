@@ -9,7 +9,7 @@ export const ItemCardSet = () => {
     <>
       <ul className={css.itemCardSet}>
         {arrayOfCards.map(item => {
-          console.log('item.title====', item.title);
+          // console.log('item.title====', item.title);
           return (
             <li key={item._id.$oid}>
               <ItemCard imgUrl={item.preview} name={item.title} price="50" />
