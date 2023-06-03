@@ -75,6 +75,36 @@
   color: #ff5c00;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+.header__nav_auth {
+  display: flex;
+}
+
+.header__nav_auth_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin-right: 20px;
+  width: 92px;
+  height: 36px;
+  background: #fff5ee;
+  border-radius: 58px;
+  font-weight: 600;
+  font-size: 16px;
+
+  padding: 0 8px;
+
+  cursor: pointer;
+  transition: color 250ms linear, box-shadow 250ms linear;
+}
+.header__nav_auth_btnSignIn {
+  background: #ff5c00;
+  color: #fff;
+}
+
+.header__nav_auth_btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
 .header__nav_avatar {
   border: none;
@@ -89,7 +119,6 @@
   transition: color 250ms linear, box-shadow 250ms linear;
 }
 
-.header__nav_avatar:hover,
 .header__nav_avatar:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

@@ -10,6 +10,10 @@ export const RightSideBar = () => {
   const [customerName, setCustomerName] = useState('');
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
 
+  const isLoggedIn = false;
+  const avatar =
+    'https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg';
+
   const handleOrderOptionChange = e => {
     setOrderOption(e.target.value);
   };
@@ -21,7 +25,7 @@ export const RightSideBar = () => {
 
   return (
     <section className={s.container}>
-      <div className={s.orderOption_button_group}>
+      <div className={s.orderOption}>
         <ul className={s.orderOption_list}>
           <li className={s.orderOption_item}>
             <button
@@ -58,35 +62,46 @@ export const RightSideBar = () => {
           </li>
         </ul>
         <p className={s.orderOption_text}>Customer information</p>
-        <form>
-          <input
-            placeholder="Customer name"
-            className={s.orderOption_name}
-            type="text"
-            name="customerName"
-            onChange={e => setCustomerName(e.target.value)}
-            value={customerName}
-          />
-          <PhoneInput
-            className={s.orderOption_phone}
-            inputClass={s.orderOption_phone_input}
-            buttonClass={s.orderOption_phone_flag}
-            isValid={value => {
-              if (value.length < 12) {
-                return;
-              } else {
-                return true;
-              }
-            }}
-            type="phone"
-            country={'ua'}
-            value={customerPhoneNumber}
-            onChange={e => setCustomerPhoneNumber(e)}
-          />
-          <button className={s.orderOption_addNote_btn} type="button">
-            Add note
-          </button>
-        </form>
+        {isLoggedIn ? (
+          <form>
+            <input
+              placeholder="Customer name"
+              className={s.orderOption_name}
+              type="text"
+              name="customerName"
+              onChange={e => setCustomerName(e.target.value)}
+              value={customerName}
+            />
+            <PhoneInput
+              className={s.orderOption_phone}
+              inputClass={s.orderOption_phone_input}
+              buttonClass={s.orderOption_phone_flag}
+              isValid={value => {
+                if (value.length < 12) {
+                  return;
+                } else {
+                  return true;
+                }
+              }}
+              type="phone"
+              country={'ua'}
+              value={customerPhoneNumber}
+              onChange={e => setCustomerPhoneNumber(e)}
+            />
+          </form>
+        ) : (
+          <div className={s.orderOption_user}>
+            <img
+              className={s.orderOption_userAvatar}
+              src={avatar}
+              alt="user avatar"
+            />
+            <p className={s.orderOption_userName}>Keanu Reeves</p>
+          </div>
+        )}
+        <button className={s.orderOption_addNote_btn} type="button">
+          Add note
+        </button>
       </div>
       <ul className={s.orderOption_detail}>
         <li>
