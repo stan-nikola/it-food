@@ -3,8 +3,31 @@ import { BiHomeAlt, BiFile, BiTimeFive } from 'react-icons/bi';
 import { Link, NavLink } from 'react-router-dom';
 
 import s from './TopBar.module.css';
+import { Modal } from 'components/Modal/Modal';
+import { useState } from 'react';
+
+import { SignInForm } from '../AuthForm/SignInForm';
+import { LogInForm } from 'components/AuthForm/LogInForm';
 
 export const TopBar = () => {
+  const [modalShow, setModalShow] = useState(false);
+  const [logInShow, setLogInShow] = useState(false);
+  const [signInShow, setSignInShow] = useState(false);
+
+  const modalToggle = e => {
+    setModalShow(prev => !prev);
+    setLogInShow(false);
+    setSignInShow(false);
+
+    if (e?.target.id && e?.target.id === 'logIn') {
+      setLogInShow(prev => !prev);
+    }
+
+    if (e?.target.id && e?.target.id === 'signIn') {
+      setSignInShow(prev => !prev);
+    }
+  };
+
   const isLoggedIn = false;
   const avatar =
     'https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg';
@@ -72,11 +95,18 @@ export const TopBar = () => {
               <div className={s.header__nav_auth}>
                 <button
                   type="button"
+                  onClick={e => modalToggle(e)}
+                  id={'signIn'}
                   className={`${s.header__nav_auth_btn} ${s.header__nav_auth_btnSignIn}`}
                 >
                   SIGN IN
                 </button>
-                <button type="button" className={s.header__nav_auth_btn}>
+                <button
+                  type="button"
+                  onClick={e => modalToggle(e)}
+                  className={s.header__nav_auth_btn}
+                  id={'logIn'}
+                >
                   LOG IN
                 </button>
               </div>
@@ -84,6 +114,12 @@ export const TopBar = () => {
           </li>
         </ul>
       </nav>
+      {modalShow && (
+        <Modal modalToggle={modalToggle}>
+          {signInShow && <SignInForm />}
+          {logInShow && <LogInForm />}
+        </Modal>
+      )}
     </header>
   );
 };
