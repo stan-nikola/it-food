@@ -4,7 +4,7 @@
   border-left: 1px solid #e4e4e4;
   height: calc(100vh - 64px);
 }
-.orderOption_button_group {
+.orderOption {
   padding: 12px 24px 0px 24px;
   border-bottom: 1px solid #e4e4e4;
   height: 276px;
@@ -63,6 +63,29 @@
   font-size: 18px;
   line-height: 150%;
   margin-bottom: 10px;
+}
+
+.orderOption_user {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 24px;
+}
+
+.orderOption_userAvatar {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.orderOption_userName {
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 150%;
+  margin-bottom: 10px;
+  color: #c2c2c2;
 }
 
 .orderOption_name {
