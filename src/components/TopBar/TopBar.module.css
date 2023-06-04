@@ -34,6 +34,10 @@
   font-size: 16px;
   color: #828487;
 }
+
+.header__nav_item span {
+  color: #ff5c00 !important;
+}
 .header__nav_item:not(:last-child) {
   margin-right: 20px;
 }

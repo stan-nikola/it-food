@@ -4,8 +4,9 @@ import s from './AuthForm.module.css';
 import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
 import { useDispatch } from 'react-redux';
 import { signUp, verification } from 'redux/auth/operations';
+import { useAuth } from 'components/hooks/useAuth';
 
-export const SignInForm = () => {
+export const SignUpForm = ({ modalToggle }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -13,8 +14,9 @@ export const SignInForm = () => {
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
 
-  const avatar =
-    'https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg';
+  const { user } = useAuth();
+
+  const { email: savedEmail } = user;
 
   const dispatch = useDispatch();
 
@@ -25,14 +27,14 @@ export const SignInForm = () => {
         phone,
         email,
         password,
-        avatar,
       })
     );
     setShowVerification(prev => !prev);
   };
 
   const handleVerification = () => {
-    dispatch(verification({ email, verificationCode }));
+    dispatch(verification({ email: savedEmail, verificationCode }));
+    modalToggle();
   };
 
   return (
@@ -41,16 +43,17 @@ export const SignInForm = () => {
         <LogoIcon />
         <p className={s.signIn_logoText}>IT FOOD</p>
       </div>
-      <h1 className={s.signIn_title}>SIGN IN</h1>
-      <p className={s.signIn_subTitle}>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
-        incidunt facere laborum!
-      </p>
-      {showVerification ? (
+      <h1 className={s.signIn_title}>SIGN UP</h1>
+
+      {showVerification || user.email ? (
         <div>
+          <p className={s.signIn_subTitle}>
+            For verification, enter the four-digit code sent to your email :
+            <span> {savedEmail}</span>
+          </p>
           <form className={s.signIn_form}>
             <input
-              placeholder="vilificationCode"
+              placeholder=" 4 digits code"
               className={s.signIn_name}
               type="number"
               name="vilificationCode"
@@ -62,12 +65,16 @@ export const SignInForm = () => {
               className={s.signIn_btn}
               type="button"
             >
-              SIGN IN
+              SIGN UP
             </button>
           </form>
         </div>
       ) : (
         <div>
+          <p className={s.signIn_subTitle}>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
+            incidunt facere laborum!
+          </p>
           <form className={s.signIn_form}>
             <input
               placeholder="Name"
@@ -112,7 +119,7 @@ export const SignInForm = () => {
             />
           </form>
           <button onClick={handleSubmit} className={s.signIn_btn} type="button">
-            SIGN IN
+            SIGN UP
           </button>
         </div>
       )}

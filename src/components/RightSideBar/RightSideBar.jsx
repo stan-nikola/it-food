@@ -4,15 +4,16 @@ import { useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import { arrayOfSmallCards } from 'recipes-3';
+import { useAuth } from 'components/hooks/useAuth';
+import { CircularProgress } from '@mui/material';
 
 export const RightSideBar = () => {
   const [orderOption, setOrderOption] = useState('dineIn');
   const [customerName, setCustomerName] = useState('');
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
 
-  const isLoggedIn = false;
-  const avatar =
-    'https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg';
+  const { isLoggedIn, user, isRefreshing } = useAuth();
+  const { avatarUrl, name } = user;
 
   const handleOrderOptionChange = e => {
     setOrderOption(e.target.value);
@@ -63,6 +64,21 @@ export const RightSideBar = () => {
         </ul>
         <p className={s.orderOption_text}>Customer information</p>
         {isLoggedIn ? (
+          <>
+            {isRefreshing ? (
+              <CircularProgress className={s.header__nav_item} />
+            ) : (
+              <div className={s.orderOption_user}>
+                <img
+                  className={s.orderOption_userAvatar}
+                  src={avatarUrl}
+                  alt="user avatar"
+                />
+                <p className={s.orderOption_userName}>{name}</p>
+              </div>
+            )}
+          </>
+        ) : (
           <form>
             <input
               placeholder="Customer name"
@@ -89,15 +105,6 @@ export const RightSideBar = () => {
               onChange={e => setCustomerPhoneNumber(e)}
             />
           </form>
-        ) : (
-          <div className={s.orderOption_user}>
-            <img
-              className={s.orderOption_userAvatar}
-              src={avatar}
-              alt="user avatar"
-            />
-            <p className={s.orderOption_userName}>Keanu Reeves</p>
-          </div>
         )}
         <button className={s.orderOption_addNote_btn} type="button">
           Add note

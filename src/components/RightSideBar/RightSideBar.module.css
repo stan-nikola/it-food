@@ -27,6 +27,15 @@
   width: calc(100% / 3);
   height: 100%;
 }
+.orderOption span {
+  color: #ff5c00 !important;
+  height: 74px !important;
+  width: 74px !important;
+  text-align: center !important;
+
+  margin-left: 110px;
+  margin-bottom: 34px;
+}
 
 .orderOption_item:not(:last-child) {
   margin-right: 4px;

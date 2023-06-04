@@ -7,9 +7,9 @@ const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-// const clearAuthHeader = () => {
-//   axios.defaults.headers.common.Authorization = '';
-// };
+const clearAuthHeader = () => {
+  axios.defaults.headers.common.Authorization = '';
+};
 
 export const signUp = createAsyncThunk(
   'auth/signUp',
@@ -27,8 +27,28 @@ export const signUp = createAsyncThunk(
 export const verification = createAsyncThunk(
   'auth/verify',
   async (credentials, thunkAPI) => {
+    const persistToken = thunkAPI.getState().auth.token;
+    if (!persistToken) {
+      return thunkAPI.rejectWithValue('No valid token');
+    }
+    setAuthHeader(persistToken);
     try {
       const res = await axios.post('/users/verify', credentials);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.status);
+    }
+  }
+);
+
+export const logIn = createAsyncThunk(
+  'auth/logIn',
+  async (credentials, thunkAPI) => {
+    try {
+      const res = await axios.post('/users/login', credentials);
+
+      setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -41,7 +61,6 @@ export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     const persistToken = thunkAPI.getState().auth.token;
-
     if (!persistToken) {
       return thunkAPI.rejectWithValue('No valid token');
     }
@@ -52,6 +71,18 @@ export const refreshUser = createAsyncThunk(
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const logOut = createAsyncThunk(
+  'auth/logOut',
+  async (credentials, thunkAPI) => {
+    try {
+      await axios.post('/users/logout', credentials);
+      clearAuthHeader();
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.status);
     }
   }
 );
