@@ -6,18 +6,27 @@ import s from './TopBar.module.css';
 import { Modal } from 'components/Modal/Modal';
 import { useState } from 'react';
 
-import { SignInForm } from '../AuthForm/SignInForm';
+import { SignUpForm } from '../AuthForm/SignUpForm';
 import { LogInForm } from 'components/AuthForm/LogInForm';
+import { useAuth } from 'components/hooks/useAuth';
+import { LogOutForm } from 'components/AuthForm/logOutForm';
+import { CircularProgress } from '@mui/material';
 
 export const TopBar = () => {
   const [modalShow, setModalShow] = useState(false);
   const [logInShow, setLogInShow] = useState(false);
   const [signInShow, setSignInShow] = useState(false);
+  const [logOutShow, setLogOutShow] = useState(false);
+
+  const { isLoggedIn, user, isRefreshing } = useAuth();
+
+  const { avatarUrl } = user;
 
   const modalToggle = e => {
     setModalShow(prev => !prev);
     setLogInShow(false);
     setSignInShow(false);
+    setLogOutShow(false);
 
     if (e?.target.id && e?.target.id === 'logIn') {
       setLogInShow(prev => !prev);
@@ -26,11 +35,11 @@ export const TopBar = () => {
     if (e?.target.id && e?.target.id === 'signIn') {
       setSignInShow(prev => !prev);
     }
-  };
 
-  const isLoggedIn = false;
-  const avatar =
-    'https://ru.meming.world/images/ru/thumb/2/28/Short_Keanu_Reeves.jpg/300px-Short_Keanu_Reeves.jpg';
+    if (e?.currentTarget.id && e?.currentTarget.id === 'logOut') {
+      setLogOutShow(prev => !prev);
+    }
+  };
 
   return (
     <header className={s.header}>
@@ -83,43 +92,56 @@ export const TopBar = () => {
             </button>
           </li>
           <li className={s.header__nav_item}>
-            {isLoggedIn ? (
-              <button type="button" className={s.header__nav_avatar}>
-                <img
-                  className={s.header__nav_avatar_img}
-                  src={avatar}
-                  alt="user avatar"
-                />
-              </button>
+            {isRefreshing ? (
+              <CircularProgress className={s.header__nav_item} />
             ) : (
-              <div className={s.header__nav_auth}>
-                <button
-                  type="button"
-                  onClick={e => modalToggle(e)}
-                  id={'signIn'}
-                  className={`${s.header__nav_auth_btn} ${s.header__nav_auth_btnSignIn}`}
-                >
-                  SIGN IN
-                </button>
-                <button
-                  type="button"
-                  onClick={e => modalToggle(e)}
-                  className={s.header__nav_auth_btn}
-                  id={'logIn'}
-                >
-                  LOG IN
-                </button>
-              </div>
+              <>
+                {isLoggedIn ? (
+                  <button
+                    type="button"
+                    onClick={e => modalToggle(e)}
+                    id={'logOut'}
+                    className={s.header__nav_avatar}
+                  >
+                    <img
+                      className={s.header__nav_avatar_img}
+                      src={avatarUrl}
+                      alt="user avatar"
+                      id={'logOut'}
+                    />
+                  </button>
+                ) : (
+                  <div className={s.header__nav_auth}>
+                    <button
+                      type="button"
+                      onClick={e => modalToggle(e)}
+                      id={'signIn'}
+                      className={`${s.header__nav_auth_btn} ${s.header__nav_auth_btnSignIn}`}
+                    >
+                      SIGN UP
+                    </button>
+                    <button
+                      type="button"
+                      onClick={e => modalToggle(e)}
+                      className={s.header__nav_auth_btn}
+                      id={'logIn'}
+                    >
+                      LOG IN
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </li>
         </ul>
+        {modalShow && (
+          <Modal modalToggle={modalToggle}>
+            {signInShow && <SignUpForm modalToggle={modalToggle} />}
+            {logInShow && <LogInForm modalToggle={modalToggle} />}
+            {logOutShow && <LogOutForm modalToggle={modalToggle} />}
+          </Modal>
+        )}
       </nav>
-      {modalShow && (
-        <Modal modalToggle={modalToggle}>
-          {signInShow && <SignInForm />}
-          {logInShow && <LogInForm />}
-        </Modal>
-      )}
     </header>
   );
 };

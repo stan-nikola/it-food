@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import PhoneInput from 'react-phone-input-2';
+
 import s from './AuthForm.module.css';
 import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
+import { useDispatch } from 'react-redux';
+import { logIn } from 'redux/auth/operations';
 
-export const LogInForm = () => {
-  const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
-  const [customerEmail, setCustomerEmail] = useState('');
-  const [customerPassword, setCustomerPassword] = useState('');
+export const LogInForm = ({ modalToggle }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    dispatch(logIn({ email, password }));
+    modalToggle();
+  };
 
   return (
     <div className={s.signIn}>
@@ -25,36 +32,19 @@ export const LogInForm = () => {
           className={s.signIn_name}
           type="email"
           name="customerEmail"
-          onChange={e => setCustomerEmail(e.target.value)}
-          value={customerEmail}
-        />
-
-        <PhoneInput
-          className={s.signIn_phone}
-          inputClass={s.signIn_phone_input}
-          buttonClass={s.signIn_phone_flag}
-          isValid={value => {
-            if (value.length < 12) {
-              return;
-            } else {
-              return true;
-            }
-          }}
-          type="phone"
-          country={'ua'}
-          value={customerPhoneNumber}
-          onChange={e => setCustomerPhoneNumber(e)}
+          onChange={e => setEmail(e.target.value)}
+          value={email}
         />
         <input
           placeholder="Password"
           className={s.signIn_name}
           type="password"
           name="customerPassword"
-          onChange={e => setCustomerPassword(e.target.value)}
-          value={customerPassword}
+          onChange={e => setPassword(e.target.value)}
+          value={password}
         />
       </form>
-      <button className={s.signIn_btn} type="button">
+      <button onClick={handleSubmit} className={s.signIn_btn} type="button">
         LOG IN
       </button>
     </div>

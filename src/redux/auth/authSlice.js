@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signUp, verification } from './operations';
+import { logIn, logOut, refreshUser, signUp, verification } from './operations';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -33,17 +33,64 @@ export const authSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(verification.fulfilled, (state, action) => {
-        console.log(action.payload);
-        state.token = action.payload.token;
-        state.user.name = action.payload.name;
-        state.user.phone = action.payload.phone;
-        state.user.email = action.payload.email;
-        state.user.avatarUrl = action.payload.avatarUrl;
+        const { name, phone, email, avatarUrl } = action.payload;
 
+        state.user = { name, phone, email, avatarUrl };
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
         state.isLoading = false;
       })
       .addCase(verification.rejected, (state, action) => {
-        // state.isLoggedInLoading = false;
+        state.isLoggedInLoading = false;
+      })
+      // refresh
+      .addCase(refreshUser.pending, (state, action) => {
+        state.isLoading = true;
+        state.isRefreshing = true;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        const { name, phone, email, avatarUrl } = action.payload;
+        state.user = { name, phone, email, avatarUrl };
+        state.isLoggedIn = true;
+        state.isLoading = false;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isRefreshing = false;
+      })
+      // logIn
+      .addCase(logIn.pending, (state, action) => {
+        state.isLoading = true;
+        state.isRefreshing = true;
+      })
+      .addCase(logIn.fulfilled, (state, action) => {
+        const { name, phone, email, avatarUrl } = action.payload;
+        state.user = { name, phone, email, avatarUrl };
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+        state.isRefreshing = false;
+      })
+      .addCase(logIn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isRefreshing = false;
+      })
+      // logOut
+      .addCase(logOut.pending, (state, action) => {
+        state.isLoading = true;
+        state.isRefreshing = true;
+      })
+      .addCase(logOut.fulfilled, (state, action) => {
+        state.token = null;
+        state.user = { name: null, phone: null, email: null, avatarUrl: null };
+        state.isLoggedIn = false;
+        state.isLoading = false;
+        state.isRefreshing = false;
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isRefreshing = false;
       });
   },
 });
@@ -51,7 +98,7 @@ export const authSlice = createSlice({
 const persistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token', 'rememberUser'],
+  whitelist: ['token'],
 };
 
 export const authPresistedReducer = persistReducer(
