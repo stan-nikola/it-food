@@ -27,13 +27,9 @@ export const signUp = createAsyncThunk(
 export const verification = createAsyncThunk(
   'auth/verify',
   async (credentials, thunkAPI) => {
-    const persistToken = thunkAPI.getState().auth.token;
-    if (!persistToken) {
-      return thunkAPI.rejectWithValue('No valid token');
-    }
-    setAuthHeader(persistToken);
     try {
       const res = await axios.post('/users/verify', credentials);
+      setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
       console.log(error);

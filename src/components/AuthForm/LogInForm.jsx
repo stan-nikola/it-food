@@ -8,10 +8,16 @@ import { logIn } from 'redux/auth/operations';
 export const LogInForm = ({ modalToggle }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showForgotPass, setShowForgotPass] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const handleLogIn = () => {
     dispatch(logIn({ email, password }));
+    modalToggle();
+  };
+
+  const handForgotPass = () => {
+    dispatch(logIn({ email }));
     modalToggle();
   };
 
@@ -21,11 +27,22 @@ export const LogInForm = ({ modalToggle }) => {
         <LogoIcon />
         <p className={s.signIn_logoText}>IT FOOD</p>
       </div>
-      <h1 className={s.signIn_title}>LOG IN</h1>
-      <p className={s.signIn_subTitle}>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
-        incidunt facere laborum!
-      </p>
+      {!showForgotPass ? (
+        <h1 className={s.signIn_title}>LOG IN</h1>
+      ) : (
+        <h1 className={s.signIn_title}>FORGOT PASSWORD?</h1>
+      )}
+      {!showForgotPass ? (
+        <p className={s.signIn_subTitle}>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
+          incidunt facere laborum!
+        </p>
+      ) : (
+        <p className={s.signIn_subTitle}>
+          Enter your email and click get password. Instructions will be sent to
+          your inbox.
+        </p>
+      )}
       <form className={s.signIn_form}>
         <input
           placeholder="Email"
@@ -35,18 +52,35 @@ export const LogInForm = ({ modalToggle }) => {
           onChange={e => setEmail(e.target.value)}
           value={email}
         />
-        <input
-          placeholder="Password"
-          className={s.signIn_name}
-          type="password"
-          name="customerPassword"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-        />
+        {!showForgotPass && (
+          <input
+            placeholder="Password"
+            className={s.signIn_name}
+            type="password"
+            name="customerPassword"
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+          />
+        )}
       </form>
-      <button onClick={handleSubmit} className={s.signIn_btn} type="button">
-        LOG IN
-      </button>
+      {!showForgotPass ? (
+        <button onClick={handleLogIn} className={s.signIn_btn} type="button">
+          LOG IN
+        </button>
+      ) : (
+        <button onClick={handForgotPass} className={s.signIn_btn} type="button">
+          GET NEW PASSWORD
+        </button>
+      )}
+      {!showForgotPass && (
+        <button
+          onClick={() => setShowForgotPass(prev => !prev)}
+          className={s.forgot_pass_btn}
+          type="button"
+        >
+          Forgot password?
+        </button>
+      )}
     </div>
   );
 };
