@@ -3,7 +3,7 @@ import { useState } from 'react';
 import s from './AuthForm.module.css';
 import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
 import { useDispatch } from 'react-redux';
-import { logIn } from 'redux/auth/operations';
+import { forgotPassword, logIn } from 'redux/auth/operations';
 
 export const LogInForm = ({ modalToggle }) => {
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ export const LogInForm = ({ modalToggle }) => {
   };
 
   const handForgotPass = () => {
-    dispatch(logIn({ email }));
+    dispatch(forgotPassword({ email }));
     modalToggle();
   };
 
