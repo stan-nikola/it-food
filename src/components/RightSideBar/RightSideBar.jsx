@@ -63,7 +63,7 @@ export const RightSideBar = () => {
           </li>
         </ul>
         <p className={s.orderOption_text}>Customer information</p>
-        {isLoggedIn ? (
+        {isLoggedIn || isRefreshing ? (
           <>
             {isRefreshing ? (
               <CircularProgress className={s.header__nav_item} />

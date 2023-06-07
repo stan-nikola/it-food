@@ -7,10 +7,10 @@ const modalRoot = document.getElementById('modal-root');
 // const body = document.querySelector('body');
 
 export const Modal = ({ modalToggle, children }) => {
-  const [isMounted, setIsisMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsisMounted(true);
+    setIsMounted(true);
   }, []);
 
   // useEffect(() => {
@@ -30,7 +30,7 @@ export const Modal = ({ modalToggle, children }) => {
 
   const handleMultiClose = e => {
     if (e.currentTarget === e.target || e.code === 'Escape') {
-      setIsisMounted(false);
+      setIsMounted(false);
       setTimeout(() => {
         modalToggle();
       }, 250);

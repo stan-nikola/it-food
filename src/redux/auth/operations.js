@@ -27,13 +27,9 @@ export const signUp = createAsyncThunk(
 export const verification = createAsyncThunk(
   'auth/verify',
   async (credentials, thunkAPI) => {
-    const persistToken = thunkAPI.getState().auth.token;
-    if (!persistToken) {
-      return thunkAPI.rejectWithValue('No valid token');
-    }
-    setAuthHeader(persistToken);
     try {
       const res = await axios.post('/users/verify', credentials);
+      setAuthHeader(res.data.token);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -80,6 +76,18 @@ export const logOut = createAsyncThunk(
     try {
       await axios.post('/users/logout', credentials);
       clearAuthHeader();
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.status);
+    }
+  }
+);
+export const forgotPassword = createAsyncThunk(
+  'auth/forgotPassword',
+  async (credentials, thunkAPI) => {
+    console.log('result:', credentials);
+    try {
+      await axios.post('/users/forgotpassword', credentials);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error.response.status);

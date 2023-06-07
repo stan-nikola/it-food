@@ -18,9 +18,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
   padding: 20px;
 
-  position: absolute;
   width: 374px;
 
   top: 1%;
