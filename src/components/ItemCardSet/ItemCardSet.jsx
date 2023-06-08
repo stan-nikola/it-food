@@ -1,23 +1,39 @@
+import { useEffect, useState } from 'react';
 import { ItemCard } from '../ItemCard/ItemCard';
 import css from './ItemCardSet.module.css';
-import { arrayOfCards } from '../../../src/recipes-17';
+import axios from 'axios';
 
-// console.log(arrayOfCards);
+axios.defaults.baseURL = 'http://localhost:3000/api/';
 
 export const ItemCardSet = () => {
+  const [arrayOfCards, setArrayOfCards] = useState([]);
+
+  useEffect(() => {
+    fetchAllItems().then(data => setArrayOfCards(data));
+  }, []);
+
   return (
     <>
       <ul className={css.itemCardSet}>
         {arrayOfCards.map(item => {
-          // console.log('item.title====', item.title);
+          const { _id, preview, title, price } = item;
           return (
-            <li key={item._id.$oid}>
-              <ItemCard imgUrl={item.preview} name={item.title} price="50" />
+            <li key={_id}>
+              <ItemCard imgUrl={preview} name={title} price={price} />
             </li>
           );
         })}
-        {/* <ItemCard /> */}
+        <ItemCard />
       </ul>
     </>
   );
+};
+
+const fetchAllItems = async () => {
+  try {
+    const response = await axios.get('/items');
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
