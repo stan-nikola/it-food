@@ -23,7 +23,6 @@ export const ItemCardSet = () => {
             </li>
           );
         })}
-        <ItemCard />
       </ul>
     </>
   );

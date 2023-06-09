@@ -8,7 +8,7 @@ export const FoodTypeBar = () => {
       <FoodTypeButton name="Chicken" />
       <FoodTypeButton name="Seafood" />
       <FoodTypeButton name="Pasta" />
-      <FoodTypeButton name="Rice bowl" />
+      <FoodTypeButton name="Vegetarian" />
     </div>
   );
 };

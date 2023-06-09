@@ -4,14 +4,38 @@
 
 .wrapper {
     
-    padding: 24px 24px 0 24px;
+    padding: 24px 24px 48px 24px;
 
     outline: 1px solid red;
 }
 
-.listItem:not(:first-child) {
+/* .listItem:not(:first-child) {
 
     margin-top: 10px;
 
     outline: 1px solid green;
+} */
+
+
+.listItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 30px;
+
+    /* outline: 1px solid green; */
 }
+
+.button {
+    height: 40px;
+}
+.button:hover {
+    cursor: pointer;
+    background-color: orange;
+}
+
+.active {
+    background-color: #FF5C00;
+}
+
