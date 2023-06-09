@@ -13,7 +13,17 @@
 }
 
 .active {
+  font-weight: 600;
   color: #FF5C00;
   background: #FFF5EE;
   border: 1px solid #FF5C00;
 }
+
+/*ПОТОМ ЭТО УДАЛИТЬ*/
+.buttonText:first-child {
+  font-weight: 600;
+  color: #FF5C00;
+    background: #FFF5EE;
+    border: 1px solid #FF5C00;
+}
+
