@@ -19,7 +19,7 @@ export const signUp = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      return thunkAPI.rejectWithValue(error.response.status);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -85,7 +85,6 @@ export const logOut = createAsyncThunk(
 export const forgotPassword = createAsyncThunk(
   'auth/forgotPassword',
   async (credentials, thunkAPI) => {
-    console.log('result:', credentials);
     try {
       await axios.post('/users/forgotpassword', credentials);
     } catch (error) {

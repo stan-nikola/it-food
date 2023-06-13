@@ -11,18 +11,21 @@ export const authSlice = createSlice({
     isLoggedIn: false,
     isLoading: false,
     isRefreshing: false,
+    error: null,
   },
   extraReducers: builder => {
     builder
       .addCase(signUp.pending, (state, action) => {
         state.isLoading = true;
         state.user.email = null;
+        state.error = null;
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.user.email = action.payload.email;
         state.isLoading = false;
       })
       .addCase(signUp.rejected, (state, action) => {
+        state.error = action.payload.message;
         state.isLoading = false;
       })
       // register

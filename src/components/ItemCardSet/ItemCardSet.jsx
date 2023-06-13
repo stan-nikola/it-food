@@ -18,8 +18,9 @@ export const ItemCardSet = () => {
       <ul className={css.itemCardSet}>
         {arrayOfCards.map(item => {
           const { _id, preview, title, price } = item;
+
           return (
-            <li key={_id}>
+            <li key={_id.$oid}>
               <ItemCard imgUrl={preview} name={title} price={price} />
             </li>
           );
