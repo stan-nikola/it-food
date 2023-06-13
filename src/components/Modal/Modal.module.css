@@ -12,30 +12,3 @@
   backdrop-filter: 0;
   background-color: transparent;
 }
-
-.modal {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  padding: 20px;
-
-  width: 374px;
-
-  top: 1%;
-  left: 70%;
-  transform: translate(0%, 0%);
-  background: #ffffff;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  border-radius: 12px;
-  transition: opacity 250ms linear, transform 250ms linear;
-  opacity: 1;
-}
-
-.modal_unmount {
-  transform: translate(0%, 50%);
-  opacity: 0;
-}

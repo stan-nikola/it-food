@@ -5,13 +5,16 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { refreshUser } from 'redux/auth/operations';
+import { useAuth } from './hooks/useAuth';
 
 export const App = () => {
   const dispatch = useDispatch();
 
+  const { token } = useAuth();
+
   useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
+    if (token) dispatch(refreshUser());
+  }, [dispatch, token]);
 
   return (
     <>

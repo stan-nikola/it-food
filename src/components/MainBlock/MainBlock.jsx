@@ -1,7 +1,7 @@
 // export const MainBlock = () => {};
 import { DashboardTypeBar } from '../DashboardTypeBar/DashboardTypeBar';
 import { SearchBar } from '../SearchBar/SearchBar';
-import { FoodTypeBar } from '../FoodTypeBar/FoodTypeBar';
+import { DishTypeBar } from '../DishTypeBar/DishTypeBar';
 import { ItemCardSet } from '../ItemCardSet/ItemCardSet';
 import css from './MainBlock.module.css';
 
@@ -13,7 +13,7 @@ export const MainBlock = () => {
         <DashboardTypeBar />
         <div className={css.searchAndFoodTypeWrapper}>
           <SearchBar />
-          <FoodTypeBar />
+          <DishTypeBar />
         </div>
         <ItemCardSet />
       </section>

@@ -48,12 +48,12 @@ export const SignUpForm = ({ modalToggle }) => {
       {showVerification || user.email ? (
         <div>
           <p className={s.signIn_subTitle}>
-            For verification, enter the four-digit code sent to your email :
+            For verification, enter the code that was sent to:
             <span> {savedEmail}</span>
           </p>
           <form className={s.signIn_form}>
             <input
-              placeholder=" 4 digits code"
+              placeholder="Code"
               className={s.signIn_name}
               type="number"
               name="vilificationCode"

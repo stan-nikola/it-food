@@ -4,9 +4,8 @@ import { createPortal } from 'react-dom';
 import s from './Modal.module.css';
 
 const modalRoot = document.getElementById('modal-root');
-// const body = document.querySelector('body');
 
-export const Modal = ({ modalToggle, children }) => {
+export const Modal = ({ modalToggle, children, styles }) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -50,7 +49,9 @@ export const Modal = ({ modalToggle, children }) => {
       className={`${s.backdrop} ${!isMounted ? s.backdrop_unmount : ''}`}
       onClick={handleMultiClose}
     >
-      <div className={`${s.modal} ${!isMounted ? s.modal_unmount : ''}`}>
+      <div
+        className={`${styles.modal} ${!isMounted ? styles.modal_unmount : ''}`}
+      >
         {children}
       </div>
     </div>,
