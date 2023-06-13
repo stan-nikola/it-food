@@ -1,26 +1,29 @@
 import { useState } from 'react';
+import { Field, Form, Formik } from 'formik';
 import PhoneInput from 'react-phone-input-2';
 import s from './AuthForm.module.css';
 import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
 import { useDispatch } from 'react-redux';
-import { signUp, verification } from 'redux/auth/operations';
+import { signUp } from 'redux/auth/operations';
 import { useAuth } from 'components/hooks/useAuth';
+import { signUpSchema } from 'constants/schema';
+import { VerificationForm } from './VerificationForm';
 
 export const SignUpForm = ({ modalToggle }) => {
-  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showVerification, setShowVerification] = useState(false);
-  const [verificationCode, setVerificationCode] = useState('');
 
   const { user } = useAuth();
 
-  const { email: savedEmail } = user;
-
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const initialValues = {
+    name: '',
+    email: '',
+    password: '',
+  };
+
+  const handleSubmit = ({ name, email, password }) => {
     dispatch(
       signUp({
         name,
@@ -32,11 +35,6 @@ export const SignUpForm = ({ modalToggle }) => {
     setShowVerification(prev => !prev);
   };
 
-  const handleVerification = () => {
-    dispatch(verification({ email: savedEmail, verificationCode }));
-    modalToggle();
-  };
-
   return (
     <div className={s.signIn}>
       <div className={s.signIn_logo}>
@@ -44,83 +42,88 @@ export const SignUpForm = ({ modalToggle }) => {
         <p className={s.signIn_logoText}>IT FOOD</p>
       </div>
       <h1 className={s.signIn_title}>SIGN UP</h1>
-
       {showVerification || user.email ? (
-        <div>
-          <p className={s.signIn_subTitle}>
-            For verification, enter the code that was sent to:
-            <span> {savedEmail}</span>
-          </p>
-          <form className={s.signIn_form}>
-            <input
-              placeholder="Code"
-              className={s.signIn_name}
-              type="number"
-              name="vilificationCode"
-              onChange={e => setVerificationCode(e.target.value)}
-              value={verificationCode}
-            />
-            <button
-              onClick={handleVerification}
-              className={s.signIn_btn}
-              type="button"
-            >
-              SIGN UP
-            </button>
-          </form>
-        </div>
+        <VerificationForm modalToggle={modalToggle} />
       ) : (
         <div>
           <p className={s.signIn_subTitle}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
             incidunt facere laborum!
           </p>
-          <form className={s.signIn_form}>
-            <input
-              placeholder="Name"
-              className={s.signIn_name}
-              type="text"
-              name="customerName"
-              onChange={e => setName(e.target.value)}
-              value={name}
-            />
-            <input
-              placeholder="Email"
-              className={s.signIn_name}
-              type="email"
-              name="customerEmail"
-              onChange={e => setEmail(e.target.value)}
-              value={email}
-            />
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            validationSchema={signUpSchema}
+          >
+            {({ errors, touched }) => (
+              <Form className={s.signIn_form}>
+                <label htmlFor="name">
+                  <Field
+                    className={s.signIn_name}
+                    placeholder="Name"
+                    id="name"
+                    name="name"
+                    type="text"
+                  />
 
-            <PhoneInput
-              className={s.signIn_phone}
-              inputClass={s.signIn_phone_input}
-              buttonClass={s.signIn_phone_flag}
-              isValid={value => {
-                if (value.length < 12) {
-                  return;
-                } else {
-                  return true;
-                }
-              }}
-              type="phone"
-              country={'ua'}
-              value={phone}
-              onChange={e => setPhone(e)}
-            />
-            <input
-              placeholder="Password"
-              className={s.signIn_name}
-              type="password"
-              name="customerPassword"
-              onChange={e => setPassword(e.target.value)}
-              value={password}
-            />
-          </form>
-          <button onClick={handleSubmit} className={s.signIn_btn} type="button">
-            SIGN UP
-          </button>
+                  {errors.name && touched.name && (
+                    <div className={s.signIn_form_error}>{errors.name}</div>
+                  )}
+                </label>
+
+                <label htmlFor="email">
+                  <Field
+                    className={s.signIn_name}
+                    placeholder="Email"
+                    id="email"
+                    name="email"
+                    type="email"
+                  />
+                  {errors.email && touched.email && (
+                    <div className={s.signIn_form_error}>{errors.email}</div>
+                  )}
+                </label>
+
+                <label htmlFor="phone">
+                  <PhoneInput
+                    className={s.signIn_phone}
+                    inputClass={s.signIn_phone_input}
+                    buttonClass={s.signIn_phone_flag}
+                    id="phone"
+                    name="phone"
+                    type="phone"
+                    isValid={value => {
+                      if (value.length < 12) {
+                        return;
+                      } else {
+                        return true;
+                      }
+                    }}
+                    country={'ua'}
+                    onChange={setPhone}
+                    value={phone}
+                  />
+                  {errors.phone && touched.phone && (
+                    <div className={s.signIn_form_error}>{errors.phone}</div>
+                  )}
+                </label>
+                <label htmlFor="password">
+                  <Field
+                    placeholder="Password"
+                    className={s.signIn_name}
+                    type="password"
+                    name="password"
+                  />
+                  {errors.password && touched.password && (
+                    <div className={s.signIn_form_error}>{errors.password}</div>
+                  )}
+                </label>
+                <button type="submit" className={s.signIn_btn}>
+                  SIGN UP
+                </button>
+              </Form>
+            )}
+          </Formik>
         </div>
       )}
     </div>

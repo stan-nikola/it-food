@@ -3,21 +3,22 @@ import { useState } from 'react';
 import s from './AuthForm.module.css';
 import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
 import { useDispatch } from 'react-redux';
-import { forgotPassword, logIn } from 'redux/auth/operations';
+import { logIn } from 'redux/auth/operations';
+import { Field, Form, Formik } from 'formik';
+import { logInSchema } from 'constants/schema';
+import { ForgotPasswordForm } from './ForgotPasswordForm';
 
 export const LogInForm = ({ modalToggle }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showForgotPass, setShowForgotPass] = useState(false);
   const dispatch = useDispatch();
 
-  const handleLogIn = () => {
-    dispatch(logIn({ email, password }));
-    modalToggle();
+  const initialValues = {
+    email: '',
+    password: '',
   };
 
-  const handForgotPass = () => {
-    dispatch(forgotPassword({ email }));
+  const handleLogIn = ({ email, password }) => {
+    dispatch(logIn({ email, password }));
     modalToggle();
   };
 
@@ -28,59 +29,63 @@ export const LogInForm = ({ modalToggle }) => {
         <p className={s.signIn_logoText}>IT FOOD</p>
       </div>
       {!showForgotPass ? (
-        <h1 className={s.signIn_title}>LOG IN</h1>
+        <>
+          <h1 className={s.signIn_title}>LOG IN</h1>
+          <p className={s.signIn_subTitle}>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
+            incidunt facere laborum!
+          </p>
+
+          <Formik
+            initialValues={initialValues}
+            onSubmit={handleLogIn}
+            validationSchema={logInSchema}
+          >
+            {({ errors, touched }) => (
+              <Form className={s.signIn_form}>
+                <label htmlFor="email">
+                  <Field
+                    className={s.signIn_name}
+                    placeholder="Email"
+                    id="email"
+                    name="email"
+                    type="email"
+                  />
+                  {errors.email && touched.email && (
+                    <div className={s.signIn_form_error}>{errors.email}</div>
+                  )}
+                </label>
+
+                <label htmlFor="password">
+                  <Field
+                    placeholder="Password"
+                    className={s.signIn_name}
+                    type="password"
+                    name="password"
+                  />
+                  {errors.password && touched.password && (
+                    <div className={s.signIn_form_error}>{errors.password}</div>
+                  )}
+                </label>
+
+                <button className={s.signIn_btn} type="submit">
+                  LOG IN
+                </button>
+              </Form>
+            )}
+          </Formik>
+        </>
       ) : (
-        <h1 className={s.signIn_title}>FORGOT PASSWORD?</h1>
+        <ForgotPasswordForm modalToggle={modalToggle} />
       )}
-      {!showForgotPass ? (
-        <p className={s.signIn_subTitle}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat
-          incidunt facere laborum!
-        </p>
-      ) : (
-        <p className={s.signIn_subTitle}>
-          Enter your email and click get password. Instructions will be sent to
-          your inbox.
-        </p>
-      )}
-      <form className={s.signIn_form}>
-        <input
-          placeholder="Email"
-          className={s.signIn_name}
-          type="email"
-          name="customerEmail"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-        />
-        {!showForgotPass && (
-          <input
-            placeholder="Password"
-            className={s.signIn_name}
-            type="password"
-            name="customerPassword"
-            onChange={e => setPassword(e.target.value)}
-            value={password}
-          />
-        )}
-      </form>
-      {!showForgotPass ? (
-        <button onClick={handleLogIn} className={s.signIn_btn} type="button">
-          LOG IN
-        </button>
-      ) : (
-        <button onClick={handForgotPass} className={s.signIn_btn} type="button">
-          GET NEW PASSWORD
-        </button>
-      )}
-      {!showForgotPass && (
-        <button
-          onClick={() => setShowForgotPass(prev => !prev)}
-          className={s.forgot_pass_btn}
-          type="button"
-        >
-          Forgot password?
-        </button>
-      )}
+
+      <button
+        onClick={() => setShowForgotPass(prev => !prev)}
+        className={s.forgot_pass_btn}
+        type="button"
+      >
+        {!showForgotPass ? 'Forgot password?' : 'Log In'}
+      </button>
     </div>
   );
 };
