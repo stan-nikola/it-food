@@ -135,7 +135,7 @@ export const TopBar = () => {
           </li>
         </ul>
         {modalShow && (
-          <Modal modalToggle={modalToggle}>
+          <Modal modalToggle={modalToggle} styles={s}>
             {signInShow && <SignUpForm modalToggle={modalToggle} />}
             {logInShow && <LogInForm modalToggle={modalToggle} />}
             {logOutShow && <LogOutForm modalToggle={modalToggle} />}

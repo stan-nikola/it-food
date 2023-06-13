@@ -1,11 +1,11 @@
-.wraper {
+.wrapper {
   display: flex;
   gap: 7px;
   width: 477px;
 
   padding: 16px 19px;
-  
-  border: 1px solid #E4E4E4;
+
+  border: 1px solid #e4e4e4;
   border-left: none;
 }
 
