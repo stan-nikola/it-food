@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logIn, logOut, refreshUser, signUp, verification } from './operations';
+import {
+  forgotPassword,
+  logIn,
+  logOut,
+  refreshUser,
+  signUp,
+  verification,
+} from './operations';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -11,21 +18,27 @@ export const authSlice = createSlice({
     isLoggedIn: false,
     isLoading: false,
     isRefreshing: false,
-    error: null,
+    isError: null,
+  },
+  reducers: {
+    error(state, action) {
+      state.isError = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
       .addCase(signUp.pending, (state, action) => {
         state.isLoading = true;
         state.user.email = null;
-        state.error = null;
+        state.isError = null;
       })
       .addCase(signUp.fulfilled, (state, action) => {
         state.user.email = action.payload.email;
         state.isLoading = false;
+        state.isError = null;
       })
       .addCase(signUp.rejected, (state, action) => {
-        state.error = action.payload.message;
+        state.isError = action.payload.message;
         state.isLoading = false;
       })
       // register
@@ -33,6 +46,7 @@ export const authSlice = createSlice({
       // verify
       .addCase(verification.pending, (state, action) => {
         state.isLoading = true;
+        state.isError = null;
       })
       .addCase(verification.fulfilled, (state, action) => {
         const { name, phone, email, avatarUrl } = action.payload;
@@ -41,9 +55,11 @@ export const authSlice = createSlice({
         state.token = action.payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
+        state.isError = null;
       })
       .addCase(verification.rejected, (state, action) => {
-        state.isLoggedInLoading = false;
+        state.isError = action.payload.message;
+        state.isLoading = false;
       })
       // refresh
       .addCase(refreshUser.pending, (state, action) => {
@@ -65,6 +81,7 @@ export const authSlice = createSlice({
       .addCase(logIn.pending, (state, action) => {
         state.isLoading = true;
         state.isRefreshing = true;
+        state.isError = null;
       })
       .addCase(logIn.fulfilled, (state, action) => {
         const { name, phone, email, avatarUrl } = action.payload;
@@ -73,10 +90,12 @@ export const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isLoading = false;
         state.isRefreshing = false;
+        state.isError = null;
       })
       .addCase(logIn.rejected, (state, action) => {
         state.isLoading = false;
         state.isRefreshing = false;
+        state.isError = action.payload;
       })
       // logOut
       .addCase(logOut.pending, (state, action) => {
@@ -93,7 +112,24 @@ export const authSlice = createSlice({
       .addCase(logOut.rejected, (state, action) => {
         state.isLoading = false;
         state.isRefreshing = false;
+      })
+      // logOut
+
+      // forgotPass
+      .addCase(forgotPassword.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        state.isError = action.payload;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.isError = action.payload;
+        state.isLoading = false;
       });
+    // forgotPass
   },
 });
 
@@ -108,4 +144,4 @@ export const authPresistedReducer = persistReducer(
   authSlice.reducer
 );
 
-export const { rememberUser, authError } = authSlice.actions;
+export const { error } = authSlice.actions;

@@ -23,21 +23,22 @@ export const TopBar = () => {
   const { avatarUrl } = user;
 
   const modalToggle = e => {
-    setModalShow(prev => !prev);
     setLogInShow(false);
     setSignInShow(false);
     setLogOutShow(false);
 
-    if (e?.target.id && e?.target.id === 'logIn') {
-      setLogInShow(prev => !prev);
+    setModalShow(e);
+
+    if (e?.target?.id && e.target.id === 'logIn') {
+      return setLogInShow(prev => !prev);
     }
 
-    if (e?.target.id && e?.target.id === 'signIn') {
-      setSignInShow(prev => !prev);
+    if (e?.target?.id && e.target.id === 'signIn') {
+      return setSignInShow(prev => !prev);
     }
 
-    if (e?.currentTarget.id && e?.currentTarget.id === 'logOut') {
-      setLogOutShow(prev => !prev);
+    if (e?.currentTarget?.id && e.currentTarget.id === 'logOut') {
+      return setLogOutShow(prev => !prev);
     }
   };
 

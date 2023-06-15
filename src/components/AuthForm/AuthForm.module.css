@@ -121,7 +121,11 @@
   margin-bottom: 24px;
 
   margin-bottom: 16px;
-  transition: box-shadow 250ms linear;
+  transition: background 150ms linear, box-shadow 250ms linear;
+}
+
+.signIn_btn:disabled {
+  background: #eee3dc;
 }
 
 .signIn_btn:hover {

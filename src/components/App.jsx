@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from './hooks/useAuth';
+import { ToastContainer } from 'react-toastify';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export const App = () => {
     <>
       <TopBar />
       <Dashboard />
+      <ToastContainer />
     </>
   );
 };

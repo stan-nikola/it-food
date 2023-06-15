@@ -33,7 +33,7 @@ export const verification = createAsyncThunk(
       return res.data;
     } catch (error) {
       console.log(error);
-      return thunkAPI.rejectWithValue(error.response.status);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -86,7 +86,8 @@ export const forgotPassword = createAsyncThunk(
   'auth/forgotPassword',
   async (credentials, thunkAPI) => {
     try {
-      await axios.post('/users/forgotpassword', credentials);
+      const res = await axios.post('/users/forgotpassword', credentials);
+      return res.status;
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error.response.status);
