@@ -1,19 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import PhoneInput from 'react-phone-input-2';
+import { useDispatch } from 'react-redux';
+import { signUp, verification } from 'redux/auth/operations';
+import { useAuth } from 'components/hooks/useAuth';
+import { toast } from 'react-toastify';
+
 import s from './AuthForm.module.css';
 import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
-import { useDispatch } from 'react-redux';
-import { signUp } from 'redux/auth/operations';
-import { useAuth } from 'components/hooks/useAuth';
 import { signUpSchema } from 'constants/schema';
-import { VerificationForm } from './VerificationForm';
+
+import { mainToast } from 'constants/toastConfig';
+import { error } from 'redux/auth/authSlice';
 
 export const SignUpForm = ({ modalToggle }) => {
   const [phone, setPhone] = useState('');
-  const [showVerification, setShowVerification] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
 
-  const { user } = useAuth();
+  const { user, isError, isLoading, isLoggedIn } = useAuth();
+
+  const { email: savedEmail } = user;
 
   const dispatch = useDispatch();
 
@@ -22,6 +28,20 @@ export const SignUpForm = ({ modalToggle }) => {
     email: '',
     password: '',
   };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(isError, mainToast);
+    }
+
+    dispatch(error(null));
+  }, [dispatch, isError]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      modalToggle(false);
+    }
+  }, [isLoggedIn, modalToggle]);
 
   const handleSubmit = ({ name, email, password }) => {
     dispatch(
@@ -32,7 +52,10 @@ export const SignUpForm = ({ modalToggle }) => {
         password,
       })
     );
-    setShowVerification(prev => !prev);
+  };
+
+  const handleVerification = () => {
+    dispatch(verification({ email: savedEmail, verificationCode }));
   };
 
   return (
@@ -42,8 +65,31 @@ export const SignUpForm = ({ modalToggle }) => {
         <p className={s.signIn_logoText}>IT FOOD</p>
       </div>
       <h1 className={s.signIn_title}>SIGN UP</h1>
-      {showVerification || user.email ? (
-        <VerificationForm modalToggle={modalToggle} />
+      {user.email ? (
+        <div>
+          <p className={s.signIn_subTitle}>
+            For verification, enter the code that was sent to:
+            <span> {savedEmail}</span>
+          </p>
+
+          <form className={s.signIn_form}>
+            <input
+              placeholder="Code"
+              className={s.signIn_name}
+              name="vilificationCode"
+              onChange={e => setVerificationCode(e.target.value)}
+              value={verificationCode}
+            />
+            <button
+              onClick={handleVerification}
+              className={s.signIn_btn}
+              type="button"
+              disabled={isLoading}
+            >
+              {isLoading ? 'LOADING...' : 'SIGN UP'}
+            </button>
+          </form>
+        </div>
       ) : (
         <div>
           <p className={s.signIn_subTitle}>
@@ -118,8 +164,12 @@ export const SignUpForm = ({ modalToggle }) => {
                     <div className={s.signIn_form_error}>{errors.password}</div>
                   )}
                 </label>
-                <button type="submit" className={s.signIn_btn}>
-                  SIGN UP
+                <button
+                  disabled={isLoading}
+                  type="submit"
+                  className={s.signIn_btn}
+                >
+                  {isLoading ? 'LOADING...' : 'SIGN UP'}
                 </button>
               </Form>
             )}

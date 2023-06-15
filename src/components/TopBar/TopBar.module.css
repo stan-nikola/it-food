@@ -63,6 +63,7 @@
 }
 
 .header__nav_item span {
+  margin: 0 92px;
   color: #ff5c00 !important;
 }
 .header__nav_item:not(:last-child) {
