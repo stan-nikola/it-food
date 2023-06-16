@@ -27,6 +27,7 @@ export const logInSchema = yup.object({
   email: yup
     .string()
     .email('Must be a valid email Example: my.mail@mail.com')
+    .matches(mailFormat, 'E-mail is not valid')
     .required('Please enter e-mail '),
   password: yup
     .string()
@@ -38,5 +39,6 @@ export const forgotPasswordSchema = yup.object({
   email: yup
     .string()
     .email('Must be a valid email Example: my.mail@mail.com')
+    .matches(mailFormat, 'E-mail is not valid')
     .required('Please enter e-mail '),
 });
