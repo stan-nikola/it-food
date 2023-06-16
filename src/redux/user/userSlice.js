@@ -9,7 +9,6 @@ import {
 } from './operations';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { changeUserData } from 'redux/user/operations';
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -129,25 +128,8 @@ export const authSlice = createSlice({
       .addCase(forgotPassword.rejected, (state, action) => {
         state.isError = action.payload;
         state.isLoading = false;
-      })
-      // forgotPass
-
-      // changeUserData
-      .addCase(changeUserData.pending, (state, action) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
-      .addCase(changeUserData.fulfilled, (state, action) => {
-        state.isLoading = false;
-
-        const { name, phone, avatarUrl } = action.payload;
-        state.user = { ...state.user, name, phone, avatarUrl };
-      })
-      .addCase(changeUserData.rejected, (state, action) => {
-        state.isError = action.payload;
-        state.isLoading = false;
       });
-    // changeUserData
+    // forgotPass
   },
 });
 

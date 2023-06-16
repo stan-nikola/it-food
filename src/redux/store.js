@@ -9,7 +9,10 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+import axios from 'axios';
 import { authPresistedReducer } from './auth/authSlice';
+
+axios.defaults.baseURL = 'http://localhost:3000/api/';
 
 export const store = configureStore({
   reducer: {

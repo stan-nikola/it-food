@@ -129,11 +129,19 @@
 }
 
 .signIn_btn:disabled {
-  background: #eee3dc;
+  background: #f0b38d;
 }
 
 .signIn_btn:hover {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.user_profile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0;
 }
 .logOut_avatar {
   width: 120px;
@@ -184,16 +192,13 @@
   color: #ff5c00;
   margin-bottom: 8px;
 }
-
-.inputWrapper {
-  position: relative;
-  margin-bottom: 12px;
+.user_form {
+  margin-top: 16px;
 }
-
-.inputContainer {
+.upload_button {
   position: absolute;
-  bottom: 6px;
-  right: -1px;
+  top: 107px;
+  right: 95px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -206,22 +211,18 @@
   transition: background-color 250ms linear;
 }
 
-.inputContainer svg,
-.upload_image_btn svg,
-.clear_image_btn svg {
+.upload_button svg {
   height: 20px;
   width: 20px;
   color: #fff;
   cursor: pointer;
 }
 
-.inputContainer:hover,
-.upload_image_btn:hover,
-.clear_image_btn:hover {
+.upload_button:hover {
   background-color: cornflowerblue;
 }
 
-.inputField {
+.uploadField {
   position: absolute;
   border: 0;
   clip: rect(1px, 1px, 1px, 1px);
@@ -231,22 +232,6 @@
   padding: 0;
   position: absolute;
   width: 1px;
-}
-
-.clear_image_btn {
-  position: absolute;
-  bottom: 6px;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 38px;
-  height: 38px;
-  background-color: #ff5c00;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  cursor: pointer;
-  transition: background-color 250ms linear;
 }
 
 .user_edit_info {

@@ -9,14 +9,19 @@ import { useEffect, useState } from 'react';
 import { FaCameraRetro } from 'react-icons/fa';
 import { RxCross1 } from 'react-icons/rx';
 import PhoneInput from 'react-phone-input-2';
+import { changeUserData } from 'redux/user/operations';
+import { toast } from 'react-toastify';
+import { mainToast } from 'constants/toastConfig';
+import { error } from 'redux/auth/authSlice';
 
 export const LogOutForm = ({ modalToggle }) => {
-  const { user } = useAuth();
+  const { user, isError, isLoading } = useAuth();
   const dispatch = useDispatch();
 
   const { name, avatarUrl, email, phone } = user;
 
   const [avatarImage, setAvatarImage] = useState(null);
+  const [avatarFile, setAvatarFile] = useState(null);
   const [userName, setUserName] = useState(name);
   const [userPhone, setUserPhone] = useState(phone);
   const [handleError, setHandleError] = useState(null);
@@ -31,18 +36,36 @@ export const LogOutForm = ({ modalToggle }) => {
     }
   }, [userName.length]);
 
+  useEffect(() => {
+    !isLoading && setAvatarImage(null);
+    !isLoading && setShowEditProfile(prev => !prev);
+  }, [isError, isLoading]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(isError.message, mainToast);
+    }
+
+    dispatch(error(null));
+  }, [dispatch, isError]);
+
   const handleLogOut = () => {
     dispatch(logOut());
     modalToggle();
   };
 
   const handleAvatarChange = e => {
-    console.log(e.target.files);
     setAvatarImage(URL.createObjectURL(e.target.files[0]));
+    setAvatarFile(e.target.files[0]);
   };
 
-  const handleSaveUserData = () => {
-    console.log('handleSaveUserData');
+  const handleSaveUserData = async () => {
+    const data = new FormData();
+    data.append('avatarImage', avatarFile);
+    data.append('name', userName);
+    data.append('phone', userPhone);
+
+    dispatch(changeUserData(data));
   };
 
   return (
@@ -51,101 +74,101 @@ export const LogOutForm = ({ modalToggle }) => {
         <LogoIcon />
         <p className={s.signIn_logoText}>IT FOOD</p>
       </div>
-      <div className={s.inputWrapper}>
+      <div className={s.user_profile}>
         <img
-          className={`${s.logOut_avatar}`}
+          className={s.logOut_avatar}
           src={avatarImage || avatarUrl}
           alt="user avatar"
         />
-        {showEditProfile && (
+        {showEditProfile ? (
           <>
-            {avatarImage ? (
-              <button
-                className={s.clear_image_btn}
-                type="button"
-                onClick={() => setAvatarImage(null)}
-              >
-                <RxCross1 />
-              </button>
-            ) : (
-              <form
-                className={s.inputContainer}
-                method="post"
-                encType="multipart/form-data"
-              >
-                <label htmlFor="apply">
+            <form
+              className={s.user_form}
+              action="/users/changeUserData"
+              method="patch"
+              encType="multipart/form-data"
+            >
+              {avatarImage ? (
+                <button
+                  className={s.upload_button}
+                  type="button"
+                  onClick={() => setAvatarImage(null)}
+                >
+                  <RxCross1 />
+                </button>
+              ) : (
+                <label className={s.upload_button} htmlFor="upload">
                   <input
-                    className={s.inputField}
+                    className={s.uploadField}
                     onChange={handleAvatarChange}
                     type="file"
                     name=""
-                    id="apply"
+                    id="upload"
                     accept="image/*"
                   />
                   <FaCameraRetro />
                 </label>
-              </form>
-            )}
-          </>
-        )}
-      </div>
-      <p className={s.logOut_text}>{email}</p>
-      {showEditProfile ? (
-        <form>
-          <label htmlFor="name">
-            <input
-              className={s.signIn_field}
-              placeholder="Name"
-              id="name"
-              name="name"
-              type="text"
-              value={userName}
-              onChange={e => setUserName(e.target.value)}
-            />
+              )}
 
-            {handleError && (
-              <div className={s.signIn_form_error}>{handleError}</div>
-            )}
-          </label>
-          <label htmlFor="phone">
-            <PhoneInput
-              className={s.signIn_phone}
-              inputClass={s.signIn_phone_input}
-              buttonClass={s.signIn_phone_flag}
-              id="phone"
-              name="phone"
-              type="phone"
-              isValid={value => {
-                if (value.length < 12) {
-                  return;
-                } else {
-                  return true;
-                }
-              }}
-              country={'ua'}
-              onChange={setUserPhone}
-              value={userPhone}
-            />
-            {/* {errors.phone && touched.phone && (
+              <div>
+                <label htmlFor="name">
+                  <input
+                    className={s.signIn_field}
+                    placeholder="Name"
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={userName}
+                    onChange={e => setUserName(e.target.value)}
+                  />
+
+                  {handleError && (
+                    <div className={s.signIn_form_error}>{handleError}</div>
+                  )}
+                </label>
+                <label htmlFor="phone">
+                  <PhoneInput
+                    className={s.signIn_phone}
+                    inputClass={s.signIn_phone_input}
+                    buttonClass={s.signIn_phone_flag}
+                    id="phone"
+                    name="phone"
+                    type="phone"
+                    isValid={value => {
+                      if (value.length < 12) {
+                        return;
+                      } else {
+                        return true;
+                      }
+                    }}
+                    country={'ua'}
+                    onChange={setUserPhone}
+                    value={userPhone}
+                  />
+                  {/* {errors.phone && touched.phone && (
               <div className={s.signIn_form_error}>{errors.phone}</div>
             )} */}
-          </label>
-        </form>
-      ) : (
-        <div className={s.user_edit_info}>
-          <p className={`${s.logOut_text} ${s.logOut_text_name}`}>{name}</p>
-
-          <p className={s.logOut_text}>{phone}</p>
-        </div>
-      )}
+                </label>
+              </div>
+            </form>
+          </>
+        ) : (
+          <div className={s.user_edit_info}>
+            <p className={`${s.logOut_text} ${s.logOut_text_name}`}>{name}</p>
+            <p className={s.logOut_text}>{email}</p>
+            <p className={s.logOut_text}>{phone}</p>
+          </div>
+        )}
+      </div>
 
       {showEditProfile ? (
         <button
+          disabled={isLoading}
           onClick={handleSaveUserData}
           className={s.signIn_btn}
           type="button"
         >
-          SAVE CHANGES
+          {isLoading ? 'LOADING...' : 'SAVE CHANGES'}
         </button>
       ) : (
         <button
@@ -158,7 +181,12 @@ export const LogOutForm = ({ modalToggle }) => {
       )}
 
       {!showEditProfile && (
-        <button onClick={handleLogOut} className={s.signIn_btn} type="button">
+        <button
+          disabled={isLoading}
+          onClick={handleLogOut}
+          className={s.signIn_btn}
+          type="button"
+        >
           LOG OUT
         </button>
       )}
