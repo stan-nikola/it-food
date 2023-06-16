@@ -31,7 +31,7 @@ export const LogInForm = ({ modalToggle }) => {
   useEffect(() => {
     if (isError === 404) toast.error('User not found', mainToast);
 
-    if (isError === 401)
+    if (isError === 401 || isError === 400)
       toast.error('Email or password is incorrect', mainToast);
 
     if (isError === 200) {
@@ -76,7 +76,7 @@ export const LogInForm = ({ modalToggle }) => {
               <Form className={s.signIn_form}>
                 <label htmlFor="email">
                   <Field
-                    className={s.signIn_name}
+                    className={s.signIn_field}
                     placeholder="Email"
                     id="email"
                     name="email"
@@ -90,7 +90,7 @@ export const LogInForm = ({ modalToggle }) => {
                 <label htmlFor="password">
                   <Field
                     placeholder="Password"
-                    className={s.signIn_name}
+                    className={s.signIn_field}
                     type="password"
                     name="password"
                   />
@@ -128,7 +128,7 @@ export const LogInForm = ({ modalToggle }) => {
               <Form className={s.signIn_form}>
                 <label htmlFor="email">
                   <Field
-                    className={s.signIn_name}
+                    className={s.signIn_field}
                     placeholder="Email"
                     id="email"
                     name="email"

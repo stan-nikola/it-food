@@ -105,7 +105,7 @@ export const SignUpForm = ({ modalToggle }) => {
               <Form className={s.signIn_form}>
                 <label htmlFor="name">
                   <Field
-                    className={s.signIn_name}
+                    className={s.signIn_field}
                     placeholder="Name"
                     id="name"
                     name="name"
@@ -119,7 +119,7 @@ export const SignUpForm = ({ modalToggle }) => {
 
                 <label htmlFor="email">
                   <Field
-                    className={s.signIn_name}
+                    className={s.signIn_field}
                     placeholder="Email"
                     id="email"
                     name="email"
@@ -138,13 +138,13 @@ export const SignUpForm = ({ modalToggle }) => {
                     id="phone"
                     name="phone"
                     type="phone"
-                    isValid={value => {
-                      if (value.length < 12) {
-                        return;
-                      } else {
-                        return true;
-                      }
-                    }}
+                    // isValid={value => {
+                    //   if (value.length < 12) {
+                    //     return;
+                    //   } else {
+                    //     return true;
+                    //   }
+                    // }}
                     country={'ua'}
                     onChange={setPhone}
                     value={phone}
@@ -156,7 +156,7 @@ export const SignUpForm = ({ modalToggle }) => {
                 <label htmlFor="password">
                   <Field
                     placeholder="Password"
-                    className={s.signIn_name}
+                    className={s.signIn_field}
                     type="password"
                     name="password"
                   />
