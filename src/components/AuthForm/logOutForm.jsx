@@ -20,13 +20,13 @@ export const LogOutForm = ({ modalToggle }) => {
   const [userName, setUserName] = useState(name);
   const [userPhone, setUserPhone] = useState(phone);
   const [handleError, setHandleError] = useState(null);
-  console.log('LogOutForm => handleError:', handleError);
 
   const [showEditProfile, setShowEditProfile] = useState(false);
 
   useEffect(() => {
-    console.log(userName.length);
-    if (userName.length > 16) {
+    setHandleError(null);
+
+    if (userName.length > 16 || userName.length < 3) {
       setHandleError('User name must be on 3 to 16');
     }
   }, [userName.length]);
@@ -103,7 +103,9 @@ export const LogOutForm = ({ modalToggle }) => {
               onChange={e => setUserName(e.target.value)}
             />
 
-            {/* <div className={s.signIn_form_error}>ascscascsa</div> */}
+            {handleError && (
+              <div className={s.signIn_form_error}>{handleError}</div>
+            )}
           </label>
           <label htmlFor="phone">
             <PhoneInput
