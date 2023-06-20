@@ -1,55 +1,47 @@
-// import { NavLink } from 'react-router-dom';
-
-import css from './LeftSideBar.module.css';
-// import Bread from '../../images/svg/Appetizer.svg';
-// import { ReactComponent as Bread } from '../../images/svg/Appetizer.svg';
-
-// import e from '../../images/svg/';
+import s from './LeftSideBar.module.css';
+import { ReactComponent as MainDishIcon } from '../../images/svg/main-dish-icon.svg';
+import { ReactComponent as MeatDishIcon } from '../../images/svg/meat-dish-icon.svg';
+import { ReactComponent as DessertDishIcon } from '../../images/svg/dessert-dish-icon.svg';
+import { NavLink } from 'react-router-dom';
 
 export const LeftSideBar = () => {
   return (
-    <section className={css.container}>
-      <ul className={css.wrapper}>
-        <li className={css.listItem}>
-          {/* <img
-            src="../../images/svg/MainCourse.svg"
-            alt="Icon"
-            width="77"
-            height="78"
-          /> */}
-          <button className={`${css.button} ${css.active}`} type="submit">
-            FOOD
-          </button>
+    <section className={s.container}>
+      <ul className={s.wrapper}>
+        <li className={s.listItem}>
+          <NavLink
+            to="/main"
+            end
+            className={({ isActive }) =>
+              ` ${s.link} ${isActive && s.link_active} `
+            }
+          >
+            <MainDishIcon />
+            <p>Main</p>
+          </NavLink>
         </li>
-        <li className={css.listItem}>
-          {/* <img
-            src="../../images/svg/Appetizer.svg"
-            alt="Icon"
-            width="77"
-            height="78"
-          />
-          */}
-          <button className={css.button} type="submit">
-            MEAT
-          </button>
+        <li className={s.listItem}>
+          <NavLink
+            to="/meat"
+            className={({ isActive }) =>
+              ` ${s.link} ${isActive && s.link_active} `
+            }
+          >
+            <MeatDishIcon />
+            <p>Meat</p>
+          </NavLink>
         </li>
-        <li className={css.listItem}>
-          {/* <img
-            src="../../images/svg/Bread.svg"
-            alt="Icon"
-            width="77"
-            height="78"
-          /> */}
-          <button className={css.button} type="submit">
-            DESSERTS
-          </button>
+        <li className={s.listItem}>
+          <NavLink
+            to="/dessert"
+            className={({ isActive }) =>
+              ` ${s.link} ${isActive && s.link_active} `
+            }
+          >
+            <DessertDishIcon />
+            <p>Dessert</p>
+          </NavLink>
         </li>
-
-        {/* <FoodTypeButton name="All" />
-        <FoodTypeButton name="Chicken" />
-        <FoodTypeButton name="Seafood" />
-        <FoodTypeButton name="Pasta" />
-        <FoodTypeButton name="Rice bowl" /> */}
       </ul>
     </section>
   );

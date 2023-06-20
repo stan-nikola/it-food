@@ -39,7 +39,7 @@ export const LogOutForm = ({ modalToggle }) => {
   useEffect(() => {
     !isLoading && setAvatarImage(null);
     !isLoading && setShowEditProfile(prev => !prev);
-  }, [isError, isLoading]);
+  }, [isError, isLoading, modalToggle]);
 
   useEffect(() => {
     if (isError) {

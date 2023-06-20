@@ -7,6 +7,7 @@ import {
   selectIsError,
   selectIsLoading,
 } from 'redux/auth/selectors';
+import { selectDish, selectIsDishLoaded } from 'redux/dish/selectors';
 
 export const useAuth = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -15,6 +16,8 @@ export const useAuth = () => {
   const token = useSelector(selectToken);
   const isError = useSelector(selectIsError);
   const isLoading = useSelector(selectIsLoading);
+  const dish = useSelector(selectDish);
+  const dishIsLoaded = useSelector(selectIsDishLoaded);
 
   return {
     isLoggedIn,
@@ -23,5 +26,7 @@ export const useAuth = () => {
     token,
     isError,
     isLoading,
+    dish,
+    dishIsLoaded,
   };
 };

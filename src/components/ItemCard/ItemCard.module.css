@@ -1,8 +1,8 @@
 .card {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-width: 219px;
+  height: 330px;
+  width: 219px;
 
   padding: 12px 8px 16px 8px;
   background-color: #ffffff;
@@ -17,7 +17,8 @@
 
 .imageWrapper {
   overflow: hidden;
-  max-width: 203px;
+  width: 203px;
+  height: 203px;
   border-radius: 16px;
   border: 1px solid black;
   border-style: hidden;
@@ -51,9 +52,32 @@
 
 .button {
   margin-top: 4px;
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 150%;
-    text-align: center;
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 150%;
+  text-align: center;
+}
+
+.image_hide {
+  display: none;
+}
+
+.isLoadingCard {
+  width: 219px;
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: 5px;
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+
+  border-radius: 16px;
+  height: 203px;
+  margin-bottom: 12px;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
 }
