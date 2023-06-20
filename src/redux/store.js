@@ -11,12 +11,14 @@ import {
 
 import axios from 'axios';
 import { authPresistedReducer } from './auth/authSlice';
+import { dishReducer } from './dish/dishSlice';
 
 axios.defaults.baseURL = 'http://localhost:3000/api/';
 
 export const store = configureStore({
   reducer: {
     auth: authPresistedReducer,
+    dish: dishReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

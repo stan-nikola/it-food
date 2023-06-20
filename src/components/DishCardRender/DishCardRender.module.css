@@ -1,4 +1,4 @@
-.itemCardSet {
+.container {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
@@ -8,21 +8,16 @@
   height: calc(100vh - 200px);
   overflow-y: scroll;
   scroll-behavior: smooth;
-}
-
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
-.itemCardSet {
   scrollbar-width: auto;
   scrollbar-color: #c2c2c2 #ffffff;
 }
 
 /* Chrome, Edge, and Safari */
-.itemCardSet::-webkit-scrollbar {
+.container::-webkit-scrollbar {
   width: 9px;
 }
 
-.itemCardSet::-webkit-scrollbar-thumb {
+.container::-webkit-scrollbar-thumb {
   background-color: #c2c2c2;
   border-radius: 4px;
 }

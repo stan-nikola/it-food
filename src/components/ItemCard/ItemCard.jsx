@@ -1,15 +1,21 @@
+import { useState } from 'react';
 import css from './ItemCard.module.css';
 
-export const ItemCard = ({
-  imgUrl = './pic.jpg',
-  name = 'Food Name',
-  price = 50,
-}) => {
+export const ItemCard = ({ imgUrl, name, price }) => {
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
+
   return (
     <div className={css.card}>
       <div className={css.wrapper}>
         <div className={css.imageWrapper}>
-          <img src={imgUrl} alt={name} width="203" />
+          <img
+            className={!isImgLoaded && css.image_hide}
+            onLoad={() => setIsImgLoaded(prev => !prev)}
+            src={imgUrl}
+            alt={name}
+            width="203"
+          />
+          {!isImgLoaded && <div className={css.isLoadingCard}></div>}
         </div>
         <h1 className={css.foodName}>{name}</h1>
       </div>
