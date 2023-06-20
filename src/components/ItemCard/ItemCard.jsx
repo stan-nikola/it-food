@@ -9,7 +9,7 @@ export const ItemCard = ({ imgUrl, name, price }) => {
       <div className={css.wrapper}>
         <div className={css.imageWrapper}>
           <img
-            className={!isImgLoaded && css.image_hide}
+            className={`${!isImgLoaded && css.image_hide}`}
             onLoad={() => setIsImgLoaded(prev => !prev)}
             src={imgUrl}
             alt={name}
