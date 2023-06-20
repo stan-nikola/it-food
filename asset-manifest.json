@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/it-food/static/css/main.58b721e8.css",
-    "main.js": "/it-food/static/js/main.ec9998d3.js",
+    "main.js": "/it-food/static/js/main.5c7d823b.js",
     "static/media/dessert-dish-icon.svg": "/it-food/static/media/dessert-dish-icon.501586faae2f993feffcab9bc4d53c5b.svg",
     "static/media/main-dish-icon.svg": "/it-food/static/media/main-dish-icon.8d81a775ac1de6dc8151b9133f90a36f.svg",
     "static/media/meat-dish-icon.svg": "/it-food/static/media/meat-dish-icon.bca6e6657f1330dac658ae633839bfe9.svg",
     "static/media/logoIcon.svg": "/it-food/static/media/logoIcon.491520ee10e8f71fcb2a0e0182edaa38.svg",
     "index.html": "/it-food/index.html",
     "main.58b721e8.css.map": "/it-food/static/css/main.58b721e8.css.map",
-    "main.ec9998d3.js.map": "/it-food/static/js/main.ec9998d3.js.map"
+    "main.5c7d823b.js.map": "/it-food/static/js/main.5c7d823b.js.map"
   },
   "entrypoints": [
     "static/css/main.58b721e8.css",
-    "static/js/main.ec9998d3.js"
+    "static/js/main.5c7d823b.js"
   ]
 }
