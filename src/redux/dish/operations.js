@@ -5,7 +5,7 @@ export const getDishesByCategory = createAsyncThunk(
   'dish/getByCategory',
   async (category, thunkAPI) => {
     try {
-      const res = await axios.get(`/dishes${category}`);
+      const res = await axios.get(`/dishes/${category}`);
 
       return { data: res.data, category };
     } catch (error) {

@@ -44,7 +44,7 @@ export const TopBar = () => {
 
   return (
     <header className={s.header}>
-      <Link className={s.header__logo} to="/main">
+      <Link className={s.header__logo} to="/home/main">
         <LogoIcon className={s.header__logo_icon} />
         <div>
           <p className={s.header__logo_mainText}>IT FOOD</p>
@@ -58,8 +58,7 @@ export const TopBar = () => {
               className={({ isActive }) =>
                 isActive ? s.header__nav_link_active : s.header__nav_link
               }
-              to="/main"
-              end
+              to="/home"
             >
               <BiHomeAlt className={s.header__nav_icon} />
               <p>Home</p>

@@ -14,7 +14,7 @@ export const dishSlice = createSlice({
         state.isDishLoaded = true;
       })
       .addCase(getDishesByCategory.fulfilled, (state, action) => {
-        const category = action.payload.category.slice(1);
+        const category = action.payload.category;
 
         switch (category) {
           case 'main':

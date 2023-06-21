@@ -5,9 +5,11 @@ import { getDishesByCategory } from 'redux/dish/operations';
 import { useEffect } from 'react';
 import { useDish } from 'components/hooks/useDish';
 import { DishCardSkeleton } from 'components/DishCardSkeleton/DishCardSkeleton';
+import { useParams } from 'react-router-dom';
 
-export const DishCardRender = ({ pathname }) => {
+export const DishCardRender = () => {
   const dispatch = useDispatch();
+  const { category } = useParams();
 
   const { dish, dishIsLoaded } = useDish();
 
@@ -16,10 +18,10 @@ export const DishCardRender = ({ pathname }) => {
   const numberOfCards = Array.from(Array(8).keys());
 
   useEffect(() => {
-    dispatch(getDishesByCategory(pathname));
-  }, [dispatch, pathname]);
+    dispatch(getDishesByCategory(category));
+  }, [category, dispatch]);
 
-  switch (pathname.slice(1)) {
+  switch (category) {
     case 'main':
       dishCollection = dish.main;
       break;
