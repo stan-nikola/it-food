@@ -1,19 +1,55 @@
 import s from './RightSideBar.module.css';
 import 'react-phone-input-2/lib/style.css';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
-import { arrayOfSmallCards } from 'recipes-3';
+
 import { useAuth } from 'components/hooks/useAuth';
 import { CircularProgress } from '@mui/material';
+import { useDish } from 'components/hooks/useDish';
+import { useOrder } from 'components/hooks/useOrder';
+import { useDispatch } from 'react-redux';
+import {
+  decrementDishQuantity,
+  incrementDishQuantity,
+} from 'redux/order/orderSlice';
 
 export const RightSideBar = () => {
   const [orderOption, setOrderOption] = useState('dineIn');
   const [customerName, setCustomerName] = useState('');
   const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
 
+  const dispatch = useDispatch();
+
   const { isLoggedIn, user, isRefreshing } = useAuth();
   const { avatarUrl, name } = user;
+
+  const { dish } = useDish();
+
+  const { main, meat, dessert } = dish;
+
+  const { orderedDish } = useOrder();
+
+  const dishFilter = orderedDish.map(item => item.id);
+
+  const filteredDish = useMemo(() => {
+    const allDishes = [...main, ...meat, ...dessert];
+
+    const filteredByOrderId = allDishes.filter(item =>
+      dishFilter.includes(item._id)
+    );
+
+    return filteredByOrderId.map(i1 => ({
+      ...i1,
+      ...orderedDish.find(i2 => i2.id === i1._id),
+    }));
+  }, [dessert, dishFilter, main, meat, orderedDish]);
+
+  const totalPrice = filteredDish
+    .reduce((acc, { price, quantity }) => {
+      return acc + Number(price) * quantity;
+    }, 0)
+    .toFixed(2);
 
   const handleOrderOptionChange = e => {
     setOrderOption(e.target.value);
@@ -114,46 +150,59 @@ export const RightSideBar = () => {
         <li>
           <p className={s.orderOption_text}>Orders details</p>
         </li>
-        {arrayOfSmallCards.map(item => (
-          <li key={item._id.$oid} className={s.orderOption_card}>
-            <img
-              className={s.orderOption_detail_img}
-              src={item.preview}
-              alt={item.title}
-            ></img>
-            <div className={s.orderOption_detail_change}>
-              <div>
-                <p className={s.orderOption_detail_food_name}>{item.title}</p>
-                <div className={s.orderOption_detail_sup_change}>
-                  <div className={s.orderOption_detail_sub_change}>
-                    <p className={s.orderOption_detail_food_price}>Price</p>
-                    <p className={s.orderOption_detail_food_price_cost}>
-                      $ {item.time}
-                    </p>
-                  </div>
-                  <div className={s.orderOption_detail_change}>
-                    <button className={s.orderOption_detail_change_btn}>
-                      <AiFillMinusCircle
-                        className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_minus}`}
-                      />
-                    </button>
-                    <p>1</p>
-                    <button className={s.orderOption_detail_change_btn}>
-                      <AiFillPlusCircle
-                        className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_plus}`}
-                      />
-                    </button>
+        {filteredDish.map(({ _id, preview, title, price, quantity }) => {
+          const quantityPrice = Number((quantity * price).toFixed(2));
+
+          return (
+            <li key={_id} className={s.orderOption_card}>
+              <img
+                className={s.orderOption_detail_img}
+                src={preview}
+                alt={title}
+              ></img>
+              <div className={s.orderOption_detail_change}>
+                <div>
+                  <p className={s.orderOption_detail_food_name}>{title}</p>
+                  <div className={s.orderOption_detail_sup_change}>
+                    <div className={s.orderOption_detail_sub_change}>
+                      <p className={s.orderOption_detail_food_price}>Price</p>
+                      <p className={s.orderOption_detail_food_price_cost}>
+                        $ {quantityPrice}
+                      </p>
+                    </div>
+                    <div className={s.orderOption_detail_change}>
+                      <button
+                        onClick={() => dispatch(decrementDishQuantity(_id))}
+                        className={s.orderOption_detail_change_btn}
+                      >
+                        <AiFillMinusCircle
+                          className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_minus}`}
+                        />
+                      </button>
+                      <p className={s.orderOption_detail_quantity}>
+                        {quantity}
+                      </p>
+                      <button
+                        disabled={quantity >= 10}
+                        onClick={() => dispatch(incrementDishQuantity(_id))}
+                        className={s.orderOption_detail_change_btn}
+                      >
+                        <AiFillPlusCircle
+                          className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_plus}`}
+                        />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ul>
       <ul className={s.orderOption_pay}>
         <li className={s.orderOption_pay_Text}>
           <p className={s.pay_text}>Total</p>
-          <p className={`${s.pay_text} ${s.pay_textPrice}`}>$ 62.13</p>
+          <p className={`${s.pay_text} ${s.pay_textPrice}`}>$ {totalPrice}</p>
         </li>
         <li>
           <button

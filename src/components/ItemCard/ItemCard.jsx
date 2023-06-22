@@ -1,8 +1,15 @@
 import { useState } from 'react';
 import css from './ItemCard.module.css';
 
-export const ItemCard = ({ imgUrl, name, price }) => {
+import { useDispatch } from 'react-redux';
+import { addDish } from 'redux/order/orderSlice';
+
+export const ItemCard = ({ dish }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
+
+  const { _id: id, preview, title, price } = dish;
+
+  const dispatch = useDispatch();
 
   return (
     <div className={css.card}>
@@ -11,13 +18,13 @@ export const ItemCard = ({ imgUrl, name, price }) => {
           <img
             className={`${!isImgLoaded && css.image_hide}`}
             onLoad={() => setIsImgLoaded(prev => !prev)}
-            src={imgUrl}
-            alt={name}
+            src={preview}
+            alt={title}
             width="203"
           />
           {!isImgLoaded && <div className={css.isLoadingCard}></div>}
         </div>
-        <h1 className={css.foodName}>{name}</h1>
+        <h1 className={css.foodName}>{title}</h1>
       </div>
 
       <p className={css.foodPrice}>Price: $ {price}</p>
@@ -26,7 +33,11 @@ export const ItemCard = ({ imgUrl, name, price }) => {
         <button type="button" className={css.button}>
           More info
         </button>
-        <button type="button" className={css.button}>
+        <button
+          onClick={() => dispatch(addDish(id))}
+          type="button"
+          className={css.button}
+        >
           Order now
         </button>
       </div>
