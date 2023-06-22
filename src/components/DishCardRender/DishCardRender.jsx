@@ -53,11 +53,11 @@ export const DishCardRender = () => {
           ) : (
             <>
               {dishCollection.map(item => {
-                const { _id, preview, title, price } = item;
+                const { _id } = item;
 
                 return (
                   <li key={_id}>
-                    <ItemCard imgUrl={preview} name={title} price={price} />
+                    <ItemCard dish={item} />
                   </li>
                 );
               })}

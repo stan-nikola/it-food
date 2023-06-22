@@ -248,7 +248,7 @@
 
 .orderOption_detail_food_price_cost {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 150%;
   color: #ff5c00;
 }
@@ -256,19 +256,16 @@
 .orderOption_detail_change {
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
+  min-width: 120px;
 }
-.orderOption_detail_change p {
-  margin-right: 12px;
-}
-.orderOption_detail_change_btn:not(:last-child) {
-  margin-right: 12px;
-}
+
 .orderOption_detail_sup_change {
   display: flex;
   margin-bottom: 8px;
 }
 .orderOption_detail_sub_change {
-  margin-right: 50px;
+  width: 100px;
 }
 .orderOption_detail_change_btn {
   display: flex;
@@ -291,6 +288,11 @@
 .orderOption_detail_change_icon {
   width: 36px;
   height: 36px;
+}
+
+.orderOption_detail_quantity {
+  width: 12px;
+  text-align: center;
 }
 
 .orderOption_detail_change_icon_plus {
