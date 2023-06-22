@@ -2,10 +2,11 @@
 import { DashboardTypeBar } from '../DashboardTypeBar/DashboardTypeBar';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { DishTypeBar } from '../DishTypeBar/DishTypeBar';
-import { DishBlock } from '../DishBlock/DishBlock';
-import css from './MainBlock.module.css';
 
-export const MainBlock = () => {
+import css from './DishBlock.module.css';
+import { DishCardRender } from 'components/DishCardRender/DishCardRender';
+
+export const DishBlock = () => {
   return (
     <>
       <section className={css.mainBlockWrapper}>
@@ -14,7 +15,7 @@ export const MainBlock = () => {
           <SearchBar />
           <DishTypeBar />
         </div>
-        <DishBlock />
+        <DishCardRender />
       </section>
     </>
   );

@@ -1,12 +1,14 @@
-import { TopBar } from './TopBar/TopBar';
-
 import { Dashboard } from '../pages/Dashboard/Dashboard';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from './hooks/useAuth';
-import { ToastContainer } from 'react-toastify';
+
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { Layout } from './Layout/Layout';
+import { DishBlock } from './MainBlock/DishBlock';
+import { Order } from 'pages/Order/Order';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -19,9 +21,18 @@ export const App = () => {
 
   return (
     <>
-      <TopBar />
-      <Dashboard />
-      <ToastContainer />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Navigate to="/home/main" />} />
+          <Route path="/home/" element={<Navigate to="/home/main" />} />
+
+          <Route path="/home" element={<Dashboard />}>
+            <Route path=":category" element={<DishBlock />} />
+          </Route>
+          <Route path="/order" element={<Order />} />
+        </Route>
+        <Route path="*" element={<>NotFound</>} />
+      </Routes>
     </>
   );
 };

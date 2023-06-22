@@ -10,8 +10,7 @@ export const LeftSideBar = () => {
       <ul className={s.wrapper}>
         <li className={s.listItem}>
           <NavLink
-            to="/main"
-            end
+            to="main"
             className={({ isActive }) =>
               ` ${s.link} ${isActive && s.link_active} `
             }
@@ -22,7 +21,7 @@ export const LeftSideBar = () => {
         </li>
         <li className={s.listItem}>
           <NavLink
-            to="/meat"
+            to="meat"
             className={({ isActive }) =>
               ` ${s.link} ${isActive && s.link_active} `
             }
@@ -33,7 +32,7 @@ export const LeftSideBar = () => {
         </li>
         <li className={s.listItem}>
           <NavLink
-            to="/dessert"
+            to="dessert"
             className={({ isActive }) =>
               ` ${s.link} ${isActive && s.link_active} `
             }

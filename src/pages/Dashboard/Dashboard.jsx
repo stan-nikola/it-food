@@ -1,13 +1,14 @@
 import { LeftSideBar } from 'components/LeftSideBar/LeftSideBar';
 import s from './Dashboard.module.css';
-import { MainBlock } from 'components/MainBlock/MainBlock';
+
 import { RightSideBar } from 'components/RightSideBar/RightSideBar';
+import { Outlet } from 'react-router-dom';
 
 export const Dashboard = () => {
   return (
     <div className={s.container}>
       <LeftSideBar />
-      <MainBlock />
+      <Outlet />
       <RightSideBar />
     </div>
   );
