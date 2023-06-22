@@ -31,6 +31,7 @@ export const App = () => {
           </Route>
           <Route path="/order" element={<Order />} />
         </Route>
+        <Route path="*" element={<>NotFound</>} />
       </Routes>
     </>
   );
