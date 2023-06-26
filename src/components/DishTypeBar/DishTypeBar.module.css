@@ -2,11 +2,20 @@
   display: flex;
   gap: 7px;
   width: 477px;
+  align-items: center;
+  justify-content: space-evenly;
 
   padding: 16px 19px;
 
   border: 1px solid #e4e4e4;
   border-left: none;
+}
+
+.active {
+  font-weight: 600;
+  color: #FF5C00;
+  background: #FFF5EE;
+  border: 1px solid #FF5C00;
 }
 
 
