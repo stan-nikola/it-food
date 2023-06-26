@@ -27,7 +27,7 @@ export const RightSideBar = () => {
   const dispatch = useDispatch();
 
   const { isLoggedIn, user, isRefreshing } = useAuth();
-  const { avatarUrl, name, phone: savedPhone } = user;
+  const { avatarUrl, name } = user;
 
   const { dish } = useDish();
 
