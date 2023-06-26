@@ -8,9 +8,12 @@
   height: calc(100vh - 200px);
   overflow-y: scroll;
   scroll-behavior: smooth;
-  scrollbar-width: auto;
+
+/* Firefox */
+  scrollbar-width: thin;
   scrollbar-color: #c2c2c2 #ffffff;
 }
+
 
 /* Chrome, Edge, and Safari */
 .container::-webkit-scrollbar {

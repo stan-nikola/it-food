@@ -50,7 +50,7 @@ export const DishCardRender = () => {
     case 'dessert':
       if (dishCategory.toLowerCase() !== 'all') {
         collectionForRender = dishCollection.filter(
-          dish => dish.area === dishCategory
+          dish => dish.area.toLowerCase() === dishCategory
         );
       }
       break;
@@ -58,7 +58,7 @@ export const DishCardRender = () => {
     default:
       if (dishCategory.toLowerCase() !== 'all') {
         collectionForRender = dishCollection.filter(
-          dish => dish.category === dishCategory
+          dish => dish.category.toLowerCase() === dishCategory
         );
       }
   }

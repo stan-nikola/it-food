@@ -1,19 +1,28 @@
-import { NavLink } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
 
 import css from './DishTypeButton.module.css';
 
 export const DishTypeButton = ({ name }) => {
+  const [searchParams] = useSearchParams();
+  const dishCategory = searchParams.get('category');
   return (
-    <NavLink
+    <Link
       to={`?category=${name}`}
       // className={`${css.buttonText} `}
-      className={({ isActive }) =>
-        isActive ? `${css.buttonText} ${css.active}` : css.buttonText
+      className={
+        name === dishCategory
+          ? `${css.buttonText} ${css.active}`
+          : css.buttonText
       }
+      // className={({ isActive }) =>
+      //   isActive ? `${css.buttonText} ${css.active}` : css.buttonText
+      // }
     >
       {name}
-    </NavLink>
+    </Link>
 
     // <button type="button" className={css.buttonText}>
     //   {name}
