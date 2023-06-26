@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import css from './DishTypeBar.module.css';
 
 export const DishTypeBar = () => {
-  const buttonsMain = ['All', 'Chicken', 'Seafood', 'Pasta', 'Vegetarian'];
-  const buttonsMeat = ['All', 'Lamb', 'Beef', 'Pork'];
-  const buttonsDesserts = ['All', 'British', 'American', 'French', 'Canadian'];
+  const buttonsMain = ['all', 'chicken', 'seafood', 'pasta', 'vegetarian'];
+  const buttonsMeat = ['all', 'lamb', 'beef', 'pork'];
+  const buttonsDesserts = ['all', 'british', 'american', 'french', 'canadian'];
 
   const { category } = useParams();
   let actualButtons = [];
