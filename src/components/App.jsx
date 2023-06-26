@@ -23,8 +23,11 @@ export const App = () => {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Navigate to="/home/main" />} />
-          <Route path="/home/" element={<Navigate to="/home/main" />} />
+          <Route path="/" element={<Navigate to="/home/main?category=all" />} />
+          <Route
+            path="/home/"
+            element={<Navigate to="/home/main?category=all" />}
+          />
 
           <Route path="/home" element={<Dashboard />}>
             <Route path=":category" element={<DishBlock />} />

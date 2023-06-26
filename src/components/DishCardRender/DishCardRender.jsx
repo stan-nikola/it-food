@@ -6,10 +6,18 @@ import { useEffect } from 'react';
 import { useDish } from 'components/hooks/useDish';
 import { DishCardSkeleton } from 'components/DishCardSkeleton/DishCardSkeleton';
 import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 export const DishCardRender = () => {
   const dispatch = useDispatch();
   const { category } = useParams();
+
+  // console.log('category=', category);
+
+  const [searchParams] = useSearchParams();
+  const dishCategory = searchParams.get('category');
+
+  // console.log('dishCategory=', dishCategory);
 
   const { dish, dishIsLoaded } = useDish();
 
@@ -36,6 +44,33 @@ export const DishCardRender = () => {
       dishCollection = dish.main;
   }
 
+  let collectionForRender = [...dishCollection];
+
+  switch (category) {
+    case 'dessert':
+      if (dishCategory.toLowerCase() !== 'all') {
+        collectionForRender = dishCollection.filter(
+          dish => dish.area === dishCategory
+        );
+      }
+      break;
+
+    default:
+      if (dishCategory.toLowerCase() !== 'all') {
+        collectionForRender = dishCollection.filter(
+          dish => dish.category === dishCategory
+        );
+      }
+  }
+
+  // if (dishCategory.toLowerCase() !== 'all') {
+  //   collectionForRender = dishCollection.filter(
+  //     dish => dish.category === dishCategory
+  //   );
+  // }
+
+  // console.log('collectionForRender=', collectionForRender);
+
   return (
     <>
       <ul className={s.container}>
@@ -52,7 +87,7 @@ export const DishCardRender = () => {
             </>
           ) : (
             <>
-              {dishCollection.map(item => {
+              {collectionForRender.map(item => {
                 const { _id } = item;
 
                 return (
