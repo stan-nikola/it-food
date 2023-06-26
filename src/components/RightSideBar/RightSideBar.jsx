@@ -1,28 +1,33 @@
+import { useDispatch } from 'react-redux';
+import { useMemo, useState } from 'react';
 import s from './RightSideBar.module.css';
 import 'react-phone-input-2/lib/style.css';
-import { useMemo, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 import PhoneInput from 'react-phone-input-2';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 
 import { useAuth } from 'components/hooks/useAuth';
-import { CircularProgress } from '@mui/material';
 import { useDish } from 'components/hooks/useDish';
 import { useOrder } from 'components/hooks/useOrder';
-import { useDispatch } from 'react-redux';
+import { Modal } from '../Modal/Modal';
 import {
   decrementDishQuantity,
   incrementDishQuantity,
 } from 'redux/order/orderSlice';
+import { addOrder } from 'redux/order/operations';
 
 export const RightSideBar = () => {
-  const [orderOption, setOrderOption] = useState('dineIn');
+  const [orderOption, setOrderOption] = useState('dinein');
   const [customerName, setCustomerName] = useState('');
-  const [customerPhoneNumber, setCustomerPhoneNumber] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [noteText, setNoteText] = useState('');
+
+  const [addNoteShow, setAddNoteShow] = useState(false);
 
   const dispatch = useDispatch();
 
   const { isLoggedIn, user, isRefreshing } = useAuth();
-  const { avatarUrl, name } = user;
+  const { avatarUrl, name, phone: savedPhone } = user;
 
   const { dish } = useDish();
 
@@ -30,7 +35,7 @@ export const RightSideBar = () => {
 
   const { orderedDish } = useOrder();
 
-  const dishFilter = orderedDish.map(item => item.id);
+  const dishFilter = orderedDish.map(item => item._id);
 
   const filteredDish = useMemo(() => {
     const allDishes = [...main, ...meat, ...dessert];
@@ -41,7 +46,7 @@ export const RightSideBar = () => {
 
     return filteredByOrderId.map(i1 => ({
       ...i1,
-      ...orderedDish.find(i2 => i2.id === i1._id),
+      ...orderedDish.find(i2 => i2._id === i1._id),
     }));
   }, [dessert, dishFilter, main, meat, orderedDish]);
 
@@ -55,10 +60,25 @@ export const RightSideBar = () => {
     setOrderOption(e.target.value);
   };
 
-  // const handleSubmit = e => {
-  //   console.log(customerPhoneNumber);
-  //   console.log(e);
-  // };
+  const modalToggle = () => {
+    setAddNoteShow(prev => !prev);
+  };
+
+  // ADD ERRORS ++++++++++++
+  // --------------------------------------
+  // ADD ERRORS ++++++++++++
+
+  const handleSubmit = () => {
+    dispatch(
+      addOrder({
+        customerName: isLoggedIn ? '' : customerName,
+        note: noteText,
+        option: orderOption,
+        dishes: orderedDish,
+        phone: isLoggedIn ? savedPhone : customerPhone,
+      })
+    );
+  };
 
   return (
     <section className={s.container}>
@@ -68,9 +88,9 @@ export const RightSideBar = () => {
             <button
               onClick={handleOrderOptionChange}
               className={`${s.orderOption_button} ${
-                orderOption === 'dineIn' && s.orderOption_button_active
+                orderOption === 'dinein' && s.orderOption_button_active
               }`}
-              value="dineIn"
+              value="dinein"
             >
               Dine In
             </button>
@@ -137,12 +157,16 @@ export const RightSideBar = () => {
               }}
               type="phone"
               country={'ua'}
-              value={customerPhoneNumber}
-              onChange={e => setCustomerPhoneNumber(e)}
+              value={customerPhone}
+              onChange={e => setCustomerPhone(e)}
             />
           </form>
         )}
-        <button className={s.orderOption_addNote_btn} type="button">
+        <button
+          onClick={modalToggle}
+          className={s.orderOption_addNote_btn}
+          type="button"
+        >
           Add note
         </button>
       </div>
@@ -208,11 +232,51 @@ export const RightSideBar = () => {
           <button
             type="button"
             className={`${s.orderOption_pay_btn} ${s.pay_btn}`}
+            onClick={handleSubmit}
           >
             Pay Now
           </button>
         </li>
       </ul>
+
+      {addNoteShow && (
+        <Modal modalToggle={modalToggle} styles={s}>
+          <div className={s.add_note}>
+            <h1 className={s.add_note_title}>NOTE</h1>
+
+            <p className={s.add_note_subTitle}>
+              You can add note to your order
+            </p>
+
+            <form className={s.signIn_form}>
+              <label htmlFor="note">
+                <textarea
+                  className={s.add_note_subTitle_field}
+                  placeholder="add you note..."
+                  id="note"
+                  name="note"
+                  type="text"
+                  value={noteText}
+                  onChange={e => setNoteText(e.target.value)}
+                />
+                {noteText.length > 36 && (
+                  <p className={s.add_note_form_error}>
+                    Note must not exceed 36 characters
+                  </p>
+                )}
+              </label>
+            </form>
+            <button
+              disabled={noteText.length > 36}
+              className={s.add_note_btn}
+              onClick={modalToggle}
+              id="addNote"
+            >
+              ADD NOTE
+            </button>
+          </div>
+        </Modal>
+      )}
     </section>
   );
 };

@@ -12,21 +12,6 @@ export const Modal = ({ modalToggle, children, styles }) => {
     setIsMounted(true);
   }, []);
 
-  // useEffect(() => {
-  //   setIsisMounted(true);
-  //   if (!body) {
-  //     return;
-  //   }
-
-  //   body.style.margin = isMounted ? '0' : '';
-  //   body.style.height = isMounted ? '100%' : '';
-  //   body.style.overflowY = isMounted ? 'hidden' : 'scroll';
-
-  //   return () => {
-  //     body.style = '';
-  //   };
-  // }, [isMounted]);
-
   const handleMultiClose = e => {
     if (e.currentTarget === e.target || e.code === 'Escape') {
       setIsMounted(false);

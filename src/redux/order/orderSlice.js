@@ -9,13 +9,13 @@ export const orderSlice = createSlice({
     addDish(state, action) {
       state.orderedDish = [
         ...state.orderedDish,
-        { id: action.payload, quantity: 1 },
+        { _id: action.payload, quantity: 1 },
       ];
     },
 
     incrementDishQuantity(state, action) {
       state.orderedDish.forEach(item => {
-        if (item.id === action.payload) {
+        if (item._id === action.payload) {
           item.quantity += 1;
         }
       });
@@ -23,7 +23,7 @@ export const orderSlice = createSlice({
 
     decrementDishQuantity(state, action) {
       state.orderedDish.forEach(item => {
-        if (item.id === action.payload) {
+        if (item._id === action.payload) {
           item.quantity -= 1;
         }
       });
