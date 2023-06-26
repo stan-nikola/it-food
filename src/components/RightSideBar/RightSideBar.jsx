@@ -75,7 +75,7 @@ export const RightSideBar = () => {
         note: noteText,
         option: orderOption,
         dishes: orderedDish,
-        phone: isLoggedIn ? savedPhone : customerPhone,
+        phone: isLoggedIn ? '' : customerPhone,
       })
     );
   };
