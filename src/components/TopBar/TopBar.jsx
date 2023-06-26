@@ -44,7 +44,7 @@ export const TopBar = () => {
 
   return (
     <header className={s.header}>
-      <Link className={s.header__logo} to="/home/main">
+      <Link className={s.header__logo} to="/home">
         <LogoIcon className={s.header__logo_icon} />
         <div>
           <p className={s.header__logo_mainText}>IT FOOD</p>
