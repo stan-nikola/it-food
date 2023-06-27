@@ -15,7 +15,10 @@ export const DishCardRender = () => {
   // console.log('category=', category);
 
   const [searchParams] = useSearchParams();
-  const dishCategory = searchParams.get('category');
+  const dishCategory = searchParams.get('category') ?? '';
+  const userSearch = searchParams.get('search') ?? '';
+
+  // console.log('userSearch in the Render =', userSearch);
 
   // console.log('dishCategory=', dishCategory);
 
@@ -46,21 +49,29 @@ export const DishCardRender = () => {
 
   let collectionForRender = [...dishCollection];
 
-  switch (category) {
-    case 'dessert':
-      if (dishCategory.toLowerCase() !== 'all') {
-        collectionForRender = dishCollection.filter(
-          dish => dish.area.toLowerCase() === dishCategory
-        );
-      }
-      break;
+  if (userSearch) {
+    collectionForRender = dishCollection.filter(dish =>
+      dish.title.toLowerCase().includes(userSearch.toLowerCase())
+    );
+  }
 
-    default:
-      if (dishCategory.toLowerCase() !== 'all') {
-        collectionForRender = dishCollection.filter(
-          dish => dish.category.toLowerCase() === dishCategory
-        );
-      }
+  if (dishCategory) {
+    switch (category) {
+      case 'dessert':
+        if (dishCategory.toLowerCase() !== 'all') {
+          collectionForRender = dishCollection.filter(
+            dish => dish.area.toLowerCase() === dishCategory
+          );
+        }
+        break;
+
+      default:
+        if (dishCategory.toLowerCase() !== 'all') {
+          collectionForRender = dishCollection.filter(
+            dish => dish.category.toLowerCase() === dishCategory
+          );
+        }
+    }
   }
 
   // if (dishCategory.toLowerCase() !== 'all') {

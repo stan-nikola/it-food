@@ -4,7 +4,7 @@ import css from './DishTypeBar.module.css';
 
 export const DishTypeBar = () => {
   const buttonsMain = ['all', 'chicken', 'seafood', 'pasta', 'vegetarian'];
-  const buttonsMeat = ['all', 'lamb', 'beef', 'pork'];
+  const buttonsMeat = ['all', 'lamb', 'beef', 'pork', 'meat pies'];
   const buttonsDesserts = ['all', 'british', 'american', 'french', 'canadian'];
 
   const { category } = useParams();
