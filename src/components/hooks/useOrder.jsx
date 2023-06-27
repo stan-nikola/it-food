@@ -1,10 +1,24 @@
 import { useSelector } from 'react-redux';
-import { selectOrderedDish } from 'redux/order/selectors';
+import {
+  selectIsOrderAdded,
+  selectLastOrder,
+  selectOrderError,
+  selectOrderLoading,
+  selectOrderedDish,
+} from 'redux/order/selectors';
 
 export const useOrder = () => {
   const orderedDish = useSelector(selectOrderedDish);
+  const orderError = useSelector(selectOrderError);
+  const orderLoading = useSelector(selectOrderLoading);
+  const isOrderAdded = useSelector(selectIsOrderAdded);
+  const lastOrder = useSelector(selectLastOrder);
 
   return {
+    orderError,
     orderedDish,
+    orderLoading,
+    isOrderAdded,
+    lastOrder,
   };
 };

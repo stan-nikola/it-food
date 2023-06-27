@@ -25,6 +25,9 @@ export const authSlice = createSlice({
     error(state, action) {
       state.isError = action.payload;
     },
+    setPhone(state, action) {
+      state.user.phone = action.payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -162,4 +165,4 @@ export const authPresistedReducer = persistReducer(
   authSlice.reducer
 );
 
-export const { error } = authSlice.actions;
+export const { error, setPhone } = authSlice.actions;

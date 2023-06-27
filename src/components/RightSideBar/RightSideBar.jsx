@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import s from './RightSideBar.module.css';
 import 'react-phone-input-2/lib/style.css';
 import { CircularProgress } from '@mui/material';
@@ -11,18 +11,24 @@ import { useDish } from 'components/hooks/useDish';
 import { useOrder } from 'components/hooks/useOrder';
 import { Modal } from '../Modal/Modal';
 import {
+  addOrderError,
   decrementDishQuantity,
   incrementDishQuantity,
 } from 'redux/order/orderSlice';
 import { addOrder } from 'redux/order/operations';
+import { toast } from 'react-toastify';
+import { mainToast } from 'constants/toastConfig';
+import { useNavigate } from 'react-router-dom';
+import { setPhone } from 'redux/auth/authSlice';
 
 export const RightSideBar = () => {
   const [orderOption, setOrderOption] = useState('dinein');
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [noteText, setNoteText] = useState('');
-
   const [addNoteShow, setAddNoteShow] = useState(false);
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -30,12 +36,22 @@ export const RightSideBar = () => {
   const { avatarUrl, name } = user;
 
   const { dish } = useDish();
+  const { orderedDish, orderError, orderLoading, isOrderAdded } = useOrder();
 
   const { main, meat, dessert } = dish;
 
-  const { orderedDish } = useOrder();
-
   const dishFilter = orderedDish.map(item => item._id);
+
+  useEffect(() => {
+    orderError && toast.error(orderError, mainToast);
+    dispatch(addOrderError(null));
+  }, [dispatch, orderError]);
+
+  useEffect(() => {
+    if (isOrderAdded) {
+      navigate('/order');
+    }
+  }, [isOrderAdded, navigate, orderError, orderLoading]);
 
   const filteredDish = useMemo(() => {
     const allDishes = [...main, ...meat, ...dessert];
@@ -64,10 +80,6 @@ export const RightSideBar = () => {
     setAddNoteShow(prev => !prev);
   };
 
-  // ADD ERRORS ++++++++++++
-  // --------------------------------------
-  // ADD ERRORS ++++++++++++
-
   const handleSubmit = () => {
     dispatch(
       addOrder({
@@ -78,6 +90,7 @@ export const RightSideBar = () => {
         phone: isLoggedIn ? '' : customerPhone,
       })
     );
+    !isLoggedIn && dispatch(setPhone(customerPhone));
   };
 
   return (
@@ -231,10 +244,11 @@ export const RightSideBar = () => {
         <li>
           <button
             type="button"
+            disabled={orderLoading}
             className={`${s.orderOption_pay_btn} ${s.pay_btn}`}
             onClick={handleSubmit}
           >
-            Pay Now
+            {orderLoading ? 'LOADING' : 'PAY NOW'}
           </button>
         </li>
       </ul>

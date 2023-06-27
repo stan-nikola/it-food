@@ -14,3 +14,17 @@ export const addOrder = createAsyncThunk(
     }
   }
 );
+
+export const getLastOrder = createAsyncThunk(
+  'order/getLast',
+  async (credentials, thunkAPI) => {
+    try {
+      const res = await axios.post('/order/last', credentials);
+
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

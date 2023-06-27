@@ -1,7 +1,24 @@
+import { useAuth } from 'components/hooks/useAuth';
+import { useOrder } from 'components/hooks/useOrder';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getLastOrder } from 'redux/order/operations';
+
 export const Order = () => {
+  const { user, isLoggedIn } = useAuth();
+  const { lastOrder } = useOrder();
+
+  const { phone } = user;
+  console.log('Order => lastOrder:', lastOrder);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getLastOrder(isLoggedIn ? null : { phone }));
+  }, [dispatch, isLoggedIn, phone]);
+
   return (
     <main>
-      <h1>About Us</h1>
+      <h1>AAAAAAAA</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus
         laborum amet ab cumque sit nihil dolore modi error repudiandae
