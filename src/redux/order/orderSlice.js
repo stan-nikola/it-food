@@ -5,7 +5,7 @@ export const orderSlice = createSlice({
   name: 'order',
   initialState: {
     orderedDish: [],
-    lastOrder: {},
+    lastOrder: null,
     orderError: null,
     orderLoading: false,
     isOrderAdded: false,
