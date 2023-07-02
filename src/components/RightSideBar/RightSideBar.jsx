@@ -40,7 +40,7 @@ export const RightSideBar = () => {
 
   const { main, meat, dessert } = dish;
 
-  const dishFilter = orderedDish.map(item => item._id);
+  const dishFilter = orderedDish.map(item => item.id);
 
   useEffect(() => {
     orderError && toast.error(orderError, mainToast);
@@ -62,7 +62,7 @@ export const RightSideBar = () => {
 
     return filteredByOrderId.map(i1 => ({
       ...i1,
-      ...orderedDish.find(i2 => i2._id === i1._id),
+      ...orderedDish.find(i2 => i2.id === i1._id),
     }));
   }, [dessert, dishFilter, main, meat, orderedDish]);
 
@@ -86,7 +86,7 @@ export const RightSideBar = () => {
         customerName: isLoggedIn ? '' : customerName,
         note: noteText,
         option: orderOption,
-        dishes: orderedDish,
+        orderedDish,
         phone: isLoggedIn ? '' : customerPhone,
       })
     );
