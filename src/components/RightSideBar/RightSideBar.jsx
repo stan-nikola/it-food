@@ -51,7 +51,7 @@ export const RightSideBar = () => {
     if (isOrderAdded) {
       navigate('/order');
     }
-  }, [isOrderAdded, navigate, orderError, orderLoading]);
+  }, [isOrderAdded, navigate]);
 
   const filteredDish = useMemo(() => {
     const allDishes = [...main, ...meat, ...dessert];
