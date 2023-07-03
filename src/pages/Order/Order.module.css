@@ -11,37 +11,30 @@
 
 .orderDetailsData {
   display: flex;
-
-  margin-left: 24px;
-
   justify-content: space-between;
+  margin-bottom: 12px;
 }
 
 .orderDetailTitle {
   font-weight: 600;
   color: #19191c;
-  margin-bottom: 12px;
-}
-
-.orderDetailsData p {
-  color: #949494;
-  margin-bottom: 12px;
 }
 
 .orderOption {
-  display: inline-flex;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 36px;
+  font-size: 32px;
   width: 167px;
   height: 45px;
   border-radius: 8px;
   border: 2px solid #ff5c00;
-  align-items: center;
-  justify-content: center;
-  padding: 6px;
-  margin-bottom: 12px;
-  color: #19191c;
+
+  color: #f83807;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+  padding: 0 8px;
+  margin-right: 4px;
 }
 
 .orderOption_detail {
@@ -144,12 +137,14 @@
 
 .orderOption_total {
   text-align: right;
-  color: #9c9c9c;
+  color: #19191c;
   font-weight: 500;
   font-size: 18px;
   padding-right: 12px;
 }
 .orderOption_total span {
+  font-weight: 600;
+
   color: #ff5c00;
 }
 .orderOption_note {
@@ -164,4 +159,94 @@
   color: #19191c;
   padding: 4px;
   margin-top: 6px;
+}
+
+.order_payment {
+  width: 50%;
+  padding: 0 40px;
+}
+.order_payment h1 {
+  font-weight: 600;
+  color: #19191c;
+}
+
+.order_payment_title {
+  display: flex;
+  padding-bottom: 12px;
+  justify-content: space-between;
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 24px;
+}
+
+.order_payment_sub_title p {
+  color: #828487;
+}
+
+.order_payment_amount {
+  background-color: #f8f9fd;
+  padding: 16px 36px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+.order_payment_amount p {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.order_payment_amount span {
+  color: #ff5c00;
+}
+
+.order_payment_amount :not(:last-child) {
+  margin-bottom: 12px;
+  font-weight: 400;
+  font-size: 18px;
+  color: #19191c;
+}
+
+.order_payment_amount :not(:last-child) span {
+  color: #19191c;
+}
+
+.order_payment_method {
+  margin-bottom: 24px;
+}
+
+.order_payment_method p {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 12px;
+}
+.order_payment_method_wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.order_payment_method_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 108px;
+  height: 96px;
+  border-radius: 16px;
+  border: 2px solid #e4e4e4;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: color 250ms linear, box-shadow 250ms linear, border 250ms linear;
+}
+
+.order_payment_method_btn:hover {
+  box-shadow: rgba(235, 151, 16, 0.203) 0px -2px 6px 0px inset;
+}
+
+.payment_button_active {
+  border: 2px solid #ff5c00;
+  /* box-shadow: rgba(235, 151, 16, 0.208) 0px -2px 6px 0px inset; */
 }

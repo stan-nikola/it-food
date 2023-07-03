@@ -9,11 +9,10 @@
   overflow-y: scroll;
   scroll-behavior: smooth;
 
-/* Firefox */
+  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: #c2c2c2 #ffffff;
 }
-
 
 /* Chrome, Edge, and Safari */
 .container::-webkit-scrollbar {

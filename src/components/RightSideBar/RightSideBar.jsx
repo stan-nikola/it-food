@@ -96,6 +96,52 @@ export const RightSideBar = () => {
   return (
     <section className={s.container}>
       <div className={s.orderOption}>
+        <p className={s.orderOption_text}>Customer information</p>
+        {isLoggedIn || isRefreshing ? (
+          <>
+            {isRefreshing ? (
+              <CircularProgress />
+            ) : (
+              <div className={s.orderOption_user}>
+                <img
+                  className={s.orderOption_userAvatar}
+                  src={avatarUrl}
+                  alt="user avatar"
+                />
+                <div>
+                  <p className={s.orderOption_userName}>{name}</p>
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <form>
+            <input
+              placeholder="Customer name"
+              className={s.orderOption_name}
+              type="text"
+              name="customerName"
+              onChange={e => setCustomerName(e.target.value)}
+              value={customerName}
+            />
+            <PhoneInput
+              className={s.orderOption_phone}
+              inputClass={s.orderOption_phone_input}
+              buttonClass={s.orderOption_phone_flag}
+              isValid={value => {
+                if (value.length < 12) {
+                  return;
+                } else {
+                  return true;
+                }
+              }}
+              type="phone"
+              country={'ua'}
+              value={customerPhone}
+              onChange={e => setCustomerPhone(e)}
+            />
+          </form>
+        )}
         <ul className={s.orderOption_list}>
           <li className={s.orderOption_item}>
             <button
@@ -131,50 +177,6 @@ export const RightSideBar = () => {
             </button>
           </li>
         </ul>
-        <p className={s.orderOption_text}>Customer information</p>
-        {isLoggedIn || isRefreshing ? (
-          <>
-            {isRefreshing ? (
-              <CircularProgress className={s.header__nav_item} />
-            ) : (
-              <div className={s.orderOption_user}>
-                <img
-                  className={s.orderOption_userAvatar}
-                  src={avatarUrl}
-                  alt="user avatar"
-                />
-                <p className={s.orderOption_userName}>{name}</p>
-              </div>
-            )}
-          </>
-        ) : (
-          <form>
-            <input
-              placeholder="Customer name"
-              className={s.orderOption_name}
-              type="text"
-              name="customerName"
-              onChange={e => setCustomerName(e.target.value)}
-              value={customerName}
-            />
-            <PhoneInput
-              className={s.orderOption_phone}
-              inputClass={s.orderOption_phone_input}
-              buttonClass={s.orderOption_phone_flag}
-              isValid={value => {
-                if (value.length < 12) {
-                  return;
-                } else {
-                  return true;
-                }
-              }}
-              type="phone"
-              country={'ua'}
-              value={customerPhone}
-              onChange={e => setCustomerPhone(e)}
-            />
-          </form>
-        )}
         <button
           onClick={modalToggle}
           className={s.orderOption_addNote_btn}
@@ -183,59 +185,64 @@ export const RightSideBar = () => {
           Add note
         </button>
       </div>
-      <ul className={s.orderOption_detail}>
-        <li>
-          <p className={s.orderOption_text}>Orders details</p>
-        </li>
-        {filteredDish.map(({ _id, preview, title, price, quantity }) => {
-          const quantityPrice = Number((quantity * price).toFixed(2));
+      {filteredDish.length > 0 ? (
+        <ul className={s.orderOption_detail}>
+          <li>
+            <p className={s.orderOption_text}>Orders details</p>
+          </li>
+          <>
+            {filteredDish.map(({ _id, preview, title, price, quantity }) => (
+              <li key={_id} className={s.orderOption_card}>
+                <img
+                  className={s.orderOption_detail_img}
+                  src={preview}
+                  alt={title}
+                />
 
-          return (
-            <li key={_id} className={s.orderOption_card}>
-              <img
-                className={s.orderOption_detail_img}
-                src={preview}
-                alt={title}
-              ></img>
-              <div className={s.orderOption_detail_change}>
-                <div>
-                  <p className={s.orderOption_detail_food_name}>{title}</p>
-                  <div className={s.orderOption_detail_sup_change}>
-                    <div className={s.orderOption_detail_sub_change}>
-                      <p className={s.orderOption_detail_food_price}>Price</p>
-                      <p className={s.orderOption_detail_food_price_cost}>
-                        $ {quantityPrice}
-                      </p>
-                    </div>
-                    <div className={s.orderOption_detail_change}>
-                      <button
-                        onClick={() => dispatch(decrementDishQuantity(_id))}
-                        className={s.orderOption_detail_change_btn}
-                      >
-                        <AiFillMinusCircle
-                          className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_minus}`}
-                        />
-                      </button>
-                      <p className={s.orderOption_detail_quantity}>
-                        {quantity}
-                      </p>
-                      <button
-                        disabled={quantity >= 10}
-                        onClick={() => dispatch(incrementDishQuantity(_id))}
-                        className={s.orderOption_detail_change_btn}
-                      >
-                        <AiFillPlusCircle
-                          className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_plus}`}
-                        />
-                      </button>
+                <div className={s.orderOption_detail_change}>
+                  <div>
+                    <p className={s.orderOption_detail_food_name}>{title}</p>
+                    <div className={s.orderOption_detail_sup_change}>
+                      <div className={s.orderOption_detail_sub_change}>
+                        <p className={s.orderOption_detail_food_price}>Price</p>
+                        <p className={s.orderOption_detail_food_price_cost}>
+                          $ {(quantity * price).toFixed(2)}
+                        </p>
+                      </div>
+                      <div className={s.orderOption_detail_change}>
+                        <button
+                          onClick={() => dispatch(decrementDishQuantity(_id))}
+                          className={s.orderOption_detail_change_btn}
+                        >
+                          <AiFillMinusCircle
+                            className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_minus}`}
+                          />
+                        </button>
+                        <p className={s.orderOption_detail_quantity}>
+                          {quantity}
+                        </p>
+                        <button
+                          disabled={quantity >= 10}
+                          onClick={() => dispatch(incrementDishQuantity(_id))}
+                          className={s.orderOption_detail_change_btn}
+                        >
+                          <AiFillPlusCircle
+                            className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_plus}`}
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+              </li>
+            ))}
+          </>
+        </ul>
+      ) : (
+        <p className={s.orderOption_placeholder}>
+          To order a dish, click the Order Now button
+        </p>
+      )}
       <ul className={s.orderOption_pay}>
         <li className={s.orderOption_pay_Text}>
           <p className={s.pay_text}>Total</p>
@@ -244,7 +251,7 @@ export const RightSideBar = () => {
         <li>
           <button
             type="button"
-            disabled={orderLoading}
+            disabled={orderLoading || filteredDish.length === 0}
             className={`${s.orderOption_pay_btn} ${s.pay_btn}`}
             onClick={handleSubmit}
           >
