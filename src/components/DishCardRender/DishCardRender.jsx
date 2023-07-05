@@ -82,6 +82,20 @@ export const DishCardRender = () => {
 
   // console.log('collectionForRender=', collectionForRender);
 
+  // //Получаем точку
+  // const point = document.querySelector('#card');
+  // console.log('point=', point);
+
+  // //Вешаем обработчик
+  // //срабатывает при заходе курсора на элемент
+  // point.addEventListener('mouseover', function () {
+  //   this.style.backgroundColor = 'gray';
+  // });
+  // //срабатывает при уходе курсора с элемента
+  // // point.addEventListener('mouseout', function () {
+  // //   this.style.backgroundColor = 'white';
+  // // });
+
   return (
     <>
       <ul className={s.container}>
@@ -102,7 +116,7 @@ export const DishCardRender = () => {
                 const { _id } = item;
 
                 return (
-                  <li key={_id}>
+                  <li key={_id} className="">
                     <ItemCard dish={item} />
                   </li>
                 );
