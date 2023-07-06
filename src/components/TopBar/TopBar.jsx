@@ -11,6 +11,7 @@ import { LogInForm } from 'components/AuthForm/LogInForm';
 import { useAuth } from 'components/hooks/useAuth';
 import { LogOutForm } from 'components/AuthForm/logOutForm';
 import { CircularProgress } from '@mui/material';
+import { useOrder } from 'components/hooks/useOrder';
 
 export const TopBar = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -64,6 +65,7 @@ export const TopBar = () => {
               <p>Home</p>
             </NavLink>
           </li>
+
           <li className={s.header__nav_item}>
             <NavLink
               className={({ isActive }) =>
@@ -75,6 +77,7 @@ export const TopBar = () => {
               <p>Order</p>
             </NavLink>
           </li>
+
           <li className={s.header__nav_item}>
             <NavLink
               className={({ isActive }) =>

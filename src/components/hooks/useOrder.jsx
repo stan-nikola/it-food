@@ -5,6 +5,7 @@ import {
   selectOrderError,
   selectOrderLoading,
   selectOrderedDish,
+  selectIsOrderDeleted,
 } from 'redux/order/selectors';
 
 export const useOrder = () => {
@@ -13,6 +14,7 @@ export const useOrder = () => {
   const orderLoading = useSelector(selectOrderLoading);
   const isOrderAdded = useSelector(selectIsOrderAdded);
   const lastOrder = useSelector(selectLastOrder);
+  const isOrderDeleted = useSelector(selectIsOrderDeleted);
 
   return {
     orderError,
@@ -20,5 +22,6 @@ export const useOrder = () => {
     orderLoading,
     isOrderAdded,
     lastOrder,
+    isOrderDeleted,
   };
 };

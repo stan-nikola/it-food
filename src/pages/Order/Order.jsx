@@ -3,10 +3,10 @@ import { useOrder } from 'components/hooks/useOrder';
 import { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { getLastOrder } from 'redux/order/operations';
+import { deleteOrder, getLastOrder } from 'redux/order/operations';
 import s from './Order.module.css';
 import {
-  AiOutlinePrinter,
+  AiOutlineDelete,
   AiOutlineMail,
   AiOutlineCheck,
   AiOutlinePercentage,
@@ -15,23 +15,32 @@ import { ReactComponent as Cash } from '../../images/svg/cash.svg';
 import { ReactComponent as MasterCard } from '../../images/svg/master-card.svg';
 import { ReactComponent as Visa } from '../../images/svg/Visa.svg';
 import { ReactComponent as Gift } from '../../images/svg/giftCard.svg';
+import { useNavigate } from 'react-router-dom';
 
 export const Order = () => {
   const [paymentButton, setPaymentButton] = useState('cash');
 
   const { user, isLoggedIn } = useAuth();
-  const { lastOrder } = useOrder();
+  const { lastOrder, isOrderDeleted } = useOrder();
 
   const { phone } = user;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (phone || isLoggedIn) &&
       dispatch(getLastOrder(isLoggedIn ? null : { phone }));
   }, [dispatch, isLoggedIn, phone]);
 
-  const { orderNumber, orderedDish, note, option, createdAt } = lastOrder || {};
+  useEffect(() => {
+    if (isOrderDeleted) {
+      navigate('/home');
+    }
+  }, [isOrderDeleted, navigate]);
+
+  const { orderNumber, orderedDish, note, option, createdAt, _id } =
+    lastOrder || {};
 
   const totalPrice = orderedDish?.reduce(
     (acc, { price, quantity }) => acc + Number(price * quantity),
@@ -40,6 +49,10 @@ export const Order = () => {
 
   const handlePaymentChange = e => {
     setPaymentButton(e.currentTarget.id);
+  };
+
+  const handleDeleteOrder = () => {
+    dispatch(deleteOrder({ _id }));
   };
 
   return (
@@ -182,20 +195,24 @@ export const Order = () => {
                     <p>Tip amount</p>
                   </button>
                 </li>
-                <button
-                  onClick={handlePaymentChange}
-                  className={s.order_payment_other_btn}
-                >
-                  <AiOutlinePrinter />
-                  <p>Gift receipt</p>
-                </button>
-                <button
-                  onClick={handlePaymentChange}
-                  className={s.order_payment_other_btn}
-                >
-                  <AiOutlineMail />
-                  <p>Email</p>
-                </button>
+                <li>
+                  <button
+                    onClick={handlePaymentChange}
+                    className={s.order_payment_other_btn}
+                  >
+                    <AiOutlineMail />
+                    <p>Email</p>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={handleDeleteOrder}
+                    className={`${s.order_payment_other_btn} ${s.order_payment_delete_btn}`}
+                  >
+                    <AiOutlineDelete />
+                    <p>Delete order</p>
+                  </button>
+                </li>
                 <li>
                   <button
                     // onClick={handlePaymentChange}

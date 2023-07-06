@@ -28,3 +28,17 @@ export const getLastOrder = createAsyncThunk(
     }
   }
 );
+
+export const deleteOrder = createAsyncThunk(
+  'order/deleteOrder',
+  async (credentials, thunkAPI) => {
+    try {
+      const res = await axios.post('/order/delete', credentials);
+
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

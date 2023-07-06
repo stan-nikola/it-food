@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addOrder, getLastOrder } from './operations';
+import { addOrder, deleteOrder, getLastOrder } from './operations';
 
 export const orderSlice = createSlice({
   name: 'order',
@@ -9,6 +9,7 @@ export const orderSlice = createSlice({
     orderError: null,
     orderLoading: false,
     isOrderAdded: false,
+    isOrderDeleted: false,
   },
   reducers: {
     addDish(state, action) {
@@ -45,6 +46,7 @@ export const orderSlice = createSlice({
         state.orderError = null;
         state.isOrderAdded = false;
         state.orderLoading = true;
+        state.isOrderDeleted = false;
       })
       .addCase(addOrder.fulfilled, (state, action) => {
         state.orderError = null;
@@ -68,7 +70,26 @@ export const orderSlice = createSlice({
       })
       .addCase(getLastOrder.rejected, (state, action) => {
         state.orderLoading = false;
+        state.orderError = action.payload.message;
+      })
+      // getLastOrder
+      // deleteOrder
+      .addCase(deleteOrder.pending, (state, action) => {
+        state.orderLoading = true;
+        state.isOrderDeleted = false;
+      })
+      .addCase(deleteOrder.fulfilled, (state, action) => {
+        state.lastOrder = null;
+        state.orderLoading = false;
+        state.isOrderDeleted = true;
+        state.isOrderAdded = false;
+      })
+      .addCase(deleteOrder.rejected, (state, action) => {
+        state.orderLoading = false;
+        state.orderError = action.payload.message;
+        state.isOrderDeleted = false;
       });
+    // deleteOrder
   },
 });
 export const orderReducer = orderSlice.reducer;

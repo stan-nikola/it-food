@@ -36,7 +36,8 @@ export const RightSideBar = () => {
   const { avatarUrl, name } = user;
 
   const { dish } = useDish();
-  const { orderedDish, orderError, orderLoading, isOrderAdded } = useOrder();
+  const { orderedDish, orderError, orderLoading, isOrderAdded, lastOrder } =
+    useOrder();
 
   const { main, meat, dessert } = dish;
 
@@ -51,7 +52,7 @@ export const RightSideBar = () => {
     if (isOrderAdded) {
       navigate('/order');
     }
-  }, [isOrderAdded, navigate]);
+  }, [isOrderAdded, lastOrder?._id, navigate, orderLoading]);
 
   const filteredDish = useMemo(() => {
     const allDishes = [...main, ...meat, ...dessert];
