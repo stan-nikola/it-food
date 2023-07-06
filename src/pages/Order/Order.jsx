@@ -5,6 +5,12 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getLastOrder } from 'redux/order/operations';
 import s from './Order.module.css';
+import {
+  AiOutlinePrinter,
+  AiOutlineMail,
+  AiOutlineCheck,
+  AiOutlinePercentage,
+} from 'react-icons/ai';
 import { ReactComponent as Cash } from '../../images/svg/cash.svg';
 import { ReactComponent as MasterCard } from '../../images/svg/master-card.svg';
 import { ReactComponent as Visa } from '../../images/svg/Visa.svg';
@@ -95,7 +101,7 @@ export const Order = () => {
             <div className={s.orderOption_bottom}>
               <div className={s.orderOption_note}>
                 Note
-                <p>{note ? note : 'you left no notes for the order'}</p>
+                <p>{note ? note : 'you left no notes for this order'}</p>
               </div>
               <p className={s.orderOption_total}>
                 Total: <span>$ {totalPrice.toFixed(2)}</span>{' '}
@@ -163,6 +169,40 @@ export const Order = () => {
                     }`}
                   >
                     <Gift />
+                  </button>
+                </li>
+              </ul>
+              <ul className={s.order_payment_other_wrapper}>
+                <li>
+                  <button
+                    onClick={handlePaymentChange}
+                    className={s.order_payment_other_btn}
+                  >
+                    <AiOutlinePercentage />
+                    <p>Tip amount</p>
+                  </button>
+                </li>
+                <button
+                  onClick={handlePaymentChange}
+                  className={s.order_payment_other_btn}
+                >
+                  <AiOutlinePrinter />
+                  <p>Gift receipt</p>
+                </button>
+                <button
+                  onClick={handlePaymentChange}
+                  className={s.order_payment_other_btn}
+                >
+                  <AiOutlineMail />
+                  <p>Email</p>
+                </button>
+                <li>
+                  <button
+                    // onClick={handlePaymentChange}
+                    className={`${s.order_payment_other_btn} ${s.order_payment_done_btn}`}
+                  >
+                    <AiOutlineCheck />
+                    <p>Done</p>
                   </button>
                 </li>
               </ul>
