@@ -64,6 +64,7 @@ export const TopBar = () => {
               <p>Home</p>
             </NavLink>
           </li>
+
           <li className={s.header__nav_item}>
             <NavLink
               className={({ isActive }) =>
@@ -75,6 +76,7 @@ export const TopBar = () => {
               <p>Order</p>
             </NavLink>
           </li>
+
           <li className={s.header__nav_item}>
             <NavLink
               className={({ isActive }) =>

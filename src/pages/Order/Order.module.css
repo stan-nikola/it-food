@@ -294,5 +294,8 @@
 }
 
 .order_payment_done_btn {
-  background: linear-gradient(218.57deg, #ffab18 -6.67%, #ff2197 137.69%);
+  background: linear-gradient(218.57deg, #00fe088a -6.67%, #00bf63 137.69%);
+}
+.order_payment_delete_btn {
+  background: linear-gradient(218.57deg, #ff0000 -6.67%, #e90042 137.69%);
 }

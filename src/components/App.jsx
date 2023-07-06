@@ -32,7 +32,8 @@ export const App = () => {
           <Route path="/home" element={<Dashboard />}>
             <Route path=":category" element={<DishBlock />} />
           </Route>
-          <Route path="/order" element={<Order />} />
+
+          <Route path="/order/" element={<Order />} />
         </Route>
         <Route path="*" element={<>NotFound</>} />
       </Routes>
