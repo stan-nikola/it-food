@@ -251,7 +251,12 @@ export const RightSideBar = () => {
         <li>
           <button
             type="button"
-            disabled={orderLoading || filteredDish.length === 0}
+            disabled={
+              orderLoading ||
+              filteredDish.length === 0 ||
+              (!isLoggedIn &&
+                (customerName.length < 3 || customerPhone.length < 12))
+            }
             className={`${s.orderOption_pay_btn} ${s.pay_btn}`}
             onClick={handleSubmit}
           >

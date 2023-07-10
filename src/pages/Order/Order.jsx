@@ -3,7 +3,11 @@ import { useOrder } from 'components/hooks/useOrder';
 import { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { deleteOrder, getLastOrder } from 'redux/order/operations';
+import {
+  confirmOrder,
+  deleteOrder,
+  getLastOrder,
+} from 'redux/order/operations';
 import s from './Order.module.css';
 import {
   AiOutlineDelete,
@@ -18,13 +22,17 @@ import { ReactComponent as Gift } from '../../images/svg/giftCard.svg';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from 'components/Modal/Modal';
 
+import { orderToast } from 'constants/toastConfig';
+import { toast } from 'react-toastify';
+
 export const Order = () => {
-  const [paymentButton, setPaymentButton] = useState('cash');
-  const [tipAmount, setTipAmount] = useState(10);
+  const [paymentMethod, setPaymentMethod] = useState('cash');
+  const [tipAmount, setTipAmount] = useState(5);
   const [isTipChangeShow, setIsTipChangeShow] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const { user, isLoggedIn } = useAuth();
-  const { lastOrder, isOrderDeleted } = useOrder();
+  const { lastOrder, orderLoading } = useOrder();
 
   const { phone } = user;
 
@@ -37,10 +45,13 @@ export const Order = () => {
   }, [dispatch, isLoggedIn, phone]);
 
   useEffect(() => {
-    if (isOrderDeleted) {
-      navigate('/home');
+    if (!lastOrder && !orderLoading) {
+      toast.success(toastMessage, orderToast);
+      setTimeout(() => {
+        navigate('/home');
+      }, 10);
     }
-  }, [isOrderDeleted, navigate]);
+  }, [lastOrder, navigate, orderLoading, toastMessage]);
 
   const { orderNumber, orderedDish, note, option, createdAt, _id } =
     lastOrder || {};
@@ -51,14 +62,22 @@ export const Order = () => {
   );
 
   const handlePaymentChange = e => {
-    setPaymentButton(e.currentTarget.id);
+    setPaymentMethod(e.currentTarget.id);
   };
 
   const handleDeleteOrder = () => {
     dispatch(deleteOrder({ _id }));
+    setToastMessage('Order successfully deleted!');
   };
 
-  const modalToggle = () => () => setIsTipChangeShow(prev => !prev);
+  const modalToggle = () => setIsTipChangeShow(prev => !prev);
+
+  const handleConfirmOrder = () => {
+    dispatch(confirmOrder({ _id: lastOrder._id, paymentMethod, tipAmount }));
+    setToastMessage(
+      'Thank you! Order successfully confirmed! We will contact you soon '
+    );
+  };
 
   return (
     <section className={s.orderContainer}>
@@ -75,46 +94,50 @@ export const Order = () => {
             </div>
 
             <ul className={s.orderOption_detail}>
-              {orderedDish.map(({ _id, preview, title, price, quantity }) => (
-                <li key={_id} className={s.orderOption_card}>
-                  <img
-                    className={s.orderOption_detail_img}
-                    src={preview}
-                    alt={title}
-                  ></img>
-                  <div className={s.orderOption_detail_change}>
-                    <div>
-                      <p className={s.orderOption_detail_food_name}>{title}</p>
-                      <div className={s.orderOption_detail_sup_change}>
-                        <div className={s.orderOption_detail_sub_change}>
-                          <p className={s.orderOption_detail_food_price}>
-                            Price
-                          </p>
-                          <p className={s.orderOption_detail_food_price_cost}>
-                            $ {price}
-                          </p>
-                        </div>
-                        <div className={s.orderOption_detail_sub_change}>
-                          <p className={s.orderOption_detail_food_price}>
-                            Quantity
-                          </p>
-                          <p className={s.orderOption_detail_food_price_cost}>
-                            <span> {quantity}</span>
-                          </p>
-                        </div>
-                        <div className={s.orderOption_detail_sub_change}>
-                          <p className={s.orderOption_detail_food_price}>
-                            Total
-                          </p>
-                          <p className={s.orderOption_detail_food_price_cost}>
-                            $ {(quantity * price).toFixed(2)}
-                          </p>
+              {orderedDish.map(
+                ({ _id, id, preview, title, price, quantity }) => (
+                  <li key={_id || id} className={s.orderOption_card}>
+                    <img
+                      className={s.orderOption_detail_img}
+                      src={preview}
+                      alt={title}
+                    ></img>
+                    <div className={s.orderOption_detail_change}>
+                      <div>
+                        <p className={s.orderOption_detail_food_name}>
+                          {title}
+                        </p>
+                        <div className={s.orderOption_detail_sup_change}>
+                          <div className={s.orderOption_detail_sub_change}>
+                            <p className={s.orderOption_detail_food_price}>
+                              Price
+                            </p>
+                            <p className={s.orderOption_detail_food_price_cost}>
+                              $ {price}
+                            </p>
+                          </div>
+                          <div className={s.orderOption_detail_sub_change}>
+                            <p className={s.orderOption_detail_food_price}>
+                              Quantity
+                            </p>
+                            <p className={s.orderOption_detail_food_price_cost}>
+                              <span> {quantity}</span>
+                            </p>
+                          </div>
+                          <div className={s.orderOption_detail_sub_change}>
+                            <p className={s.orderOption_detail_food_price}>
+                              Total
+                            </p>
+                            <p className={s.orderOption_detail_food_price_cost}>
+                              $ {(quantity * price).toFixed(2)}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </li>
-              ))}
+                  </li>
+                )
+              )}
             </ul>
             <div className={s.orderOption_bottom}>
               <div className={s.orderOption_note}>
@@ -136,8 +159,8 @@ export const Order = () => {
             </div>
             <div className={s.order_payment_amount}>
               <p className={s.order_payment_amount_tip}>
-                Tip amount 10%
-                <span>$ {(totalPrice / tipAmount).toFixed(2)}</span>
+                Tip amount {tipAmount}%
+                <span>$ {((totalPrice / 100) * tipAmount).toFixed(2)}</span>
               </p>
               <p>
                 Total amount
@@ -154,7 +177,7 @@ export const Order = () => {
                     id="cash"
                     onClick={handlePaymentChange}
                     className={`${s.order_payment_method_btn} ${
-                      paymentButton === 'cash' && s.payment_button_active
+                      paymentMethod === 'cash' && s.payment_button_active
                     }`}
                   >
                     <Cash />
@@ -162,10 +185,10 @@ export const Order = () => {
                 </li>
                 <li>
                   <button
-                    id="masterCard"
+                    id="mastercard"
                     onClick={handlePaymentChange}
                     className={`${s.order_payment_method_btn} ${
-                      paymentButton === 'masterCard' && s.payment_button_active
+                      paymentMethod === 'mastercard' && s.payment_button_active
                     }`}
                   >
                     <MasterCard />
@@ -176,7 +199,7 @@ export const Order = () => {
                     id="visa"
                     onClick={handlePaymentChange}
                     className={`${s.order_payment_method_btn} ${
-                      paymentButton === 'visa' && s.payment_button_active
+                      paymentMethod === 'visa' && s.payment_button_active
                     }`}
                   >
                     <Visa />
@@ -187,7 +210,7 @@ export const Order = () => {
                     id="gift"
                     onClick={handlePaymentChange}
                     className={`${s.order_payment_method_btn} ${
-                      paymentButton === 'gift' && s.payment_button_active
+                      paymentMethod === 'gift' && s.payment_button_active
                     }`}
                   >
                     <Gift />
@@ -224,7 +247,7 @@ export const Order = () => {
                 </li>
                 <li>
                   <button
-                    // onClick={handlePaymentChange}
+                    onClick={handleConfirmOrder}
                     className={`${s.order_payment_other_btn} ${s.order_payment_done_btn}`}
                   >
                     <AiOutlineCheck />
@@ -239,24 +262,33 @@ export const Order = () => {
 
       {isTipChangeShow && (
         <Modal modalToggle={modalToggle} styles={s}>
-          <div className={s.add_note}>
-            <h1 className={s.add_note_title}>TIP CHANGE</h1>
+          <div className={s.change_tip}>
+            <h1 className={s.change_tip_title}>TIP CHANGE</h1>
 
-            <p className={s.add_note_subTitle}>You can change tip amount</p>
+            <p className={s.change_tip_subTitle}>You can change tip amount</p>
 
             <form className={s.signIn_form}>
-              <label htmlFor="note">
+              <label htmlFor="tipChange">
                 <input
-                  className={s.add_note_subTitle_field}
-                  placeholder="add you note..."
+                  className={s.change_tip_input}
                   name="tipChange"
                   type="number"
                   value={tipAmount}
-                  onChange={e => setTipAmount(e.target.value)}
+                  onChange={e =>
+                    setTipAmount(
+                      e.target.value > 0 && e.target.value < 31
+                        ? e.target.value
+                        : 0
+                    )
+                  }
                 />
               </label>
             </form>
-            <button className={s.add_note_btn} onClick={null} id="tipChange">
+            <button
+              className={s.change_tip_btn}
+              onClick={modalToggle}
+              id="tipChange"
+            >
               OK
             </button>
           </div>

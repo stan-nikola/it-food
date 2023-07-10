@@ -6,9 +6,9 @@
   align-items: center;
   padding: 20px;
   width: 374px;
-  top: 271px;
-  left: 70%;
-  transform: translate(0%, 0%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: #ffffff;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
@@ -19,7 +19,7 @@
 }
 
 .modal_unmount {
-  transform: translate(0%, -50%);
+  transform: translate(-50%, 0%);
   opacity: 0;
 }
 
@@ -323,4 +323,58 @@
 }
 .order_payment_delete_btn {
   background: linear-gradient(218.57deg, #ff0000 -6.67%, #e90042 137.69%);
+}
+
+.change_tip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 24px;
+}
+.change_tip_title {
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 150%;
+  color: #19191c;
+  margin-bottom: 24px;
+}
+.change_tip_subTitle {
+  font-size: 12px;
+  line-height: 150%;
+  color: #828487;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.change_tip_input {
+  width: 316px;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  color: #c2c2c2;
+  border: 1px solid #ff5c00;
+  border-radius: 12px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  resize: none;
+}
+.change_tip_btn {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  width: 316px;
+  height: 42px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  background: #ff5c00;
+  border-radius: 58px;
+  cursor: pointer;
+  transition: all 0.35s;
+  color: #fff;
+  margin-bottom: 24px;
+
+  margin-top: 12px;
+  transition: background 150ms linear, box-shadow 250ms linear;
 }

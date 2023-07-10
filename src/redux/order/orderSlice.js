@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addOrder, deleteOrder, getLastOrder } from './operations';
+import {
+  addOrder,
+  confirmOrder,
+  deleteOrder,
+  getLastOrder,
+} from './operations';
 
 export const orderSlice = createSlice({
   name: 'order',
@@ -9,7 +14,6 @@ export const orderSlice = createSlice({
     orderError: null,
     orderLoading: false,
     isOrderAdded: false,
-    isOrderDeleted: false,
   },
   reducers: {
     addDish(state, action) {
@@ -58,11 +62,12 @@ export const orderSlice = createSlice({
         state.orderError = null;
         state.isOrderAdded = false;
         state.orderLoading = true;
-        state.isOrderDeleted = false;
       })
       .addCase(addOrder.fulfilled, (state, action) => {
         state.orderError = null;
         state.isOrderAdded = true;
+        state.lastOrder = action.payload;
+
         state.orderLoading = false;
       })
       .addCase(addOrder.rejected, (state, action) => {
@@ -72,9 +77,9 @@ export const orderSlice = createSlice({
       })
       // getLastOrder
       .addCase(getLastOrder.pending, (state, action) => {
-        state.isOrderAdded = false;
         state.orderLoading = true;
-        state.lastOrder = null;
+
+        state.isOrderAdded = false;
       })
       .addCase(getLastOrder.fulfilled, (state, action) => {
         state.lastOrder = action.payload;
@@ -88,19 +93,29 @@ export const orderSlice = createSlice({
       // deleteOrder
       .addCase(deleteOrder.pending, (state, action) => {
         state.orderLoading = true;
-        state.isOrderDeleted = false;
       })
       .addCase(deleteOrder.fulfilled, (state, action) => {
         state.lastOrder = null;
         state.orderLoading = false;
-        state.isOrderDeleted = true;
       })
       .addCase(deleteOrder.rejected, (state, action) => {
         state.orderLoading = false;
         state.orderError = action.payload.message;
-        state.isOrderDeleted = false;
+      })
+      // deleteOrder
+      // confirmOrder
+      .addCase(confirmOrder.pending, (state, action) => {
+        state.orderLoading = true;
+      })
+      .addCase(confirmOrder.fulfilled, (state, action) => {
+        state.lastOrder = null;
+        state.orderLoading = false;
+      })
+      .addCase(confirmOrder.rejected, (state, action) => {
+        state.orderLoading = false;
+        state.orderError = action.payload.message;
       });
-    // deleteOrder
+    // confirmOrder
   },
 });
 export const orderReducer = orderSlice.reducer;

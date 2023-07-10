@@ -23,7 +23,7 @@ export const TopBar = () => {
 
   const { avatarUrl } = user;
 
-  const { isOrderDeleted } = useOrder();
+  const { lastOrder } = useOrder();
 
   const modalToggle = e => {
     setLogInShow(false);
@@ -68,8 +68,8 @@ export const TopBar = () => {
             </NavLink>
           </li>
 
-          <li className={s.header__nav_item}>
-            {!isOrderDeleted && (
+          {lastOrder && (
+            <li className={s.header__nav_item}>
               <NavLink
                 className={({ isActive }) =>
                   isActive ? s.header__nav_link_active : s.header__nav_link
@@ -79,8 +79,8 @@ export const TopBar = () => {
                 <BiFile className={s.header__nav_icon} />
                 <p>Order</p>
               </NavLink>
-            )}
-          </li>
+            </li>
+          )}
 
           <li className={s.header__nav_item}>
             <NavLink
