@@ -8,3 +8,13 @@ export const mainToast = {
   progress: undefined,
   theme: 'light',
 };
+
+export const orderToast = {
+  position: 'top-right',
+
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+
+  theme: 'light',
+};

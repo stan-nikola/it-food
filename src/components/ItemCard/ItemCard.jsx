@@ -10,7 +10,7 @@ import { useOrder } from 'components/hooks/useOrder';
 export const ItemCard = ({ dish }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
   const [addNoteShow, setAddNoteShow] = useState(false);
-  const [moreInfoShow, setmoreInfoShow] = useState(false);
+  const [moreInfoShow, setMoreInfoShow] = useState(false);
 
   const { _id: id, description, preview, thumb, title, price } = dish;
 
@@ -23,7 +23,7 @@ export const ItemCard = ({ dish }) => {
   };
 
   const moreInfoToggle = () => {
-    setmoreInfoShow(prev => !prev);
+    setMoreInfoShow(prev => !prev);
   };
 
   const isDishOrdered = orderedDish.some(item => item.id === id);
