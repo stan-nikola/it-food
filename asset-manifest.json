@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/it-food/static/css/main.76b65c61.css",
-    "main.js": "/it-food/static/js/main.7f763dda.js",
+    "main.css": "/it-food/static/css/main.8ccde8f2.css",
+    "main.js": "/it-food/static/js/main.db6b81da.js",
     "static/media/cash.svg": "/it-food/static/media/cash.f424ddc7d103487a279b9b4322a81d8e.svg",
     "static/media/dessert-dish-icon.svg": "/it-food/static/media/dessert-dish-icon.501586faae2f993feffcab9bc4d53c5b.svg",
     "static/media/main-dish-icon.svg": "/it-food/static/media/main-dish-icon.8d81a775ac1de6dc8151b9133f90a36f.svg",
@@ -11,11 +11,11 @@
     "static/media/master-card.svg": "/it-food/static/media/master-card.7b9d88f24cfed8be8b1c15709e2196ec.svg",
     "index.html": "/it-food/index.html",
     "static/media/giftCard.svg": "/it-food/static/media/giftCard.93e9513ef2539d36285be0dcbcc160a4.svg",
-    "main.76b65c61.css.map": "/it-food/static/css/main.76b65c61.css.map",
-    "main.7f763dda.js.map": "/it-food/static/js/main.7f763dda.js.map"
+    "main.8ccde8f2.css.map": "/it-food/static/css/main.8ccde8f2.css.map",
+    "main.db6b81da.js.map": "/it-food/static/js/main.db6b81da.js.map"
   },
   "entrypoints": [
-    "static/css/main.76b65c61.css",
-    "static/js/main.7f763dda.js"
+    "static/css/main.8ccde8f2.css",
+    "static/js/main.db6b81da.js"
   ]
 }
