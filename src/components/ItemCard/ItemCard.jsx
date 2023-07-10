@@ -5,6 +5,8 @@ import { MoreInfo } from '../ItemCard/MoreInfo/MoreInfo';
 import { useDispatch } from 'react-redux';
 import { addDish } from 'redux/order/orderSlice';
 
+import { useOrder } from 'components/hooks/useOrder';
+
 export const ItemCard = ({ dish }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
   const [addNoteShow, setAddNoteShow] = useState(false);
@@ -14,6 +16,8 @@ export const ItemCard = ({ dish }) => {
 
   const dispatch = useDispatch();
 
+  const { orderedDish } = useOrder();
+
   const modalToggle = () => {
     setAddNoteShow(prev => !prev);
   };
@@ -21,6 +25,8 @@ export const ItemCard = ({ dish }) => {
   const moreInfoToggle = () => {
     setmoreInfoShow(prev => !prev);
   };
+
+  const isDishOrdered = orderedDish.some(item => item.id === id);
 
   // //Получаем точку
   // const point = document.querySelector('#card');
@@ -73,7 +79,7 @@ export const ItemCard = ({ dish }) => {
             type="button"
             className={css.button}
           >
-            Order now
+            {isDishOrdered ? 'Ordered' : 'Order now'}
           </button>
         </div>
       </div>

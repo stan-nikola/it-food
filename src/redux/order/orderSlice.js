@@ -13,10 +13,22 @@ export const orderSlice = createSlice({
   },
   reducers: {
     addDish(state, action) {
-      state.orderedDish = [
-        ...state.orderedDish,
-        { id: action.payload, quantity: 1 },
-      ];
+      const isDishInList = state.orderedDish.some(
+        item => item.id === action.payload
+      );
+
+      if (state.orderedDish.length > 0) {
+        if (isDishInList) {
+          state.orderedDish = [...state.orderedDish];
+        } else {
+          state.orderedDish = [
+            ...state.orderedDish,
+            { id: action.payload, quantity: 1 },
+          ];
+        }
+      } else {
+        state.orderedDish = [{ id: action.payload, quantity: 1 }];
+      }
     },
 
     incrementDishQuantity(state, action) {
@@ -82,7 +94,6 @@ export const orderSlice = createSlice({
         state.lastOrder = null;
         state.orderLoading = false;
         state.isOrderDeleted = true;
-        state.isOrderAdded = false;
       })
       .addCase(deleteOrder.rejected, (state, action) => {
         state.orderLoading = false;

@@ -11,6 +11,7 @@ import { LogInForm } from 'components/AuthForm/LogInForm';
 import { useAuth } from 'components/hooks/useAuth';
 import { LogOutForm } from 'components/AuthForm/logOutForm';
 import { CircularProgress } from '@mui/material';
+import { useOrder } from 'components/hooks/useOrder';
 
 export const TopBar = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -21,6 +22,8 @@ export const TopBar = () => {
   const { isLoggedIn, user, isRefreshing } = useAuth();
 
   const { avatarUrl } = user;
+
+  const { isOrderDeleted } = useOrder();
 
   const modalToggle = e => {
     setLogInShow(false);
@@ -66,15 +69,17 @@ export const TopBar = () => {
           </li>
 
           <li className={s.header__nav_item}>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? s.header__nav_link_active : s.header__nav_link
-              }
-              to="/order"
-            >
-              <BiFile className={s.header__nav_icon} />
-              <p>Order</p>
-            </NavLink>
+            {!isOrderDeleted && (
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? s.header__nav_link_active : s.header__nav_link
+                }
+                to="/order"
+              >
+                <BiFile className={s.header__nav_icon} />
+                <p>Order</p>
+              </NavLink>
+            )}
           </li>
 
           <li className={s.header__nav_item}>

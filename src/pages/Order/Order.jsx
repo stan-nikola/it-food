@@ -16,9 +16,12 @@ import { ReactComponent as MasterCard } from '../../images/svg/master-card.svg';
 import { ReactComponent as Visa } from '../../images/svg/Visa.svg';
 import { ReactComponent as Gift } from '../../images/svg/giftCard.svg';
 import { useNavigate } from 'react-router-dom';
+import { Modal } from 'components/Modal/Modal';
 
 export const Order = () => {
   const [paymentButton, setPaymentButton] = useState('cash');
+  const [tipAmount, setTipAmount] = useState(10);
+  const [isTipChangeShow, setIsTipChangeShow] = useState(false);
 
   const { user, isLoggedIn } = useAuth();
   const { lastOrder, isOrderDeleted } = useOrder();
@@ -54,6 +57,8 @@ export const Order = () => {
   const handleDeleteOrder = () => {
     dispatch(deleteOrder({ _id }));
   };
+
+  const modalToggle = () => () => setIsTipChangeShow(prev => !prev);
 
   return (
     <section className={s.orderContainer}>
@@ -131,10 +136,14 @@ export const Order = () => {
             </div>
             <div className={s.order_payment_amount}>
               <p className={s.order_payment_amount_tip}>
-                Tip amount 10%<span>$ {(totalPrice / 10).toFixed(2)}</span>
+                Tip amount 10%
+                <span>$ {(totalPrice / tipAmount).toFixed(2)}</span>
               </p>
               <p>
-                Total amount<span>$ {(totalPrice * 1.1).toFixed(2)}</span>
+                Total amount
+                <span>
+                  $ {(totalPrice + (totalPrice / 100) * tipAmount).toFixed(2)}
+                </span>
               </p>
             </div>
             <div className={s.order_payment_method}>
@@ -188,7 +197,7 @@ export const Order = () => {
               <ul className={s.order_payment_other_wrapper}>
                 <li>
                   <button
-                    onClick={handlePaymentChange}
+                    onClick={() => setIsTipChangeShow(prev => !prev)}
                     className={s.order_payment_other_btn}
                   >
                     <AiOutlinePercentage />
@@ -226,6 +235,32 @@ export const Order = () => {
             </div>
           </div>
         </>
+      )}
+
+      {isTipChangeShow && (
+        <Modal modalToggle={modalToggle} styles={s}>
+          <div className={s.add_note}>
+            <h1 className={s.add_note_title}>TIP CHANGE</h1>
+
+            <p className={s.add_note_subTitle}>You can change tip amount</p>
+
+            <form className={s.signIn_form}>
+              <label htmlFor="note">
+                <input
+                  className={s.add_note_subTitle_field}
+                  placeholder="add you note..."
+                  name="tipChange"
+                  type="number"
+                  value={tipAmount}
+                  onChange={e => setTipAmount(e.target.value)}
+                />
+              </label>
+            </form>
+            <button className={s.add_note_btn} onClick={null} id="tipChange">
+              OK
+            </button>
+          </div>
+        </Modal>
       )}
     </section>
   );
