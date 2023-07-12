@@ -56,3 +56,17 @@ export const confirmOrder = createAsyncThunk(
     }
   }
 );
+
+export const getUserOrder = createAsyncThunk(
+  'order/getUserOrder',
+  async (credentials, thunkAPI) => {
+    try {
+      const res = await axios.get('/order/history', credentials);
+
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

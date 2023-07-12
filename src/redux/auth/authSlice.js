@@ -14,7 +14,13 @@ import { changeUserData } from 'redux/user/operations';
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: { name: null, email: null, phone: null, avatarUrl: null },
+    user: {
+      name: null,
+      email: null,
+      phone: null,
+      avatarUrl: null,
+      giftCoin: 0,
+    },
     token: null,
     isLoggedIn: false,
     isLoading: false,
@@ -53,9 +59,9 @@ export const authSlice = createSlice({
         state.isError = null;
       })
       .addCase(verification.fulfilled, (state, action) => {
-        const { name, phone, email, avatarUrl } = action.payload;
+        const { name, phone, email, avatarUrl, giftCoin } = action.payload;
 
-        state.user = { name, phone, email, avatarUrl };
+        state.user = { name, phone, email, avatarUrl, giftCoin };
         state.token = action.payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
@@ -71,8 +77,8 @@ export const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        const { name, phone, email, avatarUrl } = action.payload;
-        state.user = { name, phone, email, avatarUrl };
+        const { name, phone, email, avatarUrl, giftCoin } = action.payload;
+        state.user = { name, phone, email, avatarUrl, giftCoin };
         state.isLoggedIn = true;
         state.isLoading = false;
         state.isRefreshing = false;
@@ -88,8 +94,8 @@ export const authSlice = createSlice({
         state.isError = null;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        const { name, phone, email, avatarUrl } = action.payload;
-        state.user = { name, phone, email, avatarUrl };
+        const { name, phone, email, avatarUrl, giftCoin } = action.payload;
+        state.user = { name, phone, email, avatarUrl, giftCoin };
         state.token = action.payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
@@ -108,7 +114,13 @@ export const authSlice = createSlice({
       })
       .addCase(logOut.fulfilled, (state, action) => {
         state.token = null;
-        state.user = { name: null, phone: null, email: null, avatarUrl: null };
+        state.user = {
+          name: null,
+          phone: null,
+          email: null,
+          avatarUrl: null,
+          giftCoin: 0,
+        };
         state.isLoggedIn = false;
         state.isLoading = false;
         state.isRefreshing = false;

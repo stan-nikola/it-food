@@ -24,17 +24,20 @@ import { Modal } from 'components/Modal/Modal';
 
 import { orderToast } from 'constants/toastConfig';
 import { toast } from 'react-toastify';
+import { deleteAllDishes } from 'redux/order/orderSlice';
+import { refreshUser } from 'redux/auth/operations';
 
 export const Order = () => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [tipAmount, setTipAmount] = useState(5);
   const [isTipChangeShow, setIsTipChangeShow] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
 
   const { user, isLoggedIn } = useAuth();
   const { lastOrder, orderLoading } = useOrder();
 
-  const { phone } = user;
+  const { phone, email } = user;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,9 +52,16 @@ export const Order = () => {
       toast.success(toastMessage, orderToast);
       setTimeout(() => {
         navigate('/home');
+        dispatch(refreshUser());
       }, 10);
     }
-  }, [lastOrder, navigate, orderLoading, toastMessage]);
+  }, [dispatch, lastOrder, navigate, orderLoading, toastMessage]);
+
+  useEffect(() => {
+    if (orderConfirmed && !lastOrder) {
+      dispatch(deleteAllDishes());
+    }
+  }, [dispatch, lastOrder, orderConfirmed]);
 
   const { orderNumber, orderedDish, note, option, createdAt, _id } =
     lastOrder || {};
@@ -73,11 +83,19 @@ export const Order = () => {
   const modalToggle = () => setIsTipChangeShow(prev => !prev);
 
   const handleConfirmOrder = () => {
-    dispatch(confirmOrder({ _id: lastOrder._id, paymentMethod, tipAmount }));
+    dispatch(
+      confirmOrder({ _id: lastOrder._id, paymentMethod, tipAmount, email })
+    );
+    setOrderConfirmed(prev => !prev);
     setToastMessage(
       'Thank you! Order successfully confirmed! We will contact you soon '
     );
   };
+
+  const calculatedGiftCoin = (
+    ((totalPrice * 0.03 * tipAmount) / 10) *
+    100
+  ).toFixed(0);
 
   return (
     <section className={s.orderContainer}>
@@ -161,6 +179,10 @@ export const Order = () => {
               <p className={s.order_payment_amount_tip}>
                 Tip amount {tipAmount}%
                 <span>$ {((totalPrice / 100) * tipAmount).toFixed(2)}</span>
+              </p>
+              <p>
+                Gift Coins
+                <span> {calculatedGiftCoin}</span>
               </p>
               <p>
                 Total amount

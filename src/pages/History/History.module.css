@@ -1,0 +1,106 @@
+.homeContainer {
+  padding: 24px 12px 0;
+  display: flex;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
+}
+
+.order_card_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  border: 1px solid #e4e4e4;
+  padding: 12px 3px 12px 12px;
+  height: 700px;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+.order_card_wrapper {
+  scrollbar-width: auto;
+  scrollbar-color: #c2c2c2 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+.order_card_wrapper::-webkit-scrollbar {
+  width: 9px;
+}
+
+.order_card_wrapper::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.order_card_wrapper::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 4px;
+  border: 3px solid #ffffff;
+}
+
+.order_card {
+  height: 96px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #e4e4e4;
+  transition: border 250ms linear;
+}
+
+.order_card:hover {
+  border: 1px solid #ff5c00;
+}
+
+.order_card:not(:last-child) {
+  margin-bottom: 12px;
+}
+.order_date_wrapper {
+  margin-right: 8px;
+}
+
+.order_date {
+  display: flex;
+  margin-bottom: 6px;
+}
+.order_date span {
+  margin-right: 4px;
+  color: #ff5c00;
+}
+
+.order_option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  width: 92px;
+  height: 24px;
+  border-radius: 16px;
+  background-color: #ff5c00;
+  color: #fff;
+
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.order_item_title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f83807;
+  margin-bottom: 8px;
+}
+
+.order_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60px;
+}
+
+.order_item:not(:last-child) {
+  margin-right: 8px;
+}
