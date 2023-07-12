@@ -27,6 +27,7 @@
   padding-top: 12px;
   display: flex;
   border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
 }
 
 .orderDetails {

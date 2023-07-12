@@ -33,7 +33,7 @@ export const RightSideBar = () => {
   const dispatch = useDispatch();
 
   const { isLoggedIn, user, isRefreshing } = useAuth();
-  const { avatarUrl, name } = user;
+  const { avatarUrl, name, giftCoin } = user;
 
   const { dish } = useDish();
   const { orderedDish, orderError, orderLoading, isOrderAdded } = useOrder();
@@ -110,6 +110,9 @@ export const RightSideBar = () => {
                 />
                 <div>
                   <p className={s.orderOption_userName}>{name}</p>
+                  <p className={s.orderOption_gift}>
+                    Gift Coins: <p>{giftCoin}</p>
+                  </p>
                 </div>
               </div>
             )}
@@ -201,7 +204,9 @@ export const RightSideBar = () => {
 
                 <div className={s.orderOption_detail_change}>
                   <div>
-                    <p className={s.orderOption_detail_food_name}>{title}</p>
+                    <p className={s.orderOption_detail_food_name}>
+                      {title.slice(0, 30)}
+                    </p>
                     <div className={s.orderOption_detail_sup_change}>
                       <div className={s.orderOption_detail_sub_change}>
                         <p className={s.orderOption_detail_food_price}>Price</p>

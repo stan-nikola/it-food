@@ -16,9 +16,10 @@ import { error } from 'redux/auth/authSlice';
 
 export const LogOutForm = ({ modalToggle }) => {
   const { user, isError, isLoading } = useAuth();
+
   const dispatch = useDispatch();
 
-  const { name, avatarUrl, email, phone } = user;
+  const { name, avatarUrl, email, phone, giftCoin } = user;
 
   const [avatarImage, setAvatarImage] = useState(null);
   const [avatarFile, setAvatarFile] = useState(null);
@@ -157,6 +158,7 @@ export const LogOutForm = ({ modalToggle }) => {
             <p className={`${s.logOut_text} ${s.logOut_text_name}`}>{name}</p>
             <p className={s.logOut_text}>{email}</p>
             <p className={s.logOut_text}>{phone}</p>
+            <p className={s.logOut_text}>Gift coins:{giftCoin}</p>
           </div>
         )}
       </div>

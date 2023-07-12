@@ -9,6 +9,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { Layout } from './Layout/Layout';
 import { DishBlock } from './MainBlock/DishBlock';
 import { Order } from 'pages/Order/Order';
+import { History } from 'pages/History/History';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export const App = () => {
           </Route>
 
           <Route path="/order/" element={<Order />} />
+          <Route path="/history/" element={<History />} />
         </Route>
         <Route path="*" element={<>NotFound</>} />
       </Routes>

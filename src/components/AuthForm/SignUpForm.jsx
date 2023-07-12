@@ -75,7 +75,7 @@ export const SignUpForm = ({ modalToggle }) => {
           <form className={s.signIn_form}>
             <input
               placeholder="Code"
-              className={s.signIn_name}
+              className={s.signIn_field}
               name="vilificationCode"
               onChange={e => setVerificationCode(e.target.value)}
               value={verificationCode}

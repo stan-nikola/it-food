@@ -4,6 +4,7 @@ import {
   confirmOrder,
   deleteOrder,
   getLastOrder,
+  getUserOrder,
 } from './operations';
 
 export const orderSlice = createSlice({
@@ -14,6 +15,7 @@ export const orderSlice = createSlice({
     orderError: null,
     orderLoading: false,
     isOrderAdded: false,
+    userOrder: [],
   },
   reducers: {
     addDish(state, action) {
@@ -33,6 +35,9 @@ export const orderSlice = createSlice({
       } else {
         state.orderedDish = [{ id: action.payload, quantity: 1 }];
       }
+    },
+    deleteAllDishes(state, action) {
+      state.orderedDish = [];
     },
 
     incrementDishQuantity(state, action) {
@@ -114,14 +119,29 @@ export const orderSlice = createSlice({
       .addCase(confirmOrder.rejected, (state, action) => {
         state.orderLoading = false;
         state.orderError = action.payload.message;
+      })
+      // confirmOrder
+
+      // getUserOrder
+      .addCase(getUserOrder.pending, (state, action) => {
+        state.orderLoading = true;
+      })
+      .addCase(getUserOrder.fulfilled, (state, action) => {
+        state.userOrder = action.payload;
+        state.orderLoading = false;
+      })
+      .addCase(getUserOrder.rejected, (state, action) => {
+        state.orderLoading = false;
+        state.orderError = action.payload.message;
       });
-    // confirmOrder
+    // getLastOrder
   },
 });
 export const orderReducer = orderSlice.reducer;
 
 export const {
   addDish,
+  deleteAllDishes,
   decrementDishQuantity,
   incrementDishQuantity,
   addOrderError,
