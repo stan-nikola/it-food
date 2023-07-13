@@ -53,14 +53,26 @@
   width: 167px;
   height: 45px;
   border-radius: 8px;
-  border: 2px solid #ff5c00;
 
-  color: #f83807;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 
   padding: 0 8px;
   margin-right: 4px;
+}
+.orderOption_dineIn {
+  border: 2px solid #3071ff;
+  color: #3071ff;
+}
+
+.orderOption_delivery {
+  border: 2px solid #ff5c00;
+  color: #ff5c00;
+}
+
+.orderOption_pickup {
+  border: 2px solid #35c335;
+  color: #35c335;
 }
 
 .orderOption_detail {

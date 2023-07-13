@@ -65,6 +65,7 @@ export const Order = () => {
 
   const { orderNumber, orderedDish, note, option, createdAt, _id } =
     lastOrder || {};
+  console.log('Order => option:', option);
 
   const totalPrice = orderedDish?.reduce(
     (acc, { price, quantity }) => acc + Number(price * quantity),
@@ -105,7 +106,13 @@ export const Order = () => {
             <div className={s.orderDetailsData}>
               <h1 className={s.orderDetailTitle}>Order details</h1>
               <p>
-                <span className={s.orderOption}>
+                <span
+                  className={`${s.orderOption} ${
+                    (option === 'dinein' && s.orderOption_dineIn) ||
+                    (option === 'delivery' && s.orderOption_delivery) ||
+                    (option === 'pickup' && s.orderOption_pickup)
+                  }`}
+                >
                   {option === 'dinein' ? 'dine in' : option}
                 </span>
               </p>

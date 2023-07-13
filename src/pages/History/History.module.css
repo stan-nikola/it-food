@@ -1,4 +1,4 @@
-.homeContainer {
+.historyContainer {
   padding: 24px 12px 0;
   display: flex;
   border-left: 1px solid #e4e4e4;
@@ -13,7 +13,7 @@
   scroll-behavior: smooth;
   border: 1px solid #e4e4e4;
   padding: 12px 3px 12px 12px;
-  height: 700px;
+  height: 75vh;
 }
 
 /* ===== Scrollbar CSS ===== */
@@ -39,7 +39,7 @@
 }
 
 .order_card {
-  height: 96px;
+  height: 86px;
   display: flex;
   cursor: pointer;
   align-items: center;
@@ -78,27 +78,49 @@
   font-weight: 600;
   font-size: 16px;
   width: 92px;
-  height: 24px;
+  height: 28px;
   border-radius: 16px;
-  background-color: #ff5c00;
   color: #fff;
-
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 
+.orderOption_dineIn {
+  background-color: #3071ff;
+}
+
+.orderOption_delivery {
+  background-color: #ff5c00;
+}
+
+.orderOption_pickup {
+  background-color: #35c335;
+}
+
 .order_item_title {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   color: #f83807;
   margin-bottom: 8px;
+}
+
+.order_item_title_icon {
+  height: 30px;
+}
+
+.order_item_value {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #19191c;
 }
 
 .order_item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 60px;
 }
 
 .order_item:not(:last-child) {

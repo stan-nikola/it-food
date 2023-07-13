@@ -10,6 +10,7 @@ import { ReactComponent as Cash } from '../../images/svg/cash.svg';
 import { ReactComponent as MasterCard } from '../../images/svg/master-card.svg';
 import { ReactComponent as Visa } from '../../images/svg/Visa.svg';
 import { ReactComponent as Gift } from '../../images/svg/giftCard.svg';
+import { OrderedDishesAccordion } from 'components/OrderedDishesAccordion/OrderedDishesAccordion';
 
 export const History = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const History = () => {
   }, [dispatch, isLoggedIn]);
 
   return (
-    <section className={s.homeContainer}>
+    <section className={s.historyContainer}>
       <ul className={s.order_card_wrapper}>
         {userOrder.map(
           ({
@@ -53,17 +54,36 @@ export const History = () => {
               </div>
               <div className={s.order_item}>
                 <p className={s.order_item_title}> Option</p>
-                <p className={s.order_option}>
+                <p
+                  className={`${s.order_option} ${
+                    (option === 'dinein' && s.orderOption_dineIn) ||
+                    (option === 'delivery' && s.orderOption_delivery) ||
+                    (option === 'pickup' && s.orderOption_pickup)
+                  }`}
+                >
                   <span>{option}</span>
                 </p>
               </div>
 
               <div className={s.order_item}>
                 <p className={s.order_item_title}>Payment</p>
-                {paymentMethod === 'cash' && <Cash />}
+                {paymentMethod === 'cash' && (
+                  <Cash className={s.order_item_title_icon} />
+                )}
                 {paymentMethod === 'mastercard' && <MasterCard />}
-                {paymentMethod === 'visa' && <Visa />}
-                {paymentMethod === 'gift' && <Gift />}
+                {paymentMethod === 'visa' && (
+                  <Visa className={s.order_item_title_icon} />
+                )}
+                {paymentMethod === 'gift' && (
+                  <Gift className={s.order_item_title_icon} />
+                )}
+              </div>
+              <div className={s.order_item}>
+                <p className={s.order_item_title}>Tips</p>
+                <p className={s.order_item_value}>{tipAmount}%</p>
+              </div>
+              <div className={s.order_item}>
+                <OrderedDishesAccordion orderedDish={orderedDish} />
               </div>
             </li>
           )

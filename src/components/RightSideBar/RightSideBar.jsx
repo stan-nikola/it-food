@@ -110,9 +110,7 @@ export const RightSideBar = () => {
                 />
                 <div>
                   <p className={s.orderOption_userName}>{name}</p>
-                  <p className={s.orderOption_gift}>
-                    Gift Coins: <p>{giftCoin}</p>
-                  </p>
+                  <p className={s.orderOption_gift}>Gift Coins: {giftCoin}</p>
                 </div>
               </div>
             )}
