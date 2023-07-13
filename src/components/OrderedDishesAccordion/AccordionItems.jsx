@@ -3,13 +3,14 @@ import s from './OrderedDishesAccordion.module.css';
 
 export const AccordionItems = ({ props }) => {
   const [scrollTarget, setScrollTarget] = useState(null);
+
   const { _id, preview, title, price, quantity, dishesShow } = props;
 
   useEffect(() => {
     return () => {
       setScrollTarget(document.getElementById(_id));
-
-      scrollTarget &&
+      dishesShow &&
+        scrollTarget &&
         scrollTarget.scrollIntoView({
           behavior: 'smooth',
           block: 'end',
