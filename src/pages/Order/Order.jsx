@@ -7,6 +7,7 @@ import {
   confirmOrder,
   deleteOrder,
   getLastOrder,
+  getOrderById,
 } from 'redux/order/operations';
 import s from './Order.module.css';
 import {
@@ -19,7 +20,7 @@ import { ReactComponent as Cash } from '../../images/svg/cash.svg';
 import { ReactComponent as MasterCard } from '../../images/svg/master-card.svg';
 import { ReactComponent as Visa } from '../../images/svg/Visa.svg';
 import { ReactComponent as Gift } from '../../images/svg/giftCard.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Modal } from 'components/Modal/Modal';
 
 import { orderToast } from 'constants/toastConfig';
@@ -31,7 +32,7 @@ export const Order = () => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [tipAmount, setTipAmount] = useState(5);
   const [isTipChangeShow, setIsTipChangeShow] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
+  const [toastMessage, setToastMessage] = useState(null);
   const [orderConfirmed, setOrderConfirmed] = useState(false);
 
   const { user, isLoggedIn } = useAuth();
@@ -39,16 +40,25 @@ export const Order = () => {
 
   const { phone, email } = user;
 
+  const { orderId } = useParams();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    (phone || isLoggedIn) &&
+    if ((phone || isLoggedIn) && orderId === 'new') {
       dispatch(getLastOrder(isLoggedIn ? null : { phone }));
-  }, [dispatch, isLoggedIn, phone]);
+    }
+  }, [dispatch, isLoggedIn, orderId, phone]);
 
   useEffect(() => {
-    if (!lastOrder && !orderLoading) {
+    if (isLoggedIn && orderId !== 'new') {
+      dispatch(getOrderById({ orderId }));
+    }
+  }, [dispatch, isLoggedIn, orderId, phone]);
+
+  useEffect(() => {
+    if (toastMessage && !orderLoading) {
       toast.success(toastMessage, orderToast);
       setTimeout(() => {
         navigate('/home');
@@ -65,7 +75,6 @@ export const Order = () => {
 
   const { orderNumber, orderedDish, note, option, createdAt, _id } =
     lastOrder || {};
-  console.log('Order => option:', option);
 
   const totalPrice = orderedDish?.reduce(
     (acc, { price, quantity }) => acc + Number(price * quantity),

@@ -1,0 +1,204 @@
+.order_card_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  border: 1px solid #e4e4e4;
+  padding: 12px 3px 12px 12px;
+  height: 75vh;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+.order_card_wrapper {
+  scrollbar-width: auto;
+  scrollbar-color: #c2c2c2 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+.order_card_wrapper::-webkit-scrollbar {
+  width: 9px;
+}
+
+.order_card_wrapper::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+.order_card_wrapper::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 4px;
+  border: 3px solid #ffffff;
+}
+
+.order_card {
+  height: 86px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #e4e4e4;
+  transition: border 250ms linear;
+}
+
+.order_card:hover {
+  border: 1px solid #ff5c00;
+}
+
+.order_card:not(:last-child) {
+  margin-bottom: 12px;
+}
+.order_date_wrapper {
+  margin-right: 8px;
+}
+
+.order_date {
+  display: flex;
+  margin-bottom: 6px;
+}
+.order_date span {
+  margin-right: 4px;
+  color: #ff5c00;
+}
+
+.order_option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  width: 92px;
+  height: 28px;
+  border-radius: 16px;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.orderOption_dineIn {
+  background-color: #3071ff;
+}
+
+.orderOption_delivery {
+  background-color: #ff5c00;
+}
+
+.orderOption_pickup {
+  background-color: #35c335;
+}
+
+.order_item_title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f83807;
+  margin-bottom: 8px;
+}
+
+.order_item_title_icon {
+  height: 30px;
+}
+.order_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.order_item:not(:last-child) {
+  margin-right: 8px;
+}
+
+.order_item_value {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #19191c;
+}
+
+.order_item_text {
+  display: flex;
+  position: relative;
+  height: 30px;
+  width: 90px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.order_item_icon {
+  position: absolute;
+  bottom: 6px;
+  width: 30px;
+  height: 30px;
+  color: #01d12b;
+}
+
+.order_item_text_show {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  font-size: 12px;
+  color: #19191c;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+  padding: 4px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  transition: opacity 250ms linear;
+}
+.order_item_text_show:hover {
+  opacity: 1;
+}
+
+.order_item_confirmed_icon {
+  width: 30px;
+  height: 30px;
+}
+
+.order_item_change_btn {
+  display: flex;
+}
+.order_change_btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 83px;
+  height: 66px;
+  border-radius: 8px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: box-shadow 250ms linear;
+}
+.order_change_btn:not(:last-child) {
+  margin-right: 16px;
+}
+.order_change_btn svg {
+  fill: #fff;
+  width: 24px;
+  height: 24px;
+}
+.order_change_btn p {
+  color: #fff;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.order_change_btn:hover {
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.order_change_edit_btn {
+  background: linear-gradient(218.57deg, #0072fe8a -6.67%, #1900bf 137.69%);
+}
+.order_change_delete_btn {
+  background: linear-gradient(218.57deg, #ff0000 -6.67%, #e90042 137.69%);
+}

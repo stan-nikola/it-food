@@ -70,3 +70,16 @@ export const getUserOrder = createAsyncThunk(
     }
   }
 );
+export const getOrderById = createAsyncThunk(
+  'order/getById',
+  async ({ orderId }, thunkAPI) => {
+    try {
+      const res = await axios.get(`/order/${orderId}`);
+
+      return res.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

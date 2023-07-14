@@ -49,7 +49,7 @@ export const RightSideBar = () => {
 
   useEffect(() => {
     if (isOrderAdded) {
-      navigate('/order');
+      navigate('/order/new');
     }
   }, [isOrderAdded, navigate]);
 
