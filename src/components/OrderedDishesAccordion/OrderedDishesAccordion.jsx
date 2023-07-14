@@ -25,7 +25,15 @@ export const OrderedDishesAccordion = ({ orderedDish }) => {
             {orderedDish.map(({ _id, preview, title, price, quantity }) => (
               <AccordionItems
                 key={_id}
-                props={{ _id, preview, title, price, quantity, dishesShow }}
+                props={{
+                  _id,
+                  preview,
+                  title,
+                  price,
+                  quantity,
+                  dishesShow,
+                  orderedDish,
+                }}
               />
             ))}
           </ul>

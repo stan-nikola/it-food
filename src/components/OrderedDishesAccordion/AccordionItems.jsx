@@ -3,47 +3,53 @@ import s from './OrderedDishesAccordion.module.css';
 
 export const AccordionItems = ({ props }) => {
   const [scrollTarget, setScrollTarget] = useState(null);
+  const [targetElement, setTargetElement] = useState(null);
 
-  const { _id, preview, title, price, quantity, dishesShow } = props;
+  const { preview, title, price, quantity, dishesShow, orderedDish } = props;
 
   useEffect(() => {
+    setTargetElement(orderedDish[0]._id);
     return () => {
-      setScrollTarget(document.getElementById(_id));
+      setScrollTarget(document.getElementById(targetElement));
       dishesShow &&
         scrollTarget &&
         scrollTarget.scrollIntoView({
           behavior: 'smooth',
-          block: 'end',
+          block: 'start',
           inline: 'nearest',
         });
     };
-  }, [_id, dishesShow, scrollTarget]);
+  }, [dishesShow, orderedDish, scrollTarget, targetElement]);
 
   return (
-    <li id={_id} className={s.orderOption_card}>
-      <img className={s.orderOption_detail_img} src={preview} alt={title} />
+    <div>
+      <li id={targetElement} className={s.orderOption_card}>
+        <img className={s.orderOption_detail_img} src={preview} alt={title} />
 
-      <div className={s.orderOption_detail_change}>
-        <div>
-          <p className={s.orderOption_detail_food_name}>{title.slice(0, 20)}</p>
-          <div className={s.orderOption_detail_sup_change}>
-            <div className={s.orderOption_detail_sub_change}>
-              <p className={s.orderOption_detail_food_price}>Price</p>
-              <p className={s.orderOption_detail_food_price_cost}>$ {price}</p>
-            </div>
-            <div className={s.orderOption_detail_sub_change}>
-              <p className={s.orderOption_detail_food_price}>Quantity</p>
-              <p className={s.orderOption_detail_food_price_cost}>{quantity}</p>
-            </div>
-            <div className={s.orderOption_detail_sub_change}>
-              <p className={s.orderOption_detail_food_price}>Total</p>
-              <p className={s.orderOption_detail_food_price_cost}>
-                $ {(quantity * price).toFixed(2)}
-              </p>
+        <div className={s.orderOption_detail}>
+          <div>
+            <p className={s.orderOption_detail_dish_name}>
+              {title.slice(0, 20)}
+            </p>
+            <div className={s.orderOption_detail_items}>
+              <div>
+                <p className={s.orderOption_detail_title}>Price</p>
+                <p className={s.orderOption_detail_food_price}>$ {price}</p>
+              </div>
+              <div>
+                <p className={s.orderOption_detail_title}>Quantity</p>
+                <p className={s.orderOption_detail_food_price}>{quantity}</p>
+              </div>
+              <div>
+                <p className={s.orderOption_detail_title}>Total</p>
+                <p className={s.orderOption_detail_food_price}>
+                  $ {(quantity * price).toFixed(2)}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </li>
+      </li>
+    </div>
   );
 };

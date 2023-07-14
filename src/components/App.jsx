@@ -29,12 +29,13 @@ export const App = () => {
             path="/home/"
             element={<Navigate to="/home/main?category=all" />}
           />
+          <Route path="/order/" element={<Navigate to="/order/new" />} />
 
           <Route path="/home" element={<Dashboard />}>
             <Route path=":category" element={<DishBlock />} />
           </Route>
 
-          <Route path="/order/" element={<Order />} />
+          <Route path="/order/:orderId" element={<Order />} />
           <Route path="/history/" element={<History />} />
         </Route>
         <Route path="*" element={<>NotFound</>} />

@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
-import s from './History.module.css';
+import s from './HistoryCardRender.module.css';
 import { useEffect } from 'react';
 import { getUserOrder } from 'redux/order/operations';
 import { useAuth } from 'components/hooks/useAuth';
 import { useOrder } from 'components/hooks/useOrder';
 
-import { HistoryCardRender } from './../../components/HistoryCardRender/HistoryCardRender';
+import { HistoryCardRenderItems } from './HistoryCardRenderItems';
 
-export const History = () => {
+export const HistoryCardRender = () => {
   const dispatch = useDispatch();
 
   const { isLoggedIn } = useAuth();
@@ -23,9 +23,10 @@ export const History = () => {
   }, [dispatch, isLoggedIn, orderLoading]);
 
   return (
-    <section className={s.historyContainer}>
-      <HistoryCardRender userOrder={userOrder} />
-      <div>aaaaaaaaaa</div>
-    </section>
+    <ul className={s.order_card_wrapper}>
+      {userOrder.map(item => (
+        <HistoryCardRenderItems key={item._id} props={item} />
+      ))}
+    </ul>
   );
 };

@@ -93,6 +93,7 @@ export const TopBar = () => {
               <p>History</p>
             </NavLink>
           </li>
+
           <li className={s.header__nav_item}>
             <button type="button" className={s.header__nav_option}>
               Dinning option

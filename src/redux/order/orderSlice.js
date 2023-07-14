@@ -4,6 +4,7 @@ import {
   confirmOrder,
   deleteOrder,
   getLastOrder,
+  getOrderById,
   getUserOrder,
 } from './operations';
 
@@ -95,6 +96,22 @@ export const orderSlice = createSlice({
         state.orderError = action.payload.message;
       })
       // getLastOrder
+
+      // getOrderById
+      .addCase(getOrderById.pending, (state, action) => {
+        state.orderLoading = true;
+        state.isOrderAdded = false;
+      })
+      .addCase(getOrderById.fulfilled, (state, action) => {
+        state.lastOrder = action.payload;
+        state.orderLoading = false;
+      })
+      .addCase(getOrderById.rejected, (state, action) => {
+        state.orderLoading = false;
+        state.orderError = action.payload.message;
+      })
+      // getOrderById
+
       // deleteOrder
       .addCase(deleteOrder.pending, (state, action) => {
         state.orderLoading = true;
