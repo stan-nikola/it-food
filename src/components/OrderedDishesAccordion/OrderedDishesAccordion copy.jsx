@@ -39,7 +39,7 @@ export const OrderedDishesAccordion = ({ orderedDish }) => {
         <div
           {...events}
           ref={containerRef}
-          onClick={handleClick}
+          onMouseEnter={handleClick}
           className={`${s.dishes_content} 
           ${dishesShow && s.dishes_content_show}`}
         >
