@@ -31,8 +31,9 @@ export const HistoryCardRenderItems = ({ props }) => {
     orderedDish,
     paymentMethod,
     tipAmount,
-    totalWithTipsPrice,
+    totalPrice,
     updatedAt,
+    totalWithTipsPrice,
     confirmed,
   } = props;
   const dispatch = useDispatch();
@@ -98,12 +99,7 @@ export const HistoryCardRenderItems = ({ props }) => {
           <Gift className={s.order_item_title_icon} />
         )}
       </div>
-      {confirmed && (
-        <div className={s.order_item}>
-          <p className={s.order_item_title}>Tips</p>
-          <p className={s.order_item_value}>{tipAmount}%</p>
-        </div>
-      )}
+
       <div className={s.order_item}>
         <OrderedDishesAccordion orderedDish={orderedDish} />
       </div>
@@ -119,15 +115,19 @@ export const HistoryCardRenderItems = ({ props }) => {
       {confirmed && (
         <>
           <div className={s.order_item}>
+            <p className={s.order_item_title}>Tips</p>
+            <p className={s.order_item_value}>{tipAmount}%</p>
+          </div>
+          <div className={s.order_item}>
             <p className={s.order_item_title}>Gift Coins</p>
             <p className={s.order_item_value}>{giftCoin}</p>
           </div>
           <div className={s.order_item}>
             <p className={s.order_item_title}>Total</p>
-            <p className={s.order_item_value}>{totalWithTipsPrice}$</p>
+            <p className={s.order_item_value}>{totalPrice}$</p>
           </div>
           <div className={s.order_item}>
-            <p className={s.order_item_title}>Total</p>
+            <p className={s.order_item_title}>Total with tips</p>
             <p className={s.order_item_value}>{totalWithTipsPrice}$</p>
           </div>
         </>
@@ -160,7 +160,7 @@ export const HistoryCardRenderItems = ({ props }) => {
             />
           ) : (
             <AiOutlineFileExcel
-              style={{ color: '#ff5c00' }}
+              style={{ color: '#ff0101' }}
               className={s.order_item_confirmed_icon}
             />
           )}
