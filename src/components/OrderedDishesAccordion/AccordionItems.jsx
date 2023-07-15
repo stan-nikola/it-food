@@ -2,10 +2,11 @@ import s from './OrderedDishesAccordion.module.css';
 
 export const AccordionItems = ({ props }) => {
   const { preview, title, price, quantity } = props;
+  const id = Math.random().toString(36).slice(-6);
 
   return (
     <>
-      <li className={s.orderOption_card}>
+      <li id={id} className={s.orderOption_card}>
         <img className={s.orderOption_detail_img} src={preview} alt={title} />
 
         <div className={s.orderOption_detail}>
