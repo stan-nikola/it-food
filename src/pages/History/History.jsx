@@ -6,6 +6,7 @@ import { useAuth } from 'components/hooks/useAuth';
 import { useOrder } from 'components/hooks/useOrder';
 
 import { HistoryCardRender } from './../../components/HistoryCardRender/HistoryCardRender';
+import { HistoryRightSideBar } from 'components/HistoryRightSideBar/HistoryRightSideBar';
 
 export const History = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export const History = () => {
   return (
     <section className={s.historyContainer}>
       <HistoryCardRender userOrder={userOrder} />
-      <div>aaaaaaaaaa</div>
+      <HistoryRightSideBar userOrder={userOrder} />
     </section>
   );
 };

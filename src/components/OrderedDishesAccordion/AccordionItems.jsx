@@ -1,29 +1,11 @@
-import { useEffect, useState } from 'react';
 import s from './OrderedDishesAccordion.module.css';
 
 export const AccordionItems = ({ props }) => {
-  const [scrollTarget, setScrollTarget] = useState(null);
-  const [targetElement, setTargetElement] = useState(null);
-
-  const { preview, title, price, quantity, dishesShow, orderedDish } = props;
-
-  useEffect(() => {
-    setTargetElement(orderedDish[0]._id);
-    return () => {
-      setScrollTarget(document.getElementById(targetElement));
-      dishesShow &&
-        scrollTarget &&
-        scrollTarget.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-          inline: 'nearest',
-        });
-    };
-  }, [dishesShow, orderedDish, scrollTarget, targetElement]);
+  const { preview, title, price, quantity } = props;
 
   return (
-    <div>
-      <li id={targetElement} className={s.orderOption_card}>
+    <>
+      <li className={s.orderOption_card}>
         <img className={s.orderOption_detail_img} src={preview} alt={title} />
 
         <div className={s.orderOption_detail}>
@@ -50,6 +32,6 @@ export const AccordionItems = ({ props }) => {
           </div>
         </div>
       </li>
-    </div>
+    </>
   );
 };

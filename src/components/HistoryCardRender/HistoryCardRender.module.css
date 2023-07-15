@@ -6,7 +6,7 @@
   scroll-behavior: smooth;
   border: 1px solid #e4e4e4;
   padding: 12px 3px 12px 12px;
-  height: 75vh;
+  height: 85vh;
 }
 
 /* ===== Scrollbar CSS ===== */
@@ -34,7 +34,6 @@
 .order_card {
   height: 86px;
   display: flex;
-  cursor: pointer;
   align-items: center;
   justify-content: space-between;
   padding: 6px 12px;
@@ -161,6 +160,8 @@
 
 .order_item_change_btn {
   display: flex;
+  width: 273px;
+  justify-content: space-evenly;
 }
 .order_change_btn {
   display: flex;
@@ -177,7 +178,7 @@
   transition: box-shadow 250ms linear;
 }
 .order_change_btn:not(:last-child) {
-  margin-right: 16px;
+  margin-right: 30px;
 }
 .order_change_btn svg {
   fill: #fff;
