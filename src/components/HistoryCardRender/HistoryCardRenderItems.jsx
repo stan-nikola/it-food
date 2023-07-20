@@ -1,9 +1,8 @@
 import { useDispatch } from 'react-redux';
 import s from './HistoryCardRender.module.css';
-import { useEffect, useState } from 'react';
-import { deleteOrder, getUserOrder } from 'redux/order/operations';
-import { useAuth } from 'components/hooks/useAuth';
-import { useOrder } from 'components/hooks/useOrder';
+import { useState } from 'react';
+import { deleteOrder } from 'redux/order/operations';
+
 import { AiOutlineCalendar } from 'react-icons/ai';
 
 import { ReactComponent as Cash } from '../../images/svg/cash.svg';
@@ -39,16 +38,6 @@ export const HistoryCardRenderItems = ({ props }) => {
   const dispatch = useDispatch();
   const [deleteLoading, setDeleteLoading] = useState(false);
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
-  const { orderLoading } = useOrder();
-
-  useEffect(() => {
-    isLoggedIn && dispatch(getUserOrder());
-  }, [dispatch, isLoggedIn]);
-
-  useEffect(() => {
-    orderLoading && isLoggedIn && dispatch(getUserOrder());
-  }, [dispatch, isLoggedIn, orderLoading]);
 
   const handleDeleteOrder = _id => {
     setDeleteLoading(true);

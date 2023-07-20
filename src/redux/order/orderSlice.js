@@ -17,6 +17,7 @@ export const orderSlice = createSlice({
     orderLoading: false,
     isOrderAdded: false,
     userOrder: [],
+    userOrderEnd: false,
   },
   reducers: {
     addDish(state, action) {
@@ -39,6 +40,10 @@ export const orderSlice = createSlice({
     },
     deleteAllDishes(state, action) {
       state.orderedDish = [];
+    },
+    deleteUserOrder(state, action) {
+      state.userOrderEnd = false;
+      state.userOrder = [];
     },
 
     incrementDishQuantity(state, action) {
@@ -117,6 +122,11 @@ export const orderSlice = createSlice({
         state.orderLoading = true;
       })
       .addCase(deleteOrder.fulfilled, (state, action) => {
+        const orders = state.userOrder.filter(
+          item => item._id !== action.payload._id
+        );
+
+        state.userOrder = orders;
         state.lastOrder = null;
         state.orderLoading = false;
       })
@@ -144,7 +154,12 @@ export const orderSlice = createSlice({
         state.orderLoading = true;
       })
       .addCase(getUserOrder.fulfilled, (state, action) => {
-        state.userOrder = action.payload;
+        if (action.payload.length === 0) {
+          state.userOrderEnd = true;
+        } else {
+          state.userOrderEnd = false;
+          state.userOrder = [...state.userOrder, ...action.payload];
+        }
         state.orderLoading = false;
       })
       .addCase(getUserOrder.rejected, (state, action) => {
@@ -162,4 +177,5 @@ export const {
   decrementDishQuantity,
   incrementDishQuantity,
   addOrderError,
+  deleteUserOrder,
 } = orderSlice.actions;

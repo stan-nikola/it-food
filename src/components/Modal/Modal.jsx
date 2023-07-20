@@ -32,7 +32,7 @@ export const Modal = ({ modalToggle, children, styles }) => {
   return createPortal(
     <div
       className={`${s.backdrop} ${!isMounted ? s.backdrop_unmount : ''}`}
-      onClick={handleMultiClose}
+      onMouseDown={handleMultiClose}
     >
       <div
         className={`${styles.modal} ${!isMounted ? styles.modal_unmount : ''}`}
