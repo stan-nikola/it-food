@@ -158,6 +158,7 @@ export const orderSlice = createSlice({
         if (action.payload.length === 0) {
           state.userOrderEnd = true;
         } else {
+          state.userOrderEnd = false;
           state.userOrder = [...state.userOrder, ...action.payload];
         }
         state.orderLoading = false;

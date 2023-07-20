@@ -24,7 +24,6 @@ export const History = () => {
   const currentPage = searchParams.get('page');
 
   const { userOrder, userOrderEnd } = useOrder();
-  // console.log('History => userOrderEnd:', userOrderEnd);
 
   useEffect(() => {
     dispatch(deleteUserOrder());
