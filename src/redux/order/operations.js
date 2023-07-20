@@ -59,9 +59,10 @@ export const confirmOrder = createAsyncThunk(
 
 export const getUserOrder = createAsyncThunk(
   'order/getUserOrder',
-  async (credentials, thunkAPI) => {
+  async (page, thunkAPI) => {
     try {
-      const res = await axios.get('/order/history', credentials);
+      if (!page) return [];
+      const res = await axios.get(`/order/history?page=${page}`);
 
       return res.data;
     } catch (error) {
