@@ -28,3 +28,18 @@ export const changeUserData = createAsyncThunk(
     }
   }
 );
+
+export const getFavoriteDishes = createAsyncThunk(
+  'user/getFavoriteDishes',
+  async (category, thunkAPI) => {
+    try {
+      const res = await axios.get(`/users/current/favorite`);
+      console.log('res.data=', res);
+
+      return { data: res.data, category };
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

@@ -2,6 +2,8 @@ import { ItemCard } from '../ItemCard/ItemCard';
 import s from './DishCardRender.module.css';
 import { useDispatch } from 'react-redux';
 import { getDishesByCategory } from 'redux/dish/operations';
+import { getFavoriteDishes } from 'redux/user/operations';
+
 import { useEffect } from 'react';
 import { useDish } from 'components/hooks/useDish';
 import { DishCardSkeleton } from 'components/DishCardSkeleton/DishCardSkeleton';
@@ -21,6 +23,7 @@ export const DishCardRender = () => {
   // console.log('userSearch in the Render =', userSearch);
 
   // console.log('dishCategory=', dishCategory);
+  console.log('category=', category);
 
   const { dish, dishIsLoaded } = useDish();
 
@@ -29,8 +32,15 @@ export const DishCardRender = () => {
   const numberOfCards = Array.from(Array(8).keys());
 
   useEffect(() => {
+    if (category === 'favorite') {
+      dispatch(getFavoriteDishes(category));
+      return;
+    }
     dispatch(getDishesByCategory(category));
   }, [category, dispatch]);
+
+  console.log('dish=', dish);
+  console.log('dishfavorite=', dish.favorite);
 
   switch (category) {
     case 'main':
@@ -41,6 +51,9 @@ export const DishCardRender = () => {
       break;
     case 'dessert':
       dishCollection = dish.dessert;
+      break;
+    case 'favorite':
+      dishCollection = dish.favorite;
       break;
 
     default:
@@ -114,6 +127,7 @@ export const DishCardRender = () => {
             <>
               {collectionForRender.map(item => {
                 const { _id } = item;
+                // console.log('_id123=', _id);
 
                 return (
                   <li key={_id} className="">
