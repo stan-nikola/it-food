@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getDishesByCategory } from './operations';
+import { getFavoriteDishes } from '../user/operations';
 
 export const dishSlice = createSlice({
   name: 'dish',
   initialState: {
-    collections: { main: [], meat: [], dessert: [] },
+    collections: { main: [], meat: [], dessert: [], favorite: [] },
     isDishLoaded: false,
   },
 
@@ -34,6 +35,28 @@ export const dishSlice = createSlice({
         state.isDishLoaded = false;
       })
       .addCase(getDishesByCategory.rejected, (state, action) => {
+        state.isDishLoaded = false;
+      })
+
+      // favorite
+      .addCase(getFavoriteDishes.pending, (state, action) => {
+        state.isDishLoaded = true;
+      })
+      .addCase(getFavoriteDishes.fulfilled, (state, action) => {
+        const category = action.payload.category;
+
+        switch (category) {
+          case 'favorite':
+            state.collections.favorite = action.payload.data;
+            break;
+
+          default:
+            state.main = action.payload.data;
+        }
+
+        state.isDishLoaded = false;
+      })
+      .addCase(getFavoriteDishes.rejected, (state, action) => {
         state.isDishLoaded = false;
       });
   },

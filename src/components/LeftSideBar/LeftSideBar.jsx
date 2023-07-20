@@ -41,6 +41,17 @@ export const LeftSideBar = () => {
             <p>Dessert</p>
           </NavLink>
         </li>
+        <li className={s.listItem}>
+          <NavLink
+            to="favorite"
+            className={({ isActive }) =>
+              ` ${s.link} ${isActive && s.link_active} `
+            }
+          >
+            <DessertDishIcon />
+            <p>Favorite</p>
+          </NavLink>
+        </li>
       </ul>
     </section>
   );
