@@ -154,7 +154,6 @@ export const orderSlice = createSlice({
         state.orderLoading = true;
       })
       .addCase(getUserOrder.fulfilled, (state, action) => {
-        console.log(action.payload);
         if (action.payload.length === 0) {
           state.userOrderEnd = true;
         } else {
