@@ -3,7 +3,7 @@ import {
   addOrder,
   confirmOrder,
   deleteOrder,
-  getLastOrder,
+  getByIdAndPhone,
   getOrderById,
   getUserOrder,
 } from './operations';
@@ -38,9 +38,7 @@ export const orderSlice = createSlice({
         state.orderedDish = [{ id: action.payload, quantity: 1 }];
       }
     },
-    deleteAllDishes(state, action) {
-      state.orderedDish = [];
-    },
+
     deleteUserOrder(state, action) {
       state.userOrderEnd = false;
       state.userOrder = [];
@@ -86,21 +84,20 @@ export const orderSlice = createSlice({
         state.orderLoading = false;
         state.isOrderAdded = false;
       })
-      // getLastOrder
-      .addCase(getLastOrder.pending, (state, action) => {
+      // getByIdAndPhone
+      .addCase(getByIdAndPhone.pending, (state, action) => {
         state.orderLoading = true;
-
         state.isOrderAdded = false;
       })
-      .addCase(getLastOrder.fulfilled, (state, action) => {
+      .addCase(getByIdAndPhone.fulfilled, (state, action) => {
         state.lastOrder = action.payload;
         state.orderLoading = false;
       })
-      .addCase(getLastOrder.rejected, (state, action) => {
+      .addCase(getByIdAndPhone.rejected, (state, action) => {
         state.orderLoading = false;
         state.orderError = action.payload.message;
       })
-      // getLastOrder
+      // getByIdAndPhone
 
       // getOrderById
       .addCase(getOrderById.pending, (state, action) => {
@@ -142,6 +139,7 @@ export const orderSlice = createSlice({
       .addCase(confirmOrder.fulfilled, (state, action) => {
         state.lastOrder = null;
         state.orderLoading = false;
+        state.orderedDish = [];
       })
       .addCase(confirmOrder.rejected, (state, action) => {
         state.orderLoading = false;
@@ -166,14 +164,13 @@ export const orderSlice = createSlice({
         state.orderLoading = false;
         state.orderError = action.payload.message;
       });
-    // getLastOrder
+    // getUserOrder
   },
 });
 export const orderReducer = orderSlice.reducer;
 
 export const {
   addDish,
-  deleteAllDishes,
   decrementDishQuantity,
   incrementDishQuantity,
   addOrderError,

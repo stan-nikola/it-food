@@ -15,11 +15,11 @@ export const addOrder = createAsyncThunk(
   }
 );
 
-export const getLastOrder = createAsyncThunk(
-  'order/getLast',
+export const getByIdAndPhone = createAsyncThunk(
+  'order/getByIdAndPhone',
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post('/order/last', credentials);
+      const res = await axios.post('/order/byPhone', credentials);
 
       return res.data;
     } catch (error) {

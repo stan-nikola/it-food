@@ -11,13 +11,11 @@ import { useDish } from 'components/hooks/useDish';
 import { useOrder } from 'components/hooks/useOrder';
 import { Modal } from '../Modal/Modal';
 import {
-  addOrderError,
   decrementDishQuantity,
   incrementDishQuantity,
 } from 'redux/order/orderSlice';
 import { addOrder } from 'redux/order/operations';
-import { toast } from 'react-toastify';
-import { mainToast } from 'constants/toastConfig';
+
 import { useNavigate } from 'react-router-dom';
 import { setPhone } from 'redux/auth/authSlice';
 
@@ -36,22 +34,17 @@ export const RightSideBar = () => {
   const { avatarUrl, name, giftCoin } = user;
 
   const { dish } = useDish();
-  const { orderedDish, orderError, orderLoading, isOrderAdded } = useOrder();
+  const { orderedDish, lastOrder, orderLoading, isOrderAdded } = useOrder();
 
   const { main, meat, dessert } = dish;
 
   const dishFilter = orderedDish.map(item => item.id);
 
   useEffect(() => {
-    orderError && toast.error(orderError, mainToast);
-    dispatch(addOrderError(null));
-  }, [dispatch, orderError]);
-
-  useEffect(() => {
     if (isOrderAdded) {
-      navigate('/order/new');
+      navigate(`/order/${lastOrder?._id}`);
     }
-  }, [isOrderAdded, navigate]);
+  }, [isOrderAdded, lastOrder?._id, navigate]);
 
   const filteredDish = useMemo(() => {
     const allDishes = [...main, ...meat, ...dessert];

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import {
   confirmOrder,
   deleteOrder,
-  getLastOrder,
+  getByIdAndPhone,
   getOrderById,
 } from 'redux/order/operations';
 import s from './Order.module.css';
@@ -23,9 +23,9 @@ import { ReactComponent as Gift } from '../../images/svg/giftCard.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Modal } from 'components/Modal/Modal';
 
-import { orderToast } from 'constants/toastConfig';
+import { mainToast, orderToast } from 'constants/toastConfig';
 import { toast } from 'react-toastify';
-import { deleteAllDishes } from 'redux/order/orderSlice';
+import { addOrderError } from 'redux/order/orderSlice';
 import { refreshUser } from 'redux/auth/operations';
 
 export const Order = () => {
@@ -33,10 +33,10 @@ export const Order = () => {
   const [tipAmount, setTipAmount] = useState(5);
   const [isTipChangeShow, setIsTipChangeShow] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
-  const [orderConfirmed, setOrderConfirmed] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState(null);
 
   const { user, isLoggedIn } = useAuth();
-  const { lastOrder, orderLoading } = useOrder();
+  const { lastOrder, orderLoading, orderError } = useOrder();
 
   const { phone, email } = user;
 
@@ -46,13 +46,17 @@ export const Order = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if ((phone || isLoggedIn) && orderId === 'new') {
-      dispatch(getLastOrder(isLoggedIn ? null : { phone }));
-    }
-  }, [dispatch, isLoggedIn, orderId, phone]);
+    setCurrentOrderId(prev => prev !== orderId && orderId);
+  }, [orderId]);
 
   useEffect(() => {
-    if (isLoggedIn && orderId !== 'new') {
+    if (phone && !isLoggedIn && orderId !== 'last') {
+      dispatch(getByIdAndPhone({ phone, _id: orderId }));
+    }
+  }, [currentOrderId, dispatch, isLoggedIn, orderId, phone]);
+
+  useEffect(() => {
+    if (isLoggedIn && orderId !== 'last') {
       dispatch(getOrderById({ orderId }));
     }
   }, [dispatch, isLoggedIn, orderId, phone]);
@@ -65,13 +69,18 @@ export const Order = () => {
         dispatch(refreshUser());
       }, 10);
     }
-  }, [dispatch, lastOrder, navigate, orderLoading, toastMessage]);
+  }, [dispatch, navigate, orderLoading, toastMessage]);
 
   useEffect(() => {
-    if (orderConfirmed && !lastOrder) {
-      dispatch(deleteAllDishes());
+    if (orderError) {
+      setTimeout(() => {
+        navigate('/home');
+      }, 10);
+
+      toast.error(orderError, mainToast);
+      dispatch(addOrderError(null));
     }
-  }, [dispatch, lastOrder, orderConfirmed]);
+  }, [dispatch, navigate, orderError]);
 
   const { orderNumber, orderedDish, note, option, createdAt, _id } =
     lastOrder || {};
@@ -96,16 +105,14 @@ export const Order = () => {
     dispatch(
       confirmOrder({ _id: lastOrder._id, paymentMethod, tipAmount, email })
     );
-    setOrderConfirmed(prev => !prev);
+
     setToastMessage(
       'Thank you! Order successfully confirmed! We will contact you soon '
     );
   };
 
-  const calculatedGiftCoin = (
-    ((totalPrice * 0.03 * tipAmount) / 10) *
-    100
-  ).toFixed(0);
+  const calculatedGiftCoin =
+    isLoggedIn && (((totalPrice * 0.03 * tipAmount) / 10) * 100).toFixed(0);
 
   return (
     <section className={s.orderContainer}>
@@ -196,10 +203,12 @@ export const Order = () => {
                 Tip amount {tipAmount}%
                 <span>$ {((totalPrice / 100) * tipAmount).toFixed(2)}</span>
               </p>
-              <p>
-                Gift Coins
-                <span> {calculatedGiftCoin}</span>
-              </p>
+              {isLoggedIn && (
+                <p>
+                  Gift Coins
+                  <span> {calculatedGiftCoin}</span>
+                </p>
+              )}
               <p>
                 Total amount
                 <span>

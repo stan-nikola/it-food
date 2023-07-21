@@ -44,8 +44,8 @@ export const HistoryCardRenderItems = ({ props }) => {
     dispatch(deleteOrder({ _id }));
   };
 
-  const handleEditOrder = _id => {
-    navigate(`/order/${_id}`);
+  const handleEditOrder = id => {
+    navigate(`/order/${id}`);
   };
 
   return (
