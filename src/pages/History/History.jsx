@@ -37,6 +37,10 @@ export const History = () => {
     setSearchParams({ page });
   }, [page, setSearchParams]);
 
+  // const res = axios.get(`/order/history?page=1`).then(e => console.log(e.data));
+
+  // console.log('History => res:', res);
+
   useEffect(() => {
     isLoggedIn && dispatch(getUserOrder(currentPage));
   }, [currentPage, dispatch, isLoggedIn]);
@@ -46,7 +50,7 @@ export const History = () => {
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
       },
-      { rootMargin: '100px' }
+      { rootMargin: '10px' }
     );
     target && observer.observe(target);
     return () => observer.disconnect();

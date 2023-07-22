@@ -10,6 +10,7 @@ import { Layout } from './Layout/Layout';
 import { DishBlock } from './MainBlock/DishBlock';
 import { Order } from 'pages/Order/Order';
 import { History } from 'pages/History/History';
+import { PrivateRoute } from './routes/PrivateRoute';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -33,11 +34,14 @@ export const App = () => {
             <Route path=":category" element={<DishBlock />} />
           </Route>
 
-          <Route path="/order/" element={<Navigate to="/order/new" />} />
+          <Route path="/order/" element={<Navigate to="/order/last" />} />
 
-          <Route path="/order/:orderId" element={<Order />} />
+          <Route path="/order/:orderId" element={<Order />}></Route>
 
-          <Route path="/history/" element={<History />} />
+          <Route
+            path="/history"
+            element={<PrivateRoute component={History} redirectTo="/home" />}
+          />
         </Route>
         <Route path="*" element={<>NotFound</>} />
       </Routes>
