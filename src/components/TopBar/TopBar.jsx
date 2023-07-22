@@ -82,19 +82,17 @@ export const TopBar = () => {
             </li>
           )}
 
-          {isLoggedIn && (
-            <li className={s.header__nav_item}>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? s.header__nav_link_active : s.header__nav_link
-                }
-                to="/history"
-              >
-                <BiTimeFive className={s.header__nav_icon} />
-                <p>History</p>
-              </NavLink>
-            </li>
-          )}
+          <li className={s.header__nav_item}>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? s.header__nav_link_active : s.header__nav_link
+              }
+              to="/history"
+            >
+              <BiTimeFive className={s.header__nav_icon} />
+              <p>History</p>
+            </NavLink>
+          </li>
 
           <li className={s.header__nav_item}>
             <button type="button" className={s.header__nav_option}>

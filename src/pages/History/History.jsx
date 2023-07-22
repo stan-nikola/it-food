@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import s from './History.module.css';
 import { useEffect, useState } from 'react';
-import { getUserOrder } from 'redux/order/operations';
+import { getOrderCount, getUserOrder } from 'redux/order/operations';
 import { useAuth } from 'components/hooks/useAuth';
 import { useOrder } from 'components/hooks/useOrder';
 
@@ -9,6 +9,7 @@ import { HistoryCardRender } from './../../components/HistoryCardRender/HistoryC
 import { HistoryRightSideBar } from 'components/HistoryRightSideBar/HistoryRightSideBar';
 import { useSearchParams } from 'react-router-dom';
 import { deleteUserOrder } from 'redux/order/orderSlice';
+import { UnauthorizedHistory } from 'components/UnauthorizedHistory/UnauthorizedHistory';
 
 export const History = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,10 +21,10 @@ export const History = () => {
 
   const dispatch = useDispatch();
 
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isRefreshing } = useAuth();
   const currentPage = searchParams.get('page');
 
-  const { userOrder, userOrderEnd } = useOrder();
+  const { userOrder, userOrderEnd, orderCount } = useOrder();
 
   useEffect(() => {
     dispatch(deleteUserOrder());
@@ -37,13 +38,12 @@ export const History = () => {
     setSearchParams({ page });
   }, [page, setSearchParams]);
 
-  // const res = axios.get(`/order/history?page=1`).then(e => console.log(e.data));
-
-  // console.log('History => res:', res);
-
   useEffect(() => {
-    isLoggedIn && dispatch(getUserOrder(currentPage));
-  }, [currentPage, dispatch, isLoggedIn]);
+    if (isLoggedIn && !isRefreshing) {
+      dispatch(getUserOrder(currentPage));
+      dispatch(getOrderCount());
+    }
+  }, [currentPage, dispatch, isLoggedIn, isRefreshing]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -58,11 +58,17 @@ export const History = () => {
 
   return (
     <section className={s.historyContainer}>
-      <HistoryCardRender
-        func={target => setTarget(target)}
-        userOrder={userOrder}
-      />
-      <HistoryRightSideBar userOrder={userOrder} />
+      {isLoggedIn || isRefreshing ? (
+        <>
+          <HistoryCardRender
+            func={target => setTarget(target)}
+            userOrder={userOrder}
+          />
+          <HistoryRightSideBar orderCount={orderCount} />
+        </>
+      ) : (
+        <UnauthorizedHistory />
+      )}
     </section>
   );
 };

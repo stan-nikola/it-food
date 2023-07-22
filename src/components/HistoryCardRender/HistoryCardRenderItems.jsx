@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import s from './HistoryCardRender.module.css';
 import { useState } from 'react';
-import { deleteOrder } from 'redux/order/operations';
+import { deleteOrder, getOrderCount } from 'redux/order/operations';
 
 import { AiOutlineCalendar } from 'react-icons/ai';
 
@@ -42,6 +42,7 @@ export const HistoryCardRenderItems = ({ props }) => {
   const handleDeleteOrder = _id => {
     setDeleteLoading(true);
     dispatch(deleteOrder({ _id }));
+    dispatch(getOrderCount());
   };
 
   const handleEditOrder = id => {

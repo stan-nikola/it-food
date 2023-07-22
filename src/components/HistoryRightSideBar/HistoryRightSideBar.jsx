@@ -1,78 +1,81 @@
+import CountUp from 'react-countup';
 import s from './HistoryRightSideBar.module.css';
 
-export const HistoryRightSideBar = ({ userOrder }) => {
-  const orderCount = userOrder.length;
+export const HistoryRightSideBar = ({ orderCount }) => {
+  const {
+    confirmedOrder = 0,
+    totalGiftCoin = 0,
+    totalOrderedDish = 0,
+    totalPrice = 0,
+    totalPriceWithTips = 0,
+    unconfirmedOrder = 0,
+  } = orderCount || {};
 
-  const confirmedCount = userOrder
-    .reduce((acc, { confirmed }) => (confirmed ? acc + 1 : acc + 0), 0)
-    .toFixed(0);
-
-  const totalPrice = userOrder
-    .reduce(
-      (acc, { totalPrice, confirmed }) =>
-        confirmed ? acc + Number(totalPrice) : acc + 0,
-      0
-    )
-    .toFixed(2);
-  const totalWithTipsPrice = userOrder
-    .reduce(
-      (acc, { totalWithTipsPrice, confirmed }) =>
-        confirmed ? acc + Number(totalWithTipsPrice) : acc + 0,
-      0
-    )
-    .toFixed(2);
-  const totalGiftCoins = userOrder
-    .reduce(
-      (acc, { giftCoin, confirmed }) =>
-        confirmed ? acc + Number(giftCoin) : acc + 0,
-      0
-    )
-    .toFixed(0);
-  const totalDishes = userOrder
-    .reduce(
-      (acc, { orderedDish, confirmed }) =>
-        confirmed ? acc + orderedDish.length : acc + 0,
-      0
-    )
-    .toFixed(0);
-
-  const totalTips = (totalWithTipsPrice - totalPrice).toFixed(2);
+  const orders = confirmedOrder + unconfirmedOrder;
+  const totalTips = (totalPriceWithTips - totalPrice).toFixed(2);
 
   return (
-    <section className={s.container}>
+    <div className={s.container}>
       <h2 className={s.orders_title}>Order details</h2>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Orders:</p>
-        <p className={s.orders_item_value}>{orderCount}</p>
+        <CountUp className={s.orders_item_value} end={orders} />
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Confirmed orders:</p>
-        <p className={s.orders_item_value}>{confirmedCount}</p>
+        <CountUp className={s.orders_item_value} end={confirmedOrder} />
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Unconfirmed orders:</p>
-        <p className={s.orders_item_value}>{orderCount - confirmedCount}</p>
+        <CountUp className={s.orders_item_value} end={unconfirmedOrder} />
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total Dishes:</p>
-        <p className={s.orders_item_value}>{totalDishes}</p>
+        <CountUp className={s.orders_item_value} end={totalOrderedDish} />
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total Gift Coins:</p>
-        <p className={s.orders_item_value}>{totalGiftCoins}</p>
+        <CountUp
+          className={s.orders_item_value}
+          end={totalGiftCoin.toFixed(2)}
+        />
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total :</p>
-        <p className={s.orders_item_value}>$ {totalPrice}</p>
+        <div className={s.orders_inner}>
+          <p className={s.orders_item_value}>$</p>
+          <CountUp
+            className={s.orders_item_value}
+            decimals={2}
+            decimal="."
+            end={totalPrice.toFixed(2)}
+          />
+        </div>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total with tips:</p>
-        <p className={s.orders_item_value}>$ {totalWithTipsPrice}</p>
+        <div className={s.orders_inner}>
+          <p className={s.orders_item_value}>$</p>
+          <CountUp
+            className={s.orders_item_value}
+            decimals={2}
+            decimal="."
+            end={totalPriceWithTips.toFixed(2)}
+          />
+        </div>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total tips:</p>
-        <p className={s.orders_item_value}>$ {totalTips}</p>
+        <div className={s.orders_inner}>
+          <p className={s.orders_item_value}>$</p>
+          <CountUp
+            className={s.orders_item_value}
+            decimals={2}
+            decimal="."
+            end={totalTips}
+          />
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
