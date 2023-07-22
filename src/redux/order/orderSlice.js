@@ -5,6 +5,7 @@ import {
   deleteOrder,
   getByIdAndPhone,
   getOrderById,
+  getOrderCount,
   getUserOrder,
 } from './operations';
 
@@ -18,6 +19,7 @@ export const orderSlice = createSlice({
     isOrderAdded: false,
     userOrder: [],
     userOrderEnd: false,
+    orderCount: null,
   },
   reducers: {
     addDish(state, action) {
@@ -163,8 +165,17 @@ export const orderSlice = createSlice({
       .addCase(getUserOrder.rejected, (state, action) => {
         state.orderLoading = false;
         state.orderError = action.payload.message;
+      })
+      // getUserOrder
+      // orderCount
+      .addCase(getOrderCount.pending, (state, action) => {})
+      .addCase(getOrderCount.fulfilled, (state, action) => {
+        state.orderCount = action.payload;
+      })
+      .addCase(getOrderCount.rejected, (state, action) => {
+        state.orderError = action.payload.message;
       });
-    // getUserOrder
+    // orderCount
   },
 });
 export const orderReducer = orderSlice.reducer;

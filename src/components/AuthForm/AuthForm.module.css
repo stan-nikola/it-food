@@ -110,7 +110,6 @@
   border: none;
   margin: 0;
   padding: 0;
-  width: auto;
   overflow: visible;
   width: 316px;
   height: 42px;
@@ -120,10 +119,8 @@
   background: #ff5c00;
   border-radius: 58px;
   cursor: pointer;
-  transition: all 0.35s;
-  color: #fff;
-  margin-bottom: 24px;
 
+  color: #fff;
   margin-bottom: 16px;
   transition: background 150ms linear, box-shadow 250ms linear;
 }
