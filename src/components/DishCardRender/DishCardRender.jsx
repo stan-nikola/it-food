@@ -23,7 +23,7 @@ export const DishCardRender = () => {
   // console.log('userSearch in the Render =', userSearch);
 
   // console.log('dishCategory=', dishCategory);
-  console.log('category=', category);
+  // console.log('category=', category);
 
   const { dish, dishIsLoaded } = useDish();
 
@@ -39,8 +39,8 @@ export const DishCardRender = () => {
     dispatch(getDishesByCategory(category));
   }, [category, dispatch]);
 
-  console.log('dish=', dish);
-  console.log('dishfavorite=', dish.favorite);
+  // console.log('dish=', dish);
+  // console.log('dishfavorite=', dish.favorite);
 
   switch (category) {
     case 'main':
