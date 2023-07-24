@@ -13,6 +13,7 @@ import { changeUserData } from 'redux/user/operations';
 import { toast } from 'react-toastify';
 import { mainToast } from 'constants/toastConfig';
 import { error } from 'redux/auth/authSlice';
+import { deleteUserOrder } from 'redux/order/orderSlice';
 
 export const LogOutForm = ({ modalToggle }) => {
   const { user, isError, isLoading } = useAuth();
@@ -51,7 +52,9 @@ export const LogOutForm = ({ modalToggle }) => {
   }, [dispatch, isError]);
 
   const handleLogOut = () => {
+    dispatch(deleteUserOrder());
     dispatch(logOut());
+
     modalToggle();
   };
 

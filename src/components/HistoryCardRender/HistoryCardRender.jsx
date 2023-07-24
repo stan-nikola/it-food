@@ -3,7 +3,7 @@ import s from './HistoryCardRender.module.css';
 
 import { HistoryCardRenderItems } from './HistoryCardRenderItems';
 
-export const HistoryCardRender = ({ userOrder, func }) => {
+export const HistoryCardRender = ({ userOrder, func, orderLoading }) => {
   const target = useRef();
 
   useEffect(() => {
@@ -11,10 +11,12 @@ export const HistoryCardRender = ({ userOrder, func }) => {
   }, [func]);
 
   return (
-    <ul ref={target} className={s.order_card_wrapper}>
-      {userOrder.map(item => (
-        <HistoryCardRenderItems key={item._id} props={item} />
-      ))}
-    </ul>
+    <>
+      <ul ref={target} className={s.order_card_wrapper}>
+        {userOrder.map(item => (
+          <HistoryCardRenderItems key={item._id} props={item} />
+        ))}
+      </ul>
+    </>
   );
 };
