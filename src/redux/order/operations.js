@@ -62,9 +62,9 @@ export const getUserOrder = createAsyncThunk(
   async (page, thunkAPI) => {
     try {
       if (!page) return [];
-      const res = await axios.get(`/order/history?page=${page}`);
+      const { data } = await axios.get(`/order/history?page=${page}`);
 
-      return res.data;
+      return { data, page };
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error.response.data);

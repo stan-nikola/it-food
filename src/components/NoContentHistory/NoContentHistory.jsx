@@ -1,11 +1,11 @@
-import s from './UnauthorizedHistory.module.css';
+import s from './NoContentHistory.module.css';
 
 import background1 from '../../images/background/Background@1x.jpg';
 import background2 from '../../images/background/Background@2x.jpg';
 import background3 from '../../images/background/Background@3x.jpg';
 import { useNavigate } from 'react-router-dom';
 
-export const UnauthorizedHistory = () => {
+export const NoContentHistory = ({ textContent }) => {
   const navigate = useNavigate();
   return (
     <div className={s.container}>
@@ -16,9 +16,7 @@ export const UnauthorizedHistory = () => {
         srcSet={`${background1} 1x, ${background2} 2x, ${background3} 3x `}
       />
       <div className={s.content}>
-        <p className={s.title}>
-          To view the history of your orders, you need to SIGN UP or LOG IN.
-        </p>
+        <p className={s.title}>{textContent}</p>
         <button className={s.button} onClick={() => navigate('/home')}>
           Home
         </button>

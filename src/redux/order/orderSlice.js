@@ -15,7 +15,7 @@ export const orderSlice = createSlice({
     orderedDish: [],
     lastOrder: null,
     orderError: null,
-    orderLoading: false,
+    orderLoading: true,
     isOrderAdded: false,
     userOrder: [],
     userOrderEnd: false,
@@ -42,8 +42,9 @@ export const orderSlice = createSlice({
     },
 
     deleteUserOrder(state, action) {
-      state.userOrderEnd = false;
+      state.userOrderEnd = true;
       state.userOrder = [];
+      state.orderCount = null;
     },
 
     incrementDishQuantity(state, action) {
@@ -153,20 +154,39 @@ export const orderSlice = createSlice({
       .addCase(getUserOrder.pending, (state, action) => {
         state.orderLoading = true;
       })
-      .addCase(getUserOrder.fulfilled, (state, action) => {
-        if (action.payload.length === 0) {
-          state.userOrderEnd = true;
-        } else {
+      .addCase(getUserOrder.fulfilled, (state, { payload }) => {
+        if (
+          typeof payload === 'object' &&
+          Array.isArray(payload.data) &&
+          payload.data.length === 8
+        ) {
+          state.userOrder = [...state.userOrder, ...payload.data];
           state.userOrderEnd = false;
-          state.userOrder = [...state.userOrder, ...action.payload];
+          state.orderLoading = false;
+        } else if (
+          typeof payload === 'object' &&
+          Array.isArray(payload.data) &&
+          payload.page === '1' &&
+          payload.data.length < 8
+        ) {
+          state.userOrder = [...state.userOrder, ...payload.data];
+          state.userOrderEnd = true;
+          state.orderLoading = false;
+        } else if (
+          typeof payload === 'object' &&
+          Array.isArray(payload.data) &&
+          payload.data.length < 8
+        ) {
+          state.userOrderEnd = true;
+          state.orderLoading = false;
         }
-        state.orderLoading = false;
       })
       .addCase(getUserOrder.rejected, (state, action) => {
         state.orderLoading = false;
         state.orderError = action.payload.message;
       })
       // getUserOrder
+
       // orderCount
       .addCase(getOrderCount.pending, (state, action) => {})
       .addCase(getOrderCount.fulfilled, (state, action) => {
