@@ -6,13 +6,10 @@ import s from './TopBar.module.css';
 import { BiHomeAlt, BiFile, BiTimeFive } from 'react-icons/bi';
 import { LogoIcon } from 'images';
 
-import { LogInForm } from 'components/AuthForm/LogInForm';
-import { LogOutForm } from 'components/AuthForm/logOutForm';
-import { SignUpForm } from 'components/AuthForm/SignUpForm';
-
 import { useOrder } from 'components/hooks/useOrder';
 import { useAuth } from 'components/hooks/useAuth';
 import { Modal } from 'components/Modal';
+import { LogInForm, SignUpForm, LogOutForm } from 'components/AuthForm';
 
 export const TopBar = () => {
   const [modalShow, setModalShow] = useState(false);
