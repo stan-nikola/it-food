@@ -1,8 +1,8 @@
-import { LeftSideBar } from 'components/LeftSideBar/LeftSideBar';
+import { Outlet } from 'react-router-dom';
 import s from './Dashboard.module.css';
 
-import { RightSideBar } from 'components/RightSideBar/RightSideBar';
-import { Outlet } from 'react-router-dom';
+import { LeftSideBar } from 'components/LeftSideBar';
+import { RightSideBar } from 'components/RightSideBar';
 
 export const Dashboard = () => {
   return (

@@ -1,15 +1,16 @@
-import { Dashboard } from '../pages/Dashboard/Dashboard';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from './hooks/useAuth';
 
-import { Route, Routes, Navigate } from 'react-router-dom';
-import { Layout } from './Layout/Layout';
-import { DishBlock } from './MainBlock/DishBlock';
-import { Order } from 'pages/Order/Order';
-import { History } from 'pages/History/History';
+import { Layout } from './Layout';
+import { DishBlock } from './DishBlock';
+
+import { Dashboard } from 'pages/Dashboard';
+import { Order } from 'pages/Order';
+import { History } from 'pages/History';
 
 export const App = () => {
   const dispatch = useDispatch();

@@ -7,11 +7,12 @@ import { useAuth } from 'components/hooks/useAuth';
 import { toast } from 'react-toastify';
 
 import s from './AuthForm.module.css';
-import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
+
 import { signUpSchema } from 'constants/schema';
 
 import { mainToast } from 'constants/toastConfig';
 import { error } from 'redux/auth/authSlice';
+import { LogoIcon } from 'images';
 
 export const SignUpForm = ({ modalToggle }) => {
   const [phone, setPhone] = useState('');
