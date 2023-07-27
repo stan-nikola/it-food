@@ -170,7 +170,7 @@ export const LogOutForm = ({ modalToggle }) => {
 
       {showEditProfile ? (
         <button
-          disabled={isLoading}
+          disabled={isLoading || handleError !== null}
           onClick={handleSaveUserData}
           className={s.signIn_btn}
           type="button"
