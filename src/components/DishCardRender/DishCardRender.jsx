@@ -1,14 +1,16 @@
-import { ItemCard } from '../ItemCard/ItemCard';
-import s from './DishCardRender.module.css';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
+import s from './DishCardRender.module.css';
+
 import { getDishesByCategory } from 'redux/dish/operations';
 import { getFavoriteDishes } from 'redux/user/operations';
-
-import { useEffect } from 'react';
 import { useDish } from 'components/hooks/useDish';
-import { DishCardSkeleton } from 'components/DishCardSkeleton/DishCardSkeleton';
-import { useParams } from 'react-router-dom';
-import { useSearchParams } from 'react-router-dom';
+
+import { ItemCard } from 'components/ItemCard';
+import { DishCardSkeleton } from 'components/DishCardSkeleton';
 
 export const DishCardRender = () => {
   const dispatch = useDispatch();

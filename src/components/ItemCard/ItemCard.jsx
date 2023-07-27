@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import css from './ItemCard.module.css';
-import { Modal } from '../Modal/Modal';
-import { MoreInfo } from '../ItemCard/MoreInfo/MoreInfo';
+
 import { useDispatch } from 'react-redux';
 import { addDish } from 'redux/order/orderSlice';
 
 import { useOrder } from 'components/hooks/useOrder';
+import { Modal } from 'components/Modal';
+import { MoreInfo } from './MoreInfo/MoreInfo';
 
 export const ItemCard = ({ dish }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);

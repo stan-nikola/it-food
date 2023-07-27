@@ -1,8 +1,6 @@
-import s from './LeftSideBar.module.css';
-import { ReactComponent as MainDishIcon } from '../../images/svg/main-dish-icon.svg';
-import { ReactComponent as MeatDishIcon } from '../../images/svg/meat-dish-icon.svg';
-import { ReactComponent as DessertDishIcon } from '../../images/svg/dessert-dish-icon.svg';
 import { NavLink } from 'react-router-dom';
+import { DessertDishIcon, MainDishIcon, MeatDishIcon } from 'images';
+import s from './LeftSideBar.module.css';
 
 export const LeftSideBar = () => {
   return (

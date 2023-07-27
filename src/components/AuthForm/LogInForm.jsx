@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Field, Form, Formik } from 'formik';
+import { toast } from 'react-toastify';
 
 import s from './AuthForm.module.css';
-import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
-import { useDispatch } from 'react-redux';
+
 import { forgotPassword, logIn } from 'redux/auth/operations';
-import { Field, Form, Formik } from 'formik';
 import { forgotPasswordSchema, logInSchema } from 'constants/schema';
 
 import { useAuth } from 'components/hooks/useAuth';
-import { toast } from 'react-toastify';
 import { mainToast } from 'constants/toastConfig';
 import { error } from 'redux/auth/authSlice';
+import { LogoIcon } from 'images';
 
 export const LogInForm = ({ modalToggle }) => {
   const [showForgotPass, setShowForgotPass] = useState(false);

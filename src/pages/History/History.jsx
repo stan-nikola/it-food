@@ -1,15 +1,17 @@
 import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
+
 import s from './History.module.css';
 import { useEffect, useState } from 'react';
 import { getOrderCount, getUserOrder } from 'redux/order/operations';
 import { useAuth } from 'components/hooks/useAuth';
 import { useOrder } from 'components/hooks/useOrder';
 
-import { HistoryCardRender } from './../../components/HistoryCardRender/HistoryCardRender';
-import { HistoryRightSideBar } from 'components/HistoryRightSideBar/HistoryRightSideBar';
-import { useSearchParams } from 'react-router-dom';
+import { HistoryCardRender } from 'components/HistoryCardRender';
+
 import { deleteUserOrder } from 'redux/order/orderSlice';
-import { NoContentHistory } from 'components/NoContentHistory/NoContentHistory';
+import { NoContentHistory } from 'components/NoContentHistory';
+import { HistoryRightSideBar } from 'components/HistoryRightSideBar';
 
 export const History = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,10 +42,10 @@ export const History = () => {
   }, [dispatch, isLoggedIn]);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && userOrder.length > 0 && currentPage === '1') {
       dispatch(getOrderCount());
     }
-  }, [dispatch, isLoggedIn]);
+  }, [currentPage, dispatch, isLoggedIn, userOrder.length]);
 
   useEffect(() => {
     !userOrderEnd && isIntersecting && setPage(prev => prev + 1);
@@ -51,7 +53,7 @@ export const History = () => {
 
   useEffect(() => {
     isLoggedIn ? setSearchParams({ page }) : setSearchParams('');
-  }, [isLoggedIn, page, setSearchParams]);
+  }, [isLoggedIn, page, setSearchParams, userOrder.length]);
 
   useEffect(() => {
     if (isLoggedIn) {

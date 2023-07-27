@@ -1,9 +1,6 @@
-import s from './NoContentHistory.module.css';
-
-import background1 from '../../images/background/Background@1x.jpg';
-import background2 from '../../images/background/Background@2x.jpg';
-import background3 from '../../images/background/Background@3x.jpg';
 import { useNavigate } from 'react-router-dom';
+import s from './NoContentHistory.module.css';
+import { background1, background2, background3 } from 'images';
 
 export const NoContentHistory = ({ textContent }) => {
   const navigate = useNavigate();
