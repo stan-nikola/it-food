@@ -15,6 +15,13 @@
   padding: 18px 3px 12px 18px;
   height: 83vh;
 }
+.order_loading_line {
+  background-color: #ff5e0082 !important;
+}
+
+.order_loading_line span {
+  background-color: #ff5c00 !important;
+}
 
 .order_no_content {
   display: flex;

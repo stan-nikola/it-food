@@ -12,6 +12,7 @@ import { HistoryCardRender } from 'components/HistoryCardRender';
 import { deleteUserOrder } from 'redux/order/orderSlice';
 import { NoContentHistory } from 'components/NoContentHistory';
 import { HistoryRightSideBar } from 'components/HistoryRightSideBar';
+import { LinearProgress } from '@mui/material';
 
 export const History = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -88,7 +89,9 @@ export const History = () => {
           ) : (
             <>
               {orderLoading ? (
-                <div className={s.order_loading}>Loading...</div>
+                <div className={s.order_loading}>
+                  Loading... <LinearProgress className={s.order_loading_line} />
+                </div>
               ) : (
                 <NoContentHistory textContent={authorizedText} />
               )}
