@@ -40,10 +40,10 @@ export const History = () => {
   }, [dispatch, isLoggedIn]);
 
   useEffect(() => {
-    if (isLoggedIn && userOrder.length > 0) {
+    if (isLoggedIn) {
       dispatch(getOrderCount());
     }
-  }, [dispatch, isLoggedIn, userOrder.length]);
+  }, [dispatch, isLoggedIn]);
 
   useEffect(() => {
     !userOrderEnd && isIntersecting && setPage(prev => prev + 1);
