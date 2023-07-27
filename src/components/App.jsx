@@ -6,7 +6,7 @@ import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from './hooks/useAuth';
 
 import { Layout } from './Layout';
-import { DishBlock } from './DishBlock';
+import { DishBlock } from './MainBlock';
 
 import { Dashboard } from 'pages/Dashboard';
 import { Order } from 'pages/Order';
