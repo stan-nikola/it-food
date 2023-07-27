@@ -74,7 +74,7 @@ export const History = () => {
 
   return (
     <section className={s.historyContainer}>
-      {isLoggedIn || isRefreshing || isLoading ? (
+      {isLoggedIn ? (
         <>
           {userOrder.length > 0 ? (
             <>
@@ -96,7 +96,11 @@ export const History = () => {
           )}
         </>
       ) : (
-        <NoContentHistory textContent={unauthorizedText} />
+        <>
+          {!isRefreshing && !isLoading && (
+            <NoContentHistory textContent={unauthorizedText} />
+          )}
+        </>
       )}
     </section>
   );
