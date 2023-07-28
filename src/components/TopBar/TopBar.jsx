@@ -95,12 +95,12 @@ export const TopBar = () => {
           </li>
 
           <li className={s.header__nav_item}>
-            <input type="checkbox" className={s.checkbox} id="checkbox" />
+            {/* <input type="checkbox" className={s.checkbox} id="checkbox" />
             <label for="checkbox" class="checkbox-label">
               <i class="fas fa-moon"></i>
               <i class="fas fa-sun"></i>
               <span class="ball"></span>
-            </label>
+            </label> */}
           </li>
           <li className={s.header__nav_item}>
             {isRefreshing ? (
