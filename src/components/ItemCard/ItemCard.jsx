@@ -1,21 +1,25 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 import css from './ItemCard.module.css';
-import { Modal } from '../Modal/Modal';
-import { MoreInfo } from '../ItemCard/MoreInfo/MoreInfo';
-import { useDispatch } from 'react-redux';
+
 import { addDish } from 'redux/order/orderSlice';
 import {
   // getFavoriteDishes,
   addFavoriteDishes,
   deleteFromFavoriteDishes,
 } from '../../redux/user/operations';
+
 import { useOrder } from 'components/hooks/useOrder';
+
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
 import { IconContext } from 'react-icons';
 import { selectFavorite } from 'redux/auth/selectors';
+
+import { Modal } from 'components/Modal';
+import { MoreInfo } from './MoreInfo/MoreInfo';
+
 
 export const ItemCard = ({ dish }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);

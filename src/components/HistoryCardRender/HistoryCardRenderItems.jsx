@@ -1,14 +1,12 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import s from './HistoryCardRender.module.css';
-import { useState } from 'react';
+
 import { deleteOrder, getOrderCount } from 'redux/order/operations';
 
 import { AiOutlineCalendar } from 'react-icons/ai';
 
-import { ReactComponent as Cash } from '../../images/svg/cash.svg';
-import { ReactComponent as MasterCard } from '../../images/svg/master-card.svg';
-import { ReactComponent as Visa } from '../../images/svg/Visa.svg';
-import { ReactComponent as Gift } from '../../images/svg/giftCard.svg';
 import {
   AiFillCaretDown,
   AiOutlineFileDone,
@@ -17,8 +15,9 @@ import {
   AiOutlineEdit,
   AiTwotoneDelete,
 } from 'react-icons/ai';
-import { OrderedDishesAccordion } from 'components/OrderedDishesAccordion/OrderedDishesAccordion';
-import { useNavigate } from 'react-router-dom';
+import { Cash, Gift, MasterCard, Visa } from 'images';
+
+import { OrderedDishesAccordion } from 'components/OrderedDishesAccordion';
 
 export const HistoryCardRenderItems = ({ props }) => {
   const {

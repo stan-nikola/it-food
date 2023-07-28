@@ -1,23 +1,28 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useMemo, useState } from 'react';
+
+import { CircularProgress } from '@mui/material';
+
 import s from './RightSideBar.module.css';
 import 'react-phone-input-2/lib/style.css';
-import { CircularProgress } from '@mui/material';
+
 import PhoneInput from 'react-phone-input-2';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 
 import { useAuth } from 'components/hooks/useAuth';
 import { useDish } from 'components/hooks/useDish';
 import { useOrder } from 'components/hooks/useOrder';
-import { Modal } from '../Modal/Modal';
+
 import {
   decrementDishQuantity,
   incrementDishQuantity,
 } from 'redux/order/orderSlice';
+
 import { addOrder } from 'redux/order/operations';
 
 import { useNavigate } from 'react-router-dom';
 import { setPhone } from 'redux/auth/authSlice';
+import { Modal } from 'components/Modal';
 
 export const RightSideBar = () => {
   const [orderOption, setOrderOption] = useState('dinein');

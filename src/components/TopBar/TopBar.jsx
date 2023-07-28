@@ -1,17 +1,15 @@
-import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
-import { BiHomeAlt, BiFile, BiTimeFive } from 'react-icons/bi';
+import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 
 import s from './TopBar.module.css';
-import { Modal } from 'components/Modal/Modal';
-import { useState } from 'react';
+import { BiHomeAlt, BiFile, BiTimeFive } from 'react-icons/bi';
+import { LogoIcon } from 'images';
 
-import { SignUpForm } from '../AuthForm/SignUpForm';
-import { LogInForm } from 'components/AuthForm/LogInForm';
-import { useAuth } from 'components/hooks/useAuth';
-import { LogOutForm } from 'components/AuthForm/logOutForm';
-import { CircularProgress } from '@mui/material';
 import { useOrder } from 'components/hooks/useOrder';
+import { useAuth } from 'components/hooks/useAuth';
+import { Modal } from 'components/Modal';
+import { LogInForm, SignUpForm, LogOutForm } from 'components/AuthForm';
 
 export const TopBar = () => {
   const [modalShow, setModalShow] = useState(false);

@@ -1,32 +1,35 @@
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import s from './Order.module.css';
+
 import { useAuth } from 'components/hooks/useAuth';
 import { useOrder } from 'components/hooks/useOrder';
-import { useEffect, useState } from 'react';
 
-import { useDispatch } from 'react-redux';
 import {
   confirmOrder,
   deleteOrder,
   getByIdAndPhone,
   getOrderById,
 } from 'redux/order/operations';
-import s from './Order.module.css';
+
+import { addOrderError } from 'redux/order/orderSlice';
+import { refreshUser } from 'redux/auth/operations';
+
+import { toast } from 'react-toastify';
+
 import {
   AiOutlineDelete,
   AiOutlineMail,
   AiOutlineCheck,
   AiOutlinePercentage,
 } from 'react-icons/ai';
-import { ReactComponent as Cash } from '../../images/svg/cash.svg';
-import { ReactComponent as MasterCard } from '../../images/svg/master-card.svg';
-import { ReactComponent as Visa } from '../../images/svg/Visa.svg';
-import { ReactComponent as Gift } from '../../images/svg/giftCard.svg';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Modal } from 'components/Modal/Modal';
 
 import { mainToast, orderToast } from 'constants/toastConfig';
-import { toast } from 'react-toastify';
-import { addOrderError } from 'redux/order/orderSlice';
-import { refreshUser } from 'redux/auth/operations';
+
+import { Cash, Gift, MasterCard, Visa } from 'images';
+import { Modal } from 'components/Modal';
 
 export const Order = () => {
   const [paymentMethod, setPaymentMethod] = useState('cash');

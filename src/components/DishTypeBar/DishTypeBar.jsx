@@ -1,6 +1,6 @@
-import { DishTypeButton } from 'components/DishTypeButton/DishTypeButton';
 import { useParams } from 'react-router-dom';
 import css from './DishTypeBar.module.css';
+import { DishTypeButton } from 'components/DishTypeButton';
 
 export const DishTypeBar = () => {
   const buttonsMain = ['all', 'chicken', 'seafood', 'pasta', 'vegetarian'];

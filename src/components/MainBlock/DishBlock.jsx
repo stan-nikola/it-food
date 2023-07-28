@@ -1,10 +1,9 @@
-// export const MainBlock = () => {};
-import { DashboardTypeBar } from '../DashboardTypeBar/DashboardTypeBar';
-import { SearchBar } from '../SearchBar/SearchBar';
-import { DishTypeBar } from '../DishTypeBar/DishTypeBar';
-
 import css from './DishBlock.module.css';
-import { DishCardRender } from 'components/DishCardRender/DishCardRender';
+
+import { DishCardRender } from 'components/DishCardRender';
+import { DashboardTypeBar } from 'components/DashboardTypeBar';
+import { SearchBar } from 'components/SearchBar';
+import { DishTypeBar } from 'components/DishTypeBar';
 
 export const DishBlock = () => {
   return (

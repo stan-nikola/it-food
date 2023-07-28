@@ -5,3 +5,23 @@
   border: 1px solid #e4e4e4;
   border-top: none;
 }
+
+.order_loading {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+
+  border: 1px solid #e4e4e4;
+  padding: 18px 3px 12px 18px;
+  height: 83vh;
+}
+
+.order_no_content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  border: 1px solid #e4e4e4;
+  padding: 18px 3px 12px 18px;
+  height: 83vh;
+}

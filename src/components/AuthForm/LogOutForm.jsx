@@ -1,18 +1,21 @@
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import PhoneInput from 'react-phone-input-2';
+
 import s from './AuthForm.module.css';
-import { ReactComponent as LogoIcon } from '../../images/svg/logoIcon.svg';
 
 import { useAuth } from 'components/hooks/useAuth';
-import { useDispatch } from 'react-redux';
 import { logOut } from 'redux/auth/operations';
-import { useEffect, useState } from 'react';
 
+import { LogoIcon } from 'images';
 import { FaCameraRetro } from 'react-icons/fa';
 import { RxCross1 } from 'react-icons/rx';
-import PhoneInput from 'react-phone-input-2';
+
 import { changeUserData } from 'redux/user/operations';
-import { toast } from 'react-toastify';
 import { mainToast } from 'constants/toastConfig';
 import { error } from 'redux/auth/authSlice';
+import { deleteUserOrder } from 'redux/order/orderSlice';
 
 export const LogOutForm = ({ modalToggle }) => {
   const { user, isError, isLoading } = useAuth();
@@ -51,7 +54,9 @@ export const LogOutForm = ({ modalToggle }) => {
   }, [dispatch, isError]);
 
   const handleLogOut = () => {
+    dispatch(deleteUserOrder());
     dispatch(logOut());
+
     modalToggle();
   };
 
@@ -165,7 +170,7 @@ export const LogOutForm = ({ modalToggle }) => {
 
       {showEditProfile ? (
         <button
-          disabled={isLoading}
+          disabled={isLoading || handleError !== null}
           onClick={handleSaveUserData}
           className={s.signIn_btn}
           type="button"
