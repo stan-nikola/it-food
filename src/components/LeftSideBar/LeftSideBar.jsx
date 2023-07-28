@@ -2,6 +2,9 @@ import s from './LeftSideBar.module.css';
 import { ReactComponent as MainDishIcon } from '../../images/svg/main-dish-icon.svg';
 import { ReactComponent as MeatDishIcon } from '../../images/svg/meat-dish-icon.svg';
 import { ReactComponent as DessertDishIcon } from '../../images/svg/dessert-dish-icon.svg';
+import { MdFavoriteBorder } from 'react-icons/md';
+// MdFavorite;
+
 import { NavLink } from 'react-router-dom';
 
 export const LeftSideBar = () => {
@@ -48,7 +51,7 @@ export const LeftSideBar = () => {
               ` ${s.link} ${isActive && s.link_active} `
             }
           >
-            <DessertDishIcon />
+            <MdFavoriteBorder />
             <p>Favorite</p>
           </NavLink>
         </li>

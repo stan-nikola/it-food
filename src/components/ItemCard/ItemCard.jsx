@@ -1,22 +1,36 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
 import css from './ItemCard.module.css';
 import { Modal } from '../Modal/Modal';
 import { MoreInfo } from '../ItemCard/MoreInfo/MoreInfo';
 import { useDispatch } from 'react-redux';
 import { addDish } from 'redux/order/orderSlice';
-
+import {
+  // getFavoriteDishes,
+  addFavoriteDishes,
+  deleteFromFavoriteDishes,
+} from '../../redux/user/operations';
 import { useOrder } from 'components/hooks/useOrder';
+import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
+import { IconContext } from 'react-icons';
+import { selectFavorite } from 'redux/auth/selectors';
 
 export const ItemCard = ({ dish }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
   const [addNoteShow, setAddNoteShow] = useState(false);
   const [moreInfoShow, setMoreInfoShow] = useState(false);
+  const [isFavorite, setIsFavorite] = useState();
 
   const { _id: id, description, preview, thumb, title, price } = dish;
 
   const dispatch = useDispatch();
 
   const { orderedDish } = useOrder();
+
+  const arrayOfFavoriteID = useSelector(selectFavorite);
+  // console.log('arrayOfFavoriteID=', arrayOfFavoriteID);
 
   const modalToggle = () => {
     setAddNoteShow(prev => !prev);
@@ -25,6 +39,17 @@ export const ItemCard = ({ dish }) => {
   const moreInfoToggle = () => {
     setMoreInfoShow(prev => !prev);
   };
+
+  // const isFavoriteToggle = () => {
+  //   setIsFavorite(prev => !prev);
+  // };
+
+  useEffect(() => {
+    if (arrayOfFavoriteID.includes(id)) {
+      setIsFavorite(true);
+    } else setIsFavorite(false);
+    // console.log('isFavorite=', isFavorite);
+  }, [arrayOfFavoriteID, id]);
 
   const isDishOrdered = orderedDish.some(item => item.id === id);
 
@@ -46,11 +71,15 @@ export const ItemCard = ({ dish }) => {
     <>
       <div
         className={css.card}
-        onMouseOver={moreInfoToggle}
-        onMouseOut={moreInfoToggle}
+        // onMouseOver={moreInfoToggle}
+        // onMouseOut={moreInfoToggle}
       >
         <button type="button" onClick={modalToggle} className={css.wrapper}>
-          <div className={css.imageWrapper}>
+          <div
+            className={css.imageWrapper}
+            onMouseOver={moreInfoToggle}
+            onMouseOut={moreInfoToggle}
+          >
             <img
               className={`${!isImgLoaded && css.image_hide}`}
               onLoad={() => setIsImgLoaded(prev => !prev)}
@@ -58,6 +87,7 @@ export const ItemCard = ({ dish }) => {
               alt={title}
               width="203"
             />
+
             {!isImgLoaded && <div className={css.isLoadingCard}></div>}
           </div>
           {moreInfoShow && (
@@ -67,6 +97,71 @@ export const ItemCard = ({ dish }) => {
           )}
           <h1 className={css.foodName}>{title}</h1>
         </button>
+        <div className={css.favoriteIconWraper}>
+          {!isFavorite ? (
+            <button
+              onClick={() => {
+                // console.log('id for tranfer = ', id);
+                dispatch(addFavoriteDishes(id));
+                // isFavoriteToggle();
+                // moreInfoToggle();
+              }}
+              // onClick={() => {
+              //   dispatch(addDish(id));
+              //   modalToggle();
+              // }}
+              type="button"
+              className={css.favoriteIcon}
+            >
+              {/* <MdFavoriteBorder className={css.icon} /> */}
+              <IconContext.Provider
+                value={{
+                  style: {
+                    verticalAlign: 'middle',
+                    color: 'red',
+                    width: '25',
+                    height: '25',
+                  },
+                }}
+                // { color: 'blue', width: '35', className: 'icon' }}
+              >
+                <div>
+                  <MdFavoriteBorder />
+                </div>
+              </IconContext.Provider>
+              {/* <MdFavoriteBorder value={{ className: 'icon' }} /> */}
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                dispatch(deleteFromFavoriteDishes(id));
+                // dispatch(getFavoriteDishes('favorite'));
+                // isFavoriteToggle();
+                // moreInfoToggle();
+              }}
+              type="button"
+              className={css.favoriteIcon}
+            >
+              <IconContext.Provider
+                value={{
+                  style: {
+                    verticalAlign: 'middle',
+                    color: 'red',
+                    width: '25',
+                    height: '25',
+                  },
+                }}
+              >
+                <div>
+                  <MdFavorite />
+                </div>
+              </IconContext.Provider>
+              {/* <MdFavorite /> */}
+            </button>
+          )}
+          {/* <MdFavoriteBorder />
+              <MdFavorite /> */}
+        </div>
 
         <p className={css.foodPrice}>Price: $ {price}</p>
 
@@ -101,13 +196,33 @@ export const ItemCard = ({ dish }) => {
                 <p className={css.descriptionModal}>{description}</p>
                 <p className={css.foodPriceModal}>Price: $ {price}</p>
                 <div className={css.buttonsModalWrapper}>
-                  <button
-                    onClick={modalToggle}
-                    type="button"
-                    className={css.buttonModal}
-                  >
-                    Add to favorite
-                  </button>
+                  {!isFavorite ? (
+                    <button
+                      onClick={() => {
+                        console.log('id for tranfer = ', id);
+                        dispatch(addFavoriteDishes(id));
+                        // isFavoriteToggle();
+                        // moreInfoToggle();
+                      }}
+                      type="button"
+                      className={css.buttonModal}
+                    >
+                      Add to favorite
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        dispatch(deleteFromFavoriteDishes(id));
+                        // dispatch(getFavoriteDishes('favorite'));
+                        // isFavoriteToggle();
+                        // moreInfoToggle();
+                      }}
+                      type="button"
+                      className={css.buttonModal}
+                    >
+                      Remove from favorite
+                    </button>
+                  )}
                   <button
                     onClick={() => {
                       dispatch(addDish(id));

@@ -7,6 +7,10 @@ import {
   signUp,
   verification,
 } from './operations';
+import {
+  addFavoriteDishes,
+  deleteFromFavoriteDishes,
+} from '../user/operations';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { changeUserData } from 'redux/user/operations';
@@ -20,6 +24,7 @@ export const authSlice = createSlice({
       phone: null,
       avatarUrl: null,
       giftCoin: 0,
+      favorite: [],
     },
     token: null,
     isLoggedIn: false,
@@ -59,9 +64,10 @@ export const authSlice = createSlice({
         state.isError = null;
       })
       .addCase(verification.fulfilled, (state, action) => {
-        const { name, phone, email, avatarUrl, giftCoin } = action.payload;
+        const { name, phone, email, avatarUrl, giftCoin, favorite } =
+          action.payload;
 
-        state.user = { name, phone, email, avatarUrl, giftCoin };
+        state.user = { name, phone, email, avatarUrl, giftCoin, favorite };
         state.token = action.payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
@@ -77,8 +83,9 @@ export const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        const { name, phone, email, avatarUrl, giftCoin } = action.payload;
-        state.user = { name, phone, email, avatarUrl, giftCoin };
+        const { name, phone, email, avatarUrl, giftCoin, favorite } =
+          action.payload;
+        state.user = { name, phone, email, avatarUrl, giftCoin, favorite };
         state.isLoggedIn = true;
         state.isLoading = false;
         state.isRefreshing = false;
@@ -94,8 +101,9 @@ export const authSlice = createSlice({
         state.isError = null;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        const { name, phone, email, avatarUrl, giftCoin } = action.payload;
-        state.user = { name, phone, email, avatarUrl, giftCoin };
+        const { name, phone, email, avatarUrl, giftCoin, favorite } =
+          action.payload;
+        state.user = { name, phone, email, avatarUrl, giftCoin, favorite };
         state.token = action.payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
@@ -120,6 +128,7 @@ export const authSlice = createSlice({
           email: null,
           avatarUrl: null,
           giftCoin: 0,
+          favorite: [],
         };
         state.isLoggedIn = false;
         state.isLoading = false;
@@ -161,8 +170,32 @@ export const authSlice = createSlice({
       .addCase(changeUserData.rejected, (state, action) => {
         state.isError = action.payload;
         state.isLoading = false;
+      })
+      // changeUserData
+
+      // addFavoriteDishes
+      .addCase(addFavoriteDishes.fulfilled, (state, action) => {
+        if (action.payload.data.newArrayOfFavorite) {
+          state.user.favorite = action.payload.data.newArrayOfFavorite;
+        }
+        // console.log('arrayOfFavoriteID STATE-ADD= ', state.user.favorite);
+      })
+      .addCase(addFavoriteDishes.rejected, (state, action) => {
+        console.log('error');
+      })
+      // addFavoriteDishes
+
+      // deleteFromFavoriteDishes
+      .addCase(deleteFromFavoriteDishes.fulfilled, (state, action) => {
+        if (action.payload.data.newArrayOfFavorite) {
+          state.user.favorite = action.payload.data.newArrayOfFavorite;
+        }
+        // console.log('arrayOfFavoriteID STATE-DEL= ', state.user.favorite);
+      })
+      .addCase(deleteFromFavoriteDishes.rejected, (state, action) => {
+        console.log('error');
       });
-    // changeUserData
+    // deleteFromFavoriteDishes
   },
 });
 
