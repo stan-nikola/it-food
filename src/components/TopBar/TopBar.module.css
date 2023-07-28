@@ -85,23 +85,6 @@
   color: currentColor;
 }
 
-.header__nav_option {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  margin-right: 20px;
-  padding: 8px;
-  width: 144px;
-  height: 36px;
-  background: #fff5ee;
-  border-radius: 58px;
-
-  padding: 0;
-
-  cursor: pointer;
-  transition: color 250ms linear, box-shadow 250ms linear;
-}
 .header__nav_option:hover,
 .header__nav_option:hover {
   color: #ff5c00;

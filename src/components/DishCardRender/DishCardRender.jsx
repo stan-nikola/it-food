@@ -8,14 +8,12 @@ import { getDishesByCategory } from 'redux/dish/operations';
 import { getFavoriteDishes } from 'redux/user/operations';
 
 import { useDish } from 'components/hooks/useDish';
-import { useAuth } from 'components/hooks/useAuth';
+// import { useAuth } from 'components/hooks/useAuth';
 
 import { selectFavorite } from 'redux/auth/selectors';
 
-
 import { ItemCard } from 'components/ItemCard';
 import { DishCardSkeleton } from 'components/DishCardSkeleton';
-
 
 export const DishCardRender = () => {
   const dispatch = useDispatch();
@@ -34,7 +32,7 @@ export const DishCardRender = () => {
 
   const { dish, dishIsLoaded } = useDish();
 
-  const { favorite } = useAuth();
+  // const { favorite } = useAuth();
   // console.log('FAVOR=', favorite);
 
   const arrayOfFavoriteID = useSelector(selectFavorite);

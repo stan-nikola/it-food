@@ -23,6 +23,8 @@ export const TopBar = () => {
 
   const { lastOrder } = useOrder();
 
+  localStorage.setItem('theme', 'dark');
+
   const modalToggle = e => {
     setLogInShow(false);
     setSignInShow(false);
@@ -93,9 +95,12 @@ export const TopBar = () => {
           </li>
 
           <li className={s.header__nav_item}>
-            <button type="button" className={s.header__nav_option}>
-              Dinning option
-            </button>
+            <input type="checkbox" className={s.checkbox} id="checkbox" />
+            <label for="checkbox" class="checkbox-label">
+              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
+              <span class="ball"></span>
+            </label>
           </li>
           <li className={s.header__nav_item}>
             {isRefreshing ? (
