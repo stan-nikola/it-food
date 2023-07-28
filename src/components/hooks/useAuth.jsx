@@ -6,6 +6,7 @@ import {
   selectToken,
   selectIsError,
   selectIsLoading,
+  selectFavorite,
 } from 'redux/auth/selectors';
 import { selectDish, selectIsDishLoaded } from 'redux/dish/selectors';
 
@@ -18,6 +19,7 @@ export const useAuth = () => {
   const isLoading = useSelector(selectIsLoading);
   const dish = useSelector(selectDish);
   const dishIsLoaded = useSelector(selectIsDishLoaded);
+  const favorite = useSelector(selectFavorite);
 
   return {
     isLoggedIn,
@@ -28,5 +30,6 @@ export const useAuth = () => {
     isLoading,
     dish,
     dishIsLoaded,
+    favorite,
   };
 };

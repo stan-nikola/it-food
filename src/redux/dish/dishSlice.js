@@ -38,7 +38,7 @@ export const dishSlice = createSlice({
         state.isDishLoaded = false;
       })
 
-      // favorite
+      // Get favorite dishes
       .addCase(getFavoriteDishes.pending, (state, action) => {
         state.isDishLoaded = true;
       })
@@ -48,6 +48,10 @@ export const dishSlice = createSlice({
         switch (category) {
           case 'favorite':
             state.collections.favorite = action.payload.data;
+            // console.log(
+            //   'state.collections.favorite =',
+            //   state.collections.favorite
+            // );
             break;
 
           default:
