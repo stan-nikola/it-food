@@ -13,6 +13,7 @@ import axios from 'axios';
 import { authPresistedReducer } from './auth/authSlice';
 import { dishReducer } from './dish/dishSlice';
 import { orderReducer } from './order/orderSlice';
+// import { userReducer } from './user/userSlice';
 
 axios.defaults.baseURL = 'http://localhost:3000/api/';
 
@@ -21,6 +22,7 @@ export const store = configureStore({
     auth: authPresistedReducer,
     dish: dishReducer,
     order: orderReducer,
+    // user: userReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

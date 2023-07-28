@@ -1,16 +1,21 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 import s from './DishCardRender.module.css';
 
 import { getDishesByCategory } from 'redux/dish/operations';
 import { getFavoriteDishes } from 'redux/user/operations';
+
 import { useDish } from 'components/hooks/useDish';
+import { useAuth } from 'components/hooks/useAuth';
+
+import { selectFavorite } from 'redux/auth/selectors';
+
 
 import { ItemCard } from 'components/ItemCard';
 import { DishCardSkeleton } from 'components/DishCardSkeleton';
+
 
 export const DishCardRender = () => {
   const dispatch = useDispatch();
@@ -29,20 +34,38 @@ export const DishCardRender = () => {
 
   const { dish, dishIsLoaded } = useDish();
 
+  const { favorite } = useAuth();
+  // console.log('FAVOR=', favorite);
+
+  const arrayOfFavoriteID = useSelector(selectFavorite);
+
+  // const arrayOfFavoriteID = useSelector(
+  //   state => state.user.favorite.arrayOfFavoriteID
+  // );
+  // console.log('xxx=', arrayOfFavoriteID);
+
   let dishCollection = [];
 
   const numberOfCards = Array.from(Array(8).keys());
+
+  // useEffect(() => {
+  //   if (category === 'favorite') {
+  //     dispatch(getFavoriteDishes(category));
+  //     return;
+  //   }
+  //   dispatch(getDishesByCategory(category));
+  // }, [category, dispatch]);
 
   useEffect(() => {
     if (category === 'favorite') {
       dispatch(getFavoriteDishes(category));
       return;
     }
+  }, [arrayOfFavoriteID, category, dispatch]);
+
+  useEffect(() => {
     dispatch(getDishesByCategory(category));
   }, [category, dispatch]);
-
-  // console.log('dish=', dish);
-  // console.log('dishfavorite=', dish.favorite);
 
   switch (category) {
     case 'main':
