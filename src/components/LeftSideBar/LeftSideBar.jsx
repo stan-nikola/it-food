@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import { DessertDishIcon, MainDishIcon, MeatDishIcon } from 'images';
 import s from './LeftSideBar.module.css';
+
+import { DessertDishIcon, MainDishIcon, MeatDishIcon } from 'images';
+
 
 export const LeftSideBar = () => {
   return (
