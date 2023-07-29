@@ -5,7 +5,7 @@ import s from './HistoryCardRender.module.css';
 
 import { deleteOrder, getOrderCount } from 'redux/order/operations';
 
-import { AiOutlineCalendar } from 'react-icons/ai';
+import { AiOutlineCalendar, AiOutlineNumber } from 'react-icons/ai';
 
 import {
   AiFillCaretDown,
@@ -58,7 +58,9 @@ export const HistoryCardRenderItems = ({ props }) => {
           {updatedAt.slice(0, 10)}
         </p>
         <p className={s.order_date}>
-          <span>#</span>
+          <span>
+            <AiOutlineNumber />
+          </span>
           {orderNumber}
         </p>
       </div>

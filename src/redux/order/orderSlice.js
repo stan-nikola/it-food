@@ -64,6 +64,26 @@ export const orderSlice = createSlice({
 
       state.orderedDish = state.orderedDish.filter(item => item.quantity > 0);
     },
+
+    incrementOrderedDishQuantity(state, action) {
+      state.lastOrder.orderedDish.forEach(item => {
+        if (item._id === action.payload) {
+          item.quantity += 1;
+        }
+      });
+    },
+
+    decrementOrderedDishQuantity(state, action) {
+      state.lastOrder.orderedDish.forEach(item => {
+        if (item._id === action.payload) {
+          item.quantity -= 1;
+        }
+      });
+
+      state.lastOrder.orderedDish = state.lastOrder.orderedDish.filter(
+        item => item.quantity > 0
+      );
+    },
     addOrderError(state, action) {
       state.orderError = action.payload;
     },
@@ -206,4 +226,6 @@ export const {
   incrementDishQuantity,
   addOrderError,
   deleteUserOrder,
+  incrementOrderedDishQuantity,
+  decrementOrderedDishQuantity,
 } = orderSlice.actions;

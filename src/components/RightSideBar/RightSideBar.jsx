@@ -23,6 +23,7 @@ import { addOrder } from 'redux/order/operations';
 import { useNavigate } from 'react-router-dom';
 import { setPhone } from 'redux/auth/authSlice';
 import { Modal } from 'components/Modal';
+import FlipNumbers from 'react-flip-numbers';
 
 export const RightSideBar = () => {
   const [orderOption, setOrderOption] = useState('dinein');
@@ -201,7 +202,7 @@ export const RightSideBar = () => {
                 <div className={s.orderOption_detail_change}>
                   <div>
                     <p className={s.orderOption_detail_food_name}>
-                      {title.slice(0, 30)}
+                      {title.slice(0, 26)}
                     </p>
                     <div className={s.orderOption_detail_sup_change}>
                       <div className={s.orderOption_detail_sub_change}>
@@ -219,11 +220,18 @@ export const RightSideBar = () => {
                             className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_minus}`}
                           />
                         </button>
-                        <p className={s.orderOption_detail_quantity}>
-                          {quantity}
-                        </p>
+                        <span className={s.orderOption_detail_quantity}>
+                          <FlipNumbers
+                            height={18}
+                            width={18}
+                            duration={1}
+                            play
+                            numbers={`${quantity}`}
+                          />
+                        </span>
+
                         <button
-                          disabled={quantity >= 10}
+                          disabled={quantity >= 9}
                           onClick={() => dispatch(incrementDishQuantity(_id))}
                           className={s.orderOption_detail_change_btn}
                         >
@@ -286,15 +294,15 @@ export const RightSideBar = () => {
                   value={noteText}
                   onChange={e => setNoteText(e.target.value)}
                 />
-                {noteText.length > 36 && (
+                {noteText.length > 100 && (
                   <p className={s.add_note_form_error}>
-                    Note must not exceed 36 characters
+                    Note must not exceed 100 characters
                   </p>
                 )}
               </label>
             </form>
             <button
-              disabled={noteText.length > 36}
+              disabled={noteText.length > 100}
               className={s.add_note_btn}
               onClick={modalToggle}
               id="addNote"

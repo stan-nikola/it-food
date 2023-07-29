@@ -3,16 +3,16 @@
   margin: 0;
   width: 478px;
 
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
-  color: #c2c2c2;
+  /* font-family: 'Poppins'; */
+  /* font-style: normal; */
+  font-weight: var(--font-weight-s);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
+  color: var(--main-text-color);
 
   /* outline: 1px solid blue; */
 
-    border: 1px solid #E4E4E4;
-    /* outline: 1px solid red; */
-    /* border: none */
+  border: var(--border-main);
+  /* outline: 1px solid red; */
+  /* border: none */
 }

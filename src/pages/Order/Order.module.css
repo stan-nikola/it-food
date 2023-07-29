@@ -9,11 +9,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #ffffff;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  border-radius: 12px;
+  background: var(--secondary-background-color);
+  border-radius: var(--border-radius-main);
   transition: opacity 250ms linear, transform 250ms linear;
   opacity: 1;
 }
@@ -24,10 +21,11 @@
 }
 
 .orderContainer {
-  padding-top: 12px;
+  padding: 24px 0;
   display: flex;
-  border-left: 1px solid #e4e4e4;
-  border-right: 1px solid #e4e4e4;
+  border: var(--border-main);
+  border-top: none;
+  height: 83vh;
 }
 
 .orderDetails {
@@ -42,8 +40,8 @@
 }
 
 .orderDetailTitle {
-  font-weight: 600;
-  color: #19191c;
+  font-weight: var(--font-weight-l);
+  color: var(--main-text-color);
 }
 
 .orderOption {
@@ -52,119 +50,51 @@
   font-size: 32px;
   width: 167px;
   height: 45px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-main);
 
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-shadow: var(--box-shadow-main);
 
   padding: 0 8px;
   margin-right: 4px;
 }
 .orderOption_dineIn {
-  border: 2px solid #3071ff;
-  color: #3071ff;
+  border: 2px solid var(--first-option-color);
+  color: var(--first-option-color);
 }
 
 .orderOption_delivery {
-  border: 2px solid #ff5c00;
-  color: #ff5c00;
+  border: 2px solid var(--second-option-color);
+  color: var(--second-option-color);
 }
 
 .orderOption_pickup {
-  border: 2px solid #35c335;
-  color: #35c335;
+  border: 2px solid var(--third-option-color);
+  color: var(--third-option-color);
 }
 
 .orderOption_detail {
-  padding: 12px 12px 0px 24px;
-  border: 1px solid #e4e4e4;
+  padding: 12px 19px 12px 24px;
+  border: var(--border-main);
   height: calc(100vh - 340px);
   overflow-y: scroll;
   scroll-behavior: smooth;
+  scrollbar-width: auto;
+  scrollbar-color: var(--scroll-color) var(--third-text-color);
+
   margin-bottom: 12px;
 }
 
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
-.orderOption_detail {
-  scrollbar-width: auto;
-  scrollbar-color: #c2c2c2 #ffffff;
-}
 
 /* Chrome, Edge, and Safari */
 .orderOption_detail::-webkit-scrollbar {
-  width: 9px;
-}
-
-.orderOption_detail::-webkit-scrollbar-track {
-  background: #ffffff;
+  width: 8px;
 }
 
 .orderOption_detail::-webkit-scrollbar-thumb {
-  background-color: #c2c2c2;
-  border-radius: 4px;
-  border: 3px solid #ffffff;
-}
-
-.orderOption_detail_img {
-  border-radius: 12px;
-  width: 92px;
-  height: 92px;
-  object-fit: contain;
-  margin-right: 24px;
-}
-.orderOption_card {
-  display: flex;
-  border-bottom: 1px solid #e4e4e4;
-  transition: all 0.35s;
-  padding: 6px 4px 6px 4px;
-  border-radius: 16px;
-}
-.orderOption_card:hover {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
-
-.orderOption_card:not(:first-child) {
-  margin-top: 12px;
-}
-.orderOption_detail_food_name {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 60%;
-  margin-bottom: 15px;
-}
-
-.orderOption_detail_food_price {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 130%;
-  margin-bottom: 2px;
-  color: #9c9c9c;
-}
-
-.orderOption_detail_food_price_cost {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 150%;
-  color: #ff5c00;
-}
-.orderOption_detail_food_price_cost span {
-  margin-left: 28px;
-}
-
-.orderOption_detail_change {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  min-width: 120px;
-}
-
-.orderOption_detail_sup_change {
-  display: flex;
-  margin-bottom: 8px;
-}
-.orderOption_detail_sub_change {
-  width: 100px;
+  background-color: var(--scroll-color);
+  border-radius: var(--border-radius-main);
 }
 
 .orderOption_bottom {
@@ -175,28 +105,28 @@
 
 .orderOption_total {
   text-align: right;
-  color: #19191c;
-  font-weight: 500;
-  font-size: 18px;
+  color: var(--main-text-color);
+  font-weight: var(--font-weight-m);
+  font-size: var(--font-size-l);
   padding-right: 12px;
 }
 .orderOption_total span {
-  font-weight: 600;
+  font-weight: var(--font-weight-l);
 
-  color: #ff5c00;
+  color: var(--accent-color);
 }
 .orderOption_note {
-  color: #9c9c9c;
+  color: var(--secondary-text-color);
 }
-.orderOption_note p {
-  height: 22px;
-  border: 1px solid #e4e4e4;
-  border-radius: 4px;
+.orderOption_note_input {
+  border: var(--border-main);
+  border-radius: var(--border-radius-main);
   height: 81px;
   width: 402px;
-  color: #19191c;
-  padding: 4px;
+  color: var(--main-text-color);
+  padding: 8px;
   margin-top: 6px;
+  resize: none;
 }
 
 .order_payment {
@@ -204,24 +134,37 @@
   padding: 0 40px;
 }
 .order_payment h1 {
-  font-weight: 600;
-  color: #19191c;
+  font-weight: var(--font-weight-l);
+  color: var(--main-text-color);
 }
 
 .order_payment_title {
   display: flex;
   padding-bottom: 12px;
   justify-content: space-between;
-  border-bottom: 1px solid #e4e4e4;
+  border-bottom: var(--border-main);
   margin-bottom: 24px;
 }
 
+.order_payment_sub_title span {
+  display: flex;
+  align-items: center;
+}
+
+.order_payment_sub_title_icon {
+  margin-right: 8px;
+  /* fill: var(--accent-color); */
+  color: var(--accent-color);
+  width: 18px;
+  height: 18px;
+}
+
 .order_payment_sub_title p {
-  color: #828487;
+  color: var(--secondary-text-color);
 }
 
 .order_payment_amount {
-  background-color: #f8f9fd;
+  background-color: var(--third-background-color);
   padding: 16px 36px;
   border-radius: 12px;
   margin-bottom: 24px;
@@ -229,23 +172,24 @@
 .order_payment_amount p {
   display: flex;
   justify-content: space-between;
-  font-weight: 600;
-  font-size: 24px;
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-xm);
+  color: var(--main-text-color);
 }
 
 .order_payment_amount span {
-  color: #ff5c00;
+  color: var(--accent-color);
 }
 
 .order_payment_amount :not(:last-child) {
   margin-bottom: 12px;
-  font-weight: 400;
-  font-size: 18px;
-  color: #19191c;
+  font-weight: var(--font-weight-s);
+  font-size: var(--font-size-m);
+  color: var(--main-text-color);
 }
 
 .order_payment_amount :not(:last-child) span {
-  color: #19191c;
+  color: var(--main-text-color);
 }
 
 .order_payment_method {
@@ -253,17 +197,18 @@
 }
 
 .order_payment_method p {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 24px;
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
   margin-bottom: 12px;
+  color: var(--main-text-color);
 }
 .order_payment_method_wrapper {
   display: flex;
   justify-content: space-around;
   padding-bottom: 24px;
   margin-bottom: 24px;
-  border-bottom: 1px solid #e4e4e4;
+  border-bottom: var(--border-main);
 }
 
 .order_payment_method_btn {
@@ -273,8 +218,8 @@
   border: none;
   width: 108px;
   height: 96px;
-  border-radius: 16px;
-  border: 2px solid #e4e4e4;
+  border-radius: var(--border-radius-main);
+  border: var(--border-fifth);
   background-color: transparent;
   margin: 0;
   padding: 0;
@@ -284,11 +229,11 @@
 }
 
 .order_payment_method_btn:hover {
-  box-shadow: rgba(235, 151, 16, 0.203) 0px -2px 6px 0px inset;
+  box-shadow: var(--box-shadow-main);
 }
 
 .payment_button_active {
-  border: 2px solid #ff5c00;
+  border: var(--border-six);
 }
 
 .order_payment_other_wrapper {
@@ -304,9 +249,9 @@
   border: none;
   width: 108px;
   height: 96px;
-  border-radius: 16px;
+  border-radius: var(--border-radius-main);
 
-  background-color: #19191c;
+  background-color: var(--button-color-plus);
   margin: 0;
   padding: 0;
 
@@ -314,21 +259,19 @@
   transition: box-shadow 250ms linear;
 }
 .order_payment_other_btn svg {
-  fill: #fff;
+  fill: var(--third-text-color);
   width: 24px;
   height: 24px;
   margin-top: 22px;
 }
 .order_payment_other_btn p {
-  color: #fff;
-  font-size: 12px;
-  font-weight: normal;
+  color: var(--third-text-color);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-s);
 }
 
 .order_payment_other_btn:hover {
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
-    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: var(--box-shadow-main);
 }
 
 .order_payment_done_btn {
@@ -345,29 +288,29 @@
   padding-top: 24px;
 }
 .change_tip_title {
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 150%;
-  color: #19191c;
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-xm);
+  line-height: var(--line-height-l);
+  color: var(--main-text-color);
   margin-bottom: 24px;
 }
 .change_tip_subTitle {
-  font-size: 12px;
-  line-height: 150%;
-  color: #828487;
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-l);
+  color: var(--secondary-text-color);
   text-align: center;
   margin-bottom: 24px;
 }
 .change_tip_input {
   width: 316px;
   padding: 12px 16px;
-  background-color: #ffffff;
-  color: #c2c2c2;
-  border: 1px solid #ff5c00;
-  border-radius: 12px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
+  background-color: var(--field-background-color);
+  color: var(--main-text-color);
+  border: var(--border-main);
+  border-radius: var(--border-radius-main);
+  font-weight: var(--font-weight-s);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
   resize: none;
 }
 .change_tip_btn {
@@ -378,16 +321,14 @@
   overflow: visible;
   width: 316px;
   height: 42px;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 150%;
-  background: #ff5c00;
-  border-radius: 58px;
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
+  background: var(--accent-color);
+  border-radius: var(--border-radius-secondary);
   cursor: pointer;
-  transition: all 0.35s;
-  color: #fff;
+  color: var(--third-text-color);
   margin-bottom: 24px;
-
   margin-top: 12px;
   transition: background 150ms linear, box-shadow 250ms linear;
 }

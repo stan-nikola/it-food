@@ -4,10 +4,10 @@ import { Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { TopBar } from 'components/TopBar';
 
-export const Layout = () => {
+export const Layout = ({ setter }) => {
   return (
     <>
-      <TopBar />
+      <TopBar setter={setter} />
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>

@@ -20,7 +20,6 @@ import { selectFavorite } from 'redux/auth/selectors';
 import { Modal } from 'components/Modal';
 import { MoreInfo } from './MoreInfo/MoreInfo';
 
-
 export const ItemCard = ({ dish }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
   const [addNoteShow, setAddNoteShow] = useState(false);

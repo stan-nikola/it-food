@@ -1,15 +1,15 @@
 .card {
   display: flex;
-  flex-direction: column; 
-    position: relative;
+  flex-direction: column;
+  position: relative;
   height: 100%;
   /* height: 330px; */
   width: 219px;
 
   /* padding: 12px 8px 16px 8px; */
   padding: 12px 8px 12px 8px;
-  background-color: #ffffff;
-  border-radius: 16px;
+  background-color: var(--secondary-background-color);
+  border-radius: var(--border-radius-main);
 
   /* outline: 1px solid green; */
 }
@@ -22,7 +22,7 @@
   flex-grow: 1;
   padding: 0;
   border: none;
-  background-color: #fff;
+  background-color: var(--secondary-background-color);
 }
 
 .wrapper:hover {
@@ -34,16 +34,16 @@
   overflow: hidden;
   width: 203px;
   height: 203px;
-  border-radius: 16px;
-  border: 1px solid black;
-  border-style: hidden;
+  border-radius: var(--border-radius-main);
+  border: var(--border-main);
+  /* border-style: hidden; */
 }
 
 .favoriteIconWraper {
   position: absolute;
-    top: 182px;
-    left: 176px;
-    margin: 0;
+  top: 182px;
+  left: 176px;
+  margin: 0;
 }
 
 .favoriteIcon {
@@ -51,19 +51,19 @@
   padding: 0;
   width: 30px;
   height: 30px;
-  background-color: #ece6e6;
+  background-color: var(--button-color-disabled);
+  box-shadow: var(--box-shadow-secondary);
   /* background-color: #d30de6; */
-      border-radius: 50%;
-          border: none;
+  border-radius: var(--border-radius-third);
+  border: none;
 }
 
 .icon {
   size: 40px;
   width: 40px;
   /* height: 40px; */
-    vertical-align: middle;
+  vertical-align: middle;
 }
-
 
 .moreInfo {
   position: absolute;
@@ -71,17 +71,16 @@
   left: 27px;
 }
 
-
 .foodName {
   /* margin-top: 12px; */
   margin-top: 10px;
-  font-family: 'Poppins';
-  font-weight: 600;
-  font-size: 16px;
+  /* font-family: 'Poppins'; */
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-m);
   /* line-height: 150%; */
-  line-height: 130%;
+  line-height: var(--line-height-m);
   text-align: center;
-  color: #19191c;
+  color: var(--main-text-color);
 }
 
 .foodPrice {
@@ -93,7 +92,7 @@
   font-size: 16px;
   line-height: 150%;
   text-align: center; */
-  color: #ff5c00;
+  color: var(--accent-color);
 }
 
 .buttonsWrapper {
@@ -116,21 +115,20 @@
   margin-left: auto;
   margin-right: auto;
   padding: 1px 50px 1px 50px;
-  background-color: #ffbd8d;;
-  font-family: 'Poppins';
-  font-weight: 500;
-  font-size: 13px;
-  line-height: 150%;
-  border-radius: 6px;
-  border: 1px solid #ffbd8d;
+  background-color: var(--primary-button-color);
+  /* font-family: 'Poppins'; */
+  font-weight: var(--font-weight-m);
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-l);
+  border-radius: var(--border-radius-main);
+  border: var(--border-main);
 }
 
 .button:hover {
   cursor: pointer;
-  color: white;
-  background-color: #ff5c00;
+  color: var(--third-text-color);
+  background-color: var(--accent-color);
 }
-
 
 .image_hide {
   display: none;
@@ -138,13 +136,18 @@
 
 .isLoadingCard {
   width: 219px;
-  background: #eee;
-  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
-  border-radius: 5px;
+  /* background: var(--third-background-color); */
+  background: linear-gradient(
+    110deg,
+    var(--image-load-main-color) 8%,
+    var(--image-load-second-color) 18%,
+    var(--image-load-main-color) 33%
+  );
+
   background-size: 200% 100%;
   animation: 1.5s shine linear infinite;
 
-  border-radius: 16px;
+  border-radius: var(--border-radius-main);
   height: 203px;
   margin-bottom: 12px;
 }
@@ -154,7 +157,6 @@
     background-position-x: -200%;
   }
 }
-
 
 /* MODAL WINDOW STYLES */
 .modal {
@@ -168,13 +170,10 @@
   top: 100px;
   left: 25%;
   transform: translate(0%, 0%);
-  background: #ffffff;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  border-radius: 12px;
+  background: var(--secondary-background-color);
+  border-radius: var(--border-radius-main);
   transition: opacity 250ms linear, transform 250ms linear;
-  opacity: 1;        
+  opacity: 1;
 }
 
 .modal_unmount {
@@ -184,8 +183,8 @@
 
 .modalWrapper {
   padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #ff5c00;
+  border-radius: var(--border-radius-main);
+  border: var(--border-third);
 }
 
 .modalDataWrapper {
@@ -197,9 +196,9 @@
   /* overflow: hidden; */
   width: 340px;
   /* height: 203px; */
-  border-radius: 16px;
-  border: 1px solid black;
-  border-style: hidden;
+  border-radius: var(--border-radius-main);
+  /* border: var(--border-fourth); */
+  /* border-style: hidden; */
 }
 
 .modalDataTextWrapper {
@@ -207,12 +206,12 @@
 }
 
 .foodNameModal {
-  font-family: 'Poppins';
-  font-weight: 700;
-  font-size: 26px;
-  line-height: 150%;
+  /* font-family: 'Poppins'; */
+  font-weight: var(--font-weight-xl);
+  font-size: var(--font-size-xm);
+  line-height: var(--font-size-xm);
   /* text-align: center; */
-  color: #19191c;
+  color: var(--main-text-color);
 }
 
 .descriptionModal {
@@ -220,35 +219,35 @@
   max-height: 176px;
   overflow-y: auto;
   margin-top: 10px;
-  
-  font-family: 'Poppins';
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 150%;
-  color: #19191c;   
+
+  /* font-family: 'Poppins'; */
+  font-weight: var(--font-weight-m);
+  font-size: var(--font-size-ml);
+  line-height: var(--line-height-l);
+  color: var(--secondary-text-color);
 
   /* Firefox */
-    scrollbar-width: thin;
-    scrollbar-color: #c2c2c2 #ffffff;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-color) var(--third-text-color);
 }
 
 /* Chrome, Edge, and Safari */
 .descriptionModal::-webkit-scrollbar {
-  width: 9px;
+  width: 8px;
 }
 
 .descriptionModal::-webkit-scrollbar-thumb {
-  background-color: #c2c2c2;
-  border-radius: 4px;
+  background-color: var(--scroll-color);
+  border-radius: var(--border-radius-main);
 }
 
 .foodPriceModal {
   composes: descriptionModal;
   height: 30px;
   margin-top: 25px;
-  
-  font-weight: 600;
-  color: #ff5c00;
+
+  font-weight: var(--font-weight-l);
+  color: var(--accent-color);
 }
 
 .buttonsModalWrapper {
@@ -262,19 +261,17 @@
   margin-top: 4px;
   padding: 5px 0 5px 0;
   text-align: center;
-  font-family: 'Poppins';
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 150%;
-  background-color: #ffbd8d;
-  border-radius: 7px;
-  border: 1px solid #ffbd8d; 
+  /* font-family: 'Poppins'; */
+  font-weight: var(--font-weight-m);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
+  background-color: var(--primary-button-color);
+  border-radius: var(--border-radius-main);
+  border: var(--border-main);
 }
 
 .buttonModal:hover {
   cursor: pointer;
-  color: white;
-    background-color: #ff5c00;
+  color: var(--third-text-color);
+  background-color: var(--accent-color);
 }
-
-  

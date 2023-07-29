@@ -16,10 +16,10 @@
   text-align: center;
 }
 .title {
-  color: #fff;
-  font-weight: 600;
-  line-height: 150%;
-  font-size: 24px;
+  color: var(--third-text-color);
+  font-weight: var(--font-weight-l);
+  line-height: var(--line-height-l);
+  font-size: var(--font-size-xm);
   width: 100%;
   margin-bottom: 32px;
 }
@@ -30,16 +30,16 @@
   overflow: visible;
   width: 163px;
   height: 42px;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 150%;
-  background: #ff5c00;
-  border-radius: 58px;
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
+  background: var(--accent-color);
+  border-radius: var(--border-radius-main);
   cursor: pointer;
-  color: #fff;
+  color: var(--third-text-color);
   transition: background 150ms linear, box-shadow 250ms linear;
 }
 
 .button:hover {
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  box-shadow: var(--box-shadow-secondary);
 }

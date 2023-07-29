@@ -1,9 +1,8 @@
 .moreInfoText {
   width: 150px;
   padding: 5px;
-  text-align:center;
-  font-size: 12px;
-  background-color: aqua;
-  border-radius: 10px;
-
+  text-align: center;
+  font-size: var(--font-size-s);
+  background-color: var(--fourth-text-color);
+  border-radius: var(--border-radius-main);
 }

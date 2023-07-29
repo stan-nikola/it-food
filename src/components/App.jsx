@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
@@ -12,27 +12,29 @@ import { Dashboard } from 'pages/Dashboard';
 import { Order } from 'pages/Order';
 import { History } from 'pages/History';
 
-import '../index.css';
-
 export const App = () => {
   const dispatch = useDispatch();
 
   const { token } = useAuth();
 
-  // const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  // const [theme, setTheme] = useLocalStorage(
-  //   'theme',
-  //   defaultDark ? 'dark' : 'light'
-  // );
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+    document.body.dataset.theme = theme;
+  }, [theme]);
 
   useEffect(() => {
     if (token) dispatch(refreshUser());
   }, [dispatch, token]);
 
+  const handleThemeChange = themeToggler => {
+    themeToggler ? setTheme('light') : setTheme('dark');
+  };
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout setter={handleThemeChange} />}>
           <Route path="/" element={<Navigate to="/home/main?category=all" />} />
           <Route
             path="/home/"

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import s from './Order.module.css';
 
@@ -17,19 +18,20 @@ import {
 import { addOrderError } from 'redux/order/orderSlice';
 import { refreshUser } from 'redux/auth/operations';
 
-import { toast } from 'react-toastify';
-
 import {
   AiOutlineDelete,
   AiOutlineMail,
   AiOutlineCheck,
   AiOutlinePercentage,
+  AiOutlineCalendar,
+  AiOutlineNumber,
 } from 'react-icons/ai';
 
 import { mainToast, orderToast } from 'constants/toastConfig';
 
 import { Cash, Gift, MasterCard, Visa } from 'images';
 import { Modal } from 'components/Modal';
+import { OrderCardRender } from 'components/OrderCardRender';
 
 export const Order = () => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
@@ -37,9 +39,12 @@ export const Order = () => {
   const [isTipChangeShow, setIsTipChangeShow] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const [currentOrderId, setCurrentOrderId] = useState(null);
+  const [orderNote, setOrderNote] = useState(null);
 
   const { user, isLoggedIn } = useAuth();
   const { lastOrder, orderLoading, orderError } = useOrder();
+  const { orderNumber, orderedDish, note, option, createdAt, _id } =
+    lastOrder || {};
 
   const { phone, email } = user;
 
@@ -47,6 +52,10 @@ export const Order = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setOrderNote(note);
+  }, [note]);
 
   useEffect(() => {
     setCurrentOrderId(prev => prev !== orderId && orderId);
@@ -57,6 +66,12 @@ export const Order = () => {
       dispatch(getByIdAndPhone({ phone, _id: orderId }));
     }
   }, [currentOrderId, dispatch, isLoggedIn, orderId, phone]);
+
+  useEffect(() => {
+    if (orderId === 'last' && !lastOrder) {
+      navigate('/home');
+    }
+  }, [lastOrder, navigate, orderId]);
 
   useEffect(() => {
     if (isLoggedIn && orderId !== 'last') {
@@ -85,13 +100,14 @@ export const Order = () => {
     }
   }, [dispatch, navigate, orderError]);
 
-  const { orderNumber, orderedDish, note, option, createdAt, _id } =
-    lastOrder || {};
-
   const totalPrice = orderedDish?.reduce(
     (acc, { price, quantity }) => acc + Number(price * quantity),
     0
   );
+
+  const confirmDishes = orderedDish?.map(({ _id, quantity }) => {
+    return { id: _id, quantity };
+  });
 
   const handlePaymentChange = e => {
     setPaymentMethod(e.currentTarget.id);
@@ -106,7 +122,14 @@ export const Order = () => {
 
   const handleConfirmOrder = () => {
     dispatch(
-      confirmOrder({ _id: lastOrder._id, paymentMethod, tipAmount, email })
+      confirmOrder({
+        _id: lastOrder._id,
+        paymentMethod,
+        tipAmount,
+        email,
+        orderedDish: confirmDishes,
+        note: orderNote,
+      })
     );
 
     setToastMessage(
@@ -138,55 +161,22 @@ export const Order = () => {
             </div>
 
             <ul className={s.orderOption_detail}>
-              {orderedDish.map(
-                ({ _id, id, preview, title, price, quantity }) => (
-                  <li key={_id || id} className={s.orderOption_card}>
-                    <img
-                      className={s.orderOption_detail_img}
-                      src={preview}
-                      alt={title}
-                    ></img>
-                    <div className={s.orderOption_detail_change}>
-                      <div>
-                        <p className={s.orderOption_detail_food_name}>
-                          {title}
-                        </p>
-                        <div className={s.orderOption_detail_sup_change}>
-                          <div className={s.orderOption_detail_sub_change}>
-                            <p className={s.orderOption_detail_food_price}>
-                              Price
-                            </p>
-                            <p className={s.orderOption_detail_food_price_cost}>
-                              $ {price}
-                            </p>
-                          </div>
-                          <div className={s.orderOption_detail_sub_change}>
-                            <p className={s.orderOption_detail_food_price}>
-                              Quantity
-                            </p>
-                            <p className={s.orderOption_detail_food_price_cost}>
-                              <span> {quantity}</span>
-                            </p>
-                          </div>
-                          <div className={s.orderOption_detail_sub_change}>
-                            <p className={s.orderOption_detail_food_price}>
-                              Total
-                            </p>
-                            <p className={s.orderOption_detail_food_price_cost}>
-                              $ {(quantity * price).toFixed(2)}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                )
-              )}
+              {orderedDish.map(item => (
+                <OrderCardRender key={item._id || item.id} props={item} />
+              ))}
             </ul>
             <div className={s.orderOption_bottom}>
               <div className={s.orderOption_note}>
-                Note
-                <p>{note ? note : 'you left no notes for this order'}</p>
+                <p>Note</p>
+                <textarea
+                  className={s.orderOption_note_input}
+                  onChange={e =>
+                    orderNote.length > 100
+                      ? setOrderNote(prev => prev.slice(0, prev.length - 1))
+                      : setOrderNote(e.target.value)
+                  }
+                  value={orderNote}
+                />
               </div>
               <p className={s.orderOption_total}>
                 Total: <span>$ {totalPrice.toFixed(2)}</span>{' '}
@@ -197,8 +187,18 @@ export const Order = () => {
             <div className={s.order_payment_title}>
               <h1>Order payment</h1>
               <div className={s.order_payment_sub_title}>
-                <p>Date: {createdAt.slice(0, 10)}</p>
-                <p># {orderNumber}</p>
+                <span>
+                  <AiOutlineCalendar
+                    className={s.order_payment_sub_title_icon}
+                  />
+                  <p>{createdAt.slice(0, 10)}</p>
+                </span>
+
+                <span>
+                  <AiOutlineNumber className={s.order_payment_sub_title_icon} />
+
+                  <p>{orderNumber}</p>
+                </span>
               </div>
             </div>
             <div className={s.order_payment_amount}>
