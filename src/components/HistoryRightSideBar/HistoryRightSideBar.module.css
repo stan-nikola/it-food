@@ -4,8 +4,9 @@
 }
 
 .orders_title {
-  font-size: 24px;
+  font-size: var(--font-size-xm);
   margin-bottom: 12px;
+  color: var(--main-text-color);
 }
 
 .orders_item {
@@ -13,8 +14,8 @@
   justify-content: space-between;
   display: flex;
   justify-content: space-between;
-  border-radius: 8px;
-  border: 1px solid #e4e4e4;
+  border-radius: var(--border-radius-main);
+  border: var(--border-main);
   padding: 6px 4px;
 }
 
@@ -26,13 +27,14 @@
   margin-bottom: 12px;
 }
 .orders_item_name {
-  font-size: 16px;
+  font-size: var(--font-size-m);
   margin-right: 8px;
+  color: var(--main-text-color);
 }
 
 .orders_item_value {
   text-align: center;
-  font-weight: 600;
-  color: #ff5c00;
+  font-weight: var(--font-weight-l);
+  color: var(--accent-color);
   margin-right: 4px;
 }

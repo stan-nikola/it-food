@@ -5,20 +5,17 @@
   font-family: 'Poppins';
   font-size: 14px;
   line-height: 140%;
-  color: #19191C;
+  color: var(--main-text-color);
 
-  background-color: #FFFFFF;
-  border: 1px solid #E4E4E4;
-  border-radius: 40px;
+  /* background-color: var(--secondary-background-color); */
+  border: var(--border-main);
+  border-radius: var(--border-radius-secondary);
   /* border: none; */
 }
 
 .active {
-  font-weight: 600;
-  color: #FF5C00;
-  background: #FFF5EE;
-  border: 1px solid #FF5C00;
+  font-weight: var(--font-weight-l);
+  color: var(--accent-color);
+  /* background-color: var(--third-background-color); */
+  border: var(--border-third);
 }
-
-
-

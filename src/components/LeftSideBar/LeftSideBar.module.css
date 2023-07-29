@@ -2,7 +2,7 @@
   width: 125px;
   height: calc(100vh - 64px);
 
-  border-left: 1px solid #e4e4e4;
+  border-left: var(--border-main);
   padding: 24px;
 }
 
@@ -28,11 +28,11 @@
 .link {
   text-align: center;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-main);
   text-decoration: none;
   width: 80px;
-  color: #828487;
-  background: #fff;
+  color: var(--secondary-text-color);
+  background: var(--secondary-background-color);
 
   transition: all 250ms linear;
 }
@@ -44,8 +44,8 @@
 }
 
 .link_active {
-  fill: #fff;
+  fill: var(--third-text-color);
 
-  color: #fff;
+  color: var(--third-text-color);
   background: linear-gradient(218.57deg, #ffab18 -6.67%, #ff2197 137.69%);
 }

@@ -1,12 +1,12 @@
 .container {
   margin: 0 auto;
   width: 360px;
-  border-right: 1px solid #e4e4e4;
+  border-right: var(--border-main);
   height: calc(100vh - 64px);
 }
 .orderOption {
   padding: 12px 24px 0px 24px;
-  border-bottom: 1px solid #e4e4e4;
+  border-bottom: var(--border-main);
   height: 256px;
 }
 
@@ -17,10 +17,10 @@
   height: 44px;
   padding: 4px;
 
-  border-radius: 80px;
+  border-radius: var(--border-radius-secondary);
   overflow: hidden;
   border: none;
-  background-color: #e4e4e4;
+  background-color: var(--fourth-background-color);
   margin-bottom: 14px;
 }
 .orderOption_item {
@@ -28,7 +28,7 @@
   height: 100%;
 }
 .orderOption span {
-  color: #ff5c00 !important;
+  color: var(--accent-color) !important;
   height: 50px !important;
   width: 50px !important;
   text-align: center !important;
@@ -44,33 +44,32 @@
   cursor: pointer;
   border: none;
   margin: 0;
-  border-radius: 80px;
+  border-radius: var(--border-radius-secondary);
   overflow: visible;
   background: transparent;
   height: 100%;
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--secondary-background-color);
+  color: var(--main-text-color);
   text-align: center;
   transition: all 0.35s;
 }
 
 .orderOption_button:hover {
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow: var(--box-shadow-main);
 }
 
 .orderOption_button_active {
   color: #ffffff;
   background-color: #ff5c00;
-
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow: var(--box-shadow-main);
 }
 
 .orderOption_text {
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 150%;
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-ml);
+  line-height: var(--line-height-l);
+  color: var(--main-text-color);
   margin-bottom: 8px;
 }
 
@@ -83,46 +82,42 @@
 }
 
 .orderOption_userAvatar {
-  width: 74px;
-  height: 74px;
-  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  border-radius: var(--border-radius-third);
   object-fit: cover;
 }
 
 .orderOption_userName {
   text-align: center;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 150%;
+  font-weight: var(--font-weight-xl);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
   margin-bottom: 8px;
-  color: #3c3c3c;
+  color: var(--main-text-color);
 }
 
 .orderOption_gift {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  font-size: 16px;
-  line-height: 150%;
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
   margin-bottom: 8px;
-  color: #3c3c3c;
-}
-.orderOption_gift p {
-  font-weight: 600;
-  color: #ff5c00;
+  color: var(--secondary-text-color);
 }
 
 .orderOption_name {
   width: 316px;
   height: 40px;
   padding: 12px 16px;
-  background-color: #ffffff;
-  color: #c2c2c2;
-  border: 1px solid #e4e4e4;
-  border-radius: 58px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 150%;
+  background-color: var(--field-background-color);
+  color: var(--main-text-color);
+  border: var(--border-main);
+  border-radius: var(--border-radius-secondary);
+  font-weight: var(--font-weight-s);
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-l);
   margin-bottom: 8px;
 }
 
@@ -130,35 +125,36 @@
   width: 316px !important;
   height: 42px !important;
   border: 0 !important;
-  background-color: #ffffff;
 
-  border: 1px solid #e4e4e4 !important;
-  border-radius: 58px;
+  border: var(--border-main) !important;
+
+  border-radius: var(--border-radius-secondary) !important;
+
   margin-bottom: 8px;
 }
 
 .orderOption_phone_input {
   width: 314px !important ;
   height: 40px !important;
-  /* padding: 12px -6px 12px 62px !important; */
 
-  color: #c2c2c2 !important;
+  color: var(--main-text-color) !important;
   border: 0 !important;
-  border-radius: 58px !important;
-  font-weight: 400 !important;
-  font-size: 16px !important;
-  line-height: 150% !important;
+  background-color: var(--field-background-color) !important;
+  border-radius: var(--border-radius-secondary) !important;
+  font-weight: var(--font-weight-s) !important;
+  font-size: var(--font-size-m) !important;
+  line-height: var(--line-height-l) !important;
   margin-bottom: 12px !important;
 }
 
 .orderOption_phone_flag {
-  border-radius: 3000px;
+  border-radius: var(--border-radius-secondary);
   margin-left: 2px;
   background-color: transparent !important;
   border: 0 !important;
 }
 .orderOption_phone_flag > div {
-  border-radius: 58px !important;
+  border-radius: var(--border-radius-secondary) !important;
   top: 2px;
   height: 36px !important;
   width: 42px !important;

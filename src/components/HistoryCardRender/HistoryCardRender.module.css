@@ -3,28 +3,23 @@
   display: flex;
   flex-direction: column;
   width: 80%;
-  border: 1px solid #e4e4e4;
-  padding: 18px 3px 12px 18px;
+  border: var(--border-main);
+  padding: 18px 16px 12px 18px;
   height: 83vh;
   overflow-y: scroll;
   scroll-behavior: smooth;
   scrollbar-width: auto;
-  scrollbar-color: #c2c2c2 #ffffff;
+  scrollbar-color: var(--scroll-color) var(--third-text-color);
 }
 
 /* Chrome, Edge, and Safari */
 .order_card_wrapper::-webkit-scrollbar {
-  width: 9px;
-}
-
-.order_card_wrapper::-webkit-scrollbar-track {
-  background: #ffffff;
+  width: 8px;
 }
 
 .order_card_wrapper::-webkit-scrollbar-thumb {
-  background-color: #c2c2c2;
-  border-radius: 4px;
-  border: 3px solid #ffffff;
+  background-color: var(--scroll-color);
+  border-radius: var(--border-radius-main);
 }
 
 .order_card {
@@ -34,14 +29,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid #e4e4e4;
+  border-radius: var(--border-radius-main);
+  border: var(--border-main);
+  background-color: var(--secondary-background-color);
   transition: border 250ms linear;
-  background-color: #fff;
 }
 
 .order_card:hover {
-  border: 1px solid #ff5c00;
+  border: var(--border-third);
 }
 
 .order_card:not(:last-child) {
@@ -54,10 +49,11 @@
 .order_date {
   display: flex;
   margin-bottom: 6px;
+  color: var(--main-text-color);
 }
 .order_date span {
   margin-right: 4px;
-  color: #ff5c00;
+  color: var(--accent-color);
 }
 
 .order_option {
@@ -66,32 +62,33 @@
   justify-content: center;
   text-transform: uppercase;
   text-align: center;
-  font-weight: 600;
-  font-size: 16px;
+
   width: 92px;
   height: 28px;
-  border-radius: 16px;
-  color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-m);
+  border-radius: var(--border-radius-main);
+  color: var(--third-text-color);
+  box-shadow: var(--box-shadow-third);
 }
 
 .orderOption_dineIn {
-  background-color: #3071ff;
+  background-color: var(--first-option-color);
 }
 
 .orderOption_delivery {
-  background-color: #ff5c00;
+  background-color: var(--second-option-color);
 }
 
 .orderOption_pickup {
-  background-color: #35c335;
+  background-color: var(--third-option-color);
 }
 
 .order_item_title {
-  font-size: 12px;
-  font-weight: 600;
-  color: #f83807;
+  font-size: var(--border-radius-main);
+  font-weight: var(--font-weight-l);
+  color: var(--accent-color);
   margin-bottom: 8px;
 }
 
@@ -111,9 +108,9 @@
   display: flex;
   align-items: center;
   height: 30px;
-  font-size: 16px;
-  font-weight: 500;
-  color: #19191c;
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-m);
+  color: var(--main-text-color);
 }
 
 .order_item_text {
@@ -130,21 +127,20 @@
   bottom: 6px;
   width: 30px;
   height: 30px;
-  color: #01d12b;
+  color: var(--third-option-color);
 }
 
 .order_item_text_show {
   position: absolute;
   opacity: 0;
   top: 0;
-  font-size: 12px;
-  color: #19191c;
-  border: 1px solid #e4e4e4;
-  border-radius: 4px;
+  font-size: var(--font-size-s);
+  color: var(--main-text-color);
+  border: var(--border-main);
+  border-radius: var(--border-radius-main);
   padding: 4px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  background-color: var(--secondary-background-color);
+  box-shadow: var(--box-shadow-third);
   transition: opacity 250ms linear;
 }
 .order_item_text_show:hover {
@@ -169,7 +165,7 @@
   border: none;
   width: 83px;
   height: 66px;
-  border-radius: 8px;
+  border-radius: var(--border-radius-main);
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -179,25 +175,22 @@
   margin-right: 30px;
 }
 .order_change_btn svg {
-  fill: #fff;
+  fill: var(--third-text-color);
   width: 24px;
   height: 24px;
 }
 .order_change_btn p {
-  color: #fff;
-  font-size: 12px;
-  font-weight: normal;
+  color: var(--third-text-color);
+  font-size: var(--font-size-s);
 }
 
 .order_change_btn:hover {
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
-    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  box-shadow: var(--box-shadow-fourth);
 }
 
 .order_change_edit_btn {
   background: linear-gradient(218.57deg, #0072fe8a -6.67%, #1900bf 137.69%);
 }
 .order_change_delete_btn {
-  background: linear-gradient(218.57deg, #ff0000 -6.67%, #e90042 137.69%);
+  background: linear-gradient(218.57deg, #ff0000ad -6.67%, #d10909 137.69%);
 }

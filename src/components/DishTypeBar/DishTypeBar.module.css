@@ -7,15 +7,13 @@
 
   padding: 16px 19px;
 
-  border: 1px solid #e4e4e4;
+  border: var(--border-main);
   border-left: none;
 }
 
-.active {
-  font-weight: 600;
-  color: #FF5C00;
-  background: #FFF5EE;
-  border: 1px solid #FF5C00;
-}
+/* .active {
+  font-weight: var(--font-weight-l);
+  color: var(--accent-color);
 
-
+  border: var(--border-third);
+} */

@@ -1,21 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { CircularProgress } from '@mui/material';
 
 import s from './TopBar.module.css';
 import { BiHomeAlt, BiFile, BiTimeFive } from 'react-icons/bi';
 import { LogoIcon } from 'images';
+import DarkModeToggle from 'react-dark-mode-toggle';
 
 import { useOrder } from 'components/hooks/useOrder';
 import { useAuth } from 'components/hooks/useAuth';
 import { Modal } from 'components/Modal';
 import { LogInForm, SignUpForm, LogOutForm } from 'components/AuthForm';
 
-export const TopBar = () => {
+export const TopBar = ({ setter }) => {
   const [modalShow, setModalShow] = useState(false);
   const [logInShow, setLogInShow] = useState(false);
   const [signInShow, setSignInShow] = useState(false);
   const [logOutShow, setLogOutShow] = useState(false);
+
+  const [theme, setTheme] = useState(() => false);
 
   const { isLoggedIn, user, isRefreshing } = useAuth();
 
@@ -23,7 +26,14 @@ export const TopBar = () => {
 
   const { lastOrder } = useOrder();
 
-  localStorage.setItem('theme', 'dark');
+  useEffect(() => {
+    localStorage.getItem('theme') === 'dark' && setTheme(true);
+  }, []);
+
+  const themeToggler = () => {
+    theme === false ? setTheme(true) : setTheme(false);
+    setter(theme);
+  };
 
   const modalToggle = e => {
     setLogInShow(false);
@@ -94,13 +104,12 @@ export const TopBar = () => {
             </NavLink>
           </li>
 
-          <li className={s.header__nav_item}>
-            {/* <input type="checkbox" className={s.checkbox} id="checkbox" />
-            <label for="checkbox" class="checkbox-label">
-              <i class="fas fa-moon"></i>
-              <i class="fas fa-sun"></i>
-              <span class="ball"></span>
-            </label> */}
+          <li className={s.header__nav_checkbox}>
+            <DarkModeToggle
+              onChange={() => themeToggler()}
+              checked={theme}
+              size={60}
+            />
           </li>
           <li className={s.header__nav_item}>
             {isRefreshing ? (
