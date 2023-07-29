@@ -1,5 +1,5 @@
-import CountUp from 'react-countup';
 import s from './HistoryRightSideBar.module.css';
+import FlipNumbers from 'react-flip-numbers';
 
 export const HistoryRightSideBar = ({ orderCount }) => {
   const {
@@ -19,61 +19,115 @@ export const HistoryRightSideBar = ({ orderCount }) => {
       <h2 className={s.orders_title}>Order details</h2>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Orders:</p>
-        <CountUp className={s.orders_item_value} end={orders} />
+        <span className={s.orders_item_value}>
+          <FlipNumbers
+            className={s.orders_item_value}
+            height={18}
+            width={12}
+            duration={2}
+            play
+            numbers={`${orders}`}
+          />
+        </span>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Confirmed orders:</p>
-        <CountUp className={s.orders_item_value} end={confirmedOrder} />
+        <span className={s.orders_item_value}>
+          <FlipNumbers
+            className={s.orders_item_value}
+            height={18}
+            width={12}
+            duration={2}
+            play
+            numbers={`${confirmedOrder}`}
+          />
+        </span>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Unconfirmed orders:</p>
-        <CountUp className={s.orders_item_value} end={unconfirmedOrder} />
+        <span className={s.orders_item_value}>
+          <FlipNumbers
+            className={s.orders_item_value}
+            height={18}
+            width={12}
+            duration={2}
+            play
+            numbers={`${unconfirmedOrder}`}
+          />
+        </span>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total Dishes:</p>
-        <CountUp className={s.orders_item_value} end={totalOrderedDish} />
+        <span className={s.orders_item_value}>
+          <FlipNumbers
+            className={s.orders_item_value}
+            height={18}
+            width={12}
+            duration={2}
+            play
+            numbers={`${totalOrderedDish}`}
+          />
+        </span>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total Gift Coins:</p>
-        <CountUp
-          className={s.orders_item_value}
-          end={totalGiftCoin.toFixed(2)}
-        />
+        <span className={s.orders_item_value}>
+          <FlipNumbers
+            className={s.orders_item_value}
+            height={18}
+            width={12}
+            duration={2}
+            play
+            numbers={`${totalGiftCoin.toFixed(0)}`}
+          />
+        </span>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total :</p>
         <div className={s.orders_inner}>
           <p className={s.orders_item_value}>$</p>
-          <CountUp
-            className={s.orders_item_value}
-            decimals={2}
-            decimal="."
-            end={totalPrice.toFixed(2)}
-          />
+          <span className={s.orders_item_value}>
+            <FlipNumbers
+              className={s.orders_item_value}
+              height={18}
+              width={12}
+              duration={2}
+              play
+              numbers={`${totalPrice.toFixed(2)}`}
+            />
+          </span>
         </div>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total with tips:</p>
         <div className={s.orders_inner}>
           <p className={s.orders_item_value}>$</p>
-          <CountUp
-            className={s.orders_item_value}
-            decimals={2}
-            decimal="."
-            end={totalPriceWithTips.toFixed(2)}
-          />
+          <span className={s.orders_item_value}>
+            <FlipNumbers
+              className={s.orders_item_value}
+              height={18}
+              width={12}
+              duration={2}
+              play
+              numbers={`${totalPriceWithTips.toFixed(2)}`}
+            />
+          </span>
         </div>
       </div>
       <div className={s.orders_item}>
         <p className={s.orders_item_name}>Total tips:</p>
         <div className={s.orders_inner}>
           <p className={s.orders_item_value}>$</p>
-          <CountUp
-            className={s.orders_item_value}
-            decimals={2}
-            decimal="."
-            end={totalTips}
-          />
+          <span className={s.orders_item_value}>
+            <FlipNumbers
+              className={s.orders_item_value}
+              height={18}
+              width={12}
+              duration={2}
+              play
+              numbers={`${totalTips}`}
+            />
+          </span>
         </div>
       </div>
     </div>

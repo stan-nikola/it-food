@@ -12,11 +12,10 @@
 .orders_item {
   display: flex;
   justify-content: space-between;
-  display: flex;
-  justify-content: space-between;
   border-radius: var(--border-radius-main);
   border: var(--border-main);
   padding: 6px 4px;
+  align-items: flex-end;
 }
 
 .orders_inner {

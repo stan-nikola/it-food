@@ -32,8 +32,6 @@ export const RightSideBar = () => {
   const [noteText, setNoteText] = useState('');
   const [addNoteShow, setAddNoteShow] = useState(false);
 
-  const [time, updateTime] = useState('4,123,111');
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -222,7 +220,7 @@ export const RightSideBar = () => {
                             className={`${s.orderOption_detail_change_icon} ${s.orderOption_detail_change_icon_minus}`}
                           />
                         </button>
-                        <p className={s.orderOption_detail_quantity}>
+                        <span className={s.orderOption_detail_quantity}>
                           <FlipNumbers
                             height={18}
                             width={18}
@@ -230,7 +228,7 @@ export const RightSideBar = () => {
                             play
                             numbers={`${quantity}`}
                           />
-                        </p>
+                        </span>
 
                         <button
                           disabled={quantity >= 9}
@@ -296,15 +294,15 @@ export const RightSideBar = () => {
                   value={noteText}
                   onChange={e => setNoteText(e.target.value)}
                 />
-                {noteText.length > 36 && (
+                {noteText.length > 100 && (
                   <p className={s.add_note_form_error}>
-                    Note must not exceed 36 characters
+                    Note must not exceed 100 characters
                   </p>
                 )}
               </label>
             </form>
             <button
-              disabled={noteText.length > 36}
+              disabled={noteText.length > 100}
               className={s.add_note_btn}
               onClick={modalToggle}
               id="addNote"
