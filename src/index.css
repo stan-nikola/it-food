@@ -86,6 +86,8 @@ textarea {
   --second-option-color: #ff5c00;
   --third-option-color: #35c335;
 
+  --second-load-color: #ff5e0082;
+
   --box-shadow-secondary: rgba(0, 0, 0, 0.16) 0px 3px 6px,
     rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
@@ -97,6 +99,8 @@ textarea {
     rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 
   --button-color-disabled: #e4e4e4;
+  --button-color-plus: #19191c;
+  --button-color-minus: #9a9a9a;
 
   --scroll-color: #c2c2c2;
 }
@@ -119,7 +123,7 @@ textarea {
 
   --field-background-color: #ffffff;
 
-  transition: all 250ms linear;
+  transition: all 500ms linear;
 }
 
 [data-theme='dark'] {
@@ -139,5 +143,5 @@ textarea {
 
   --field-background-color: #9b9b9b;
 
-  transition: all 250ms linear;
+  transition: all 500ms linear;
 }

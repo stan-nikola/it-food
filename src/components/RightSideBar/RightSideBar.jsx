@@ -23,6 +23,7 @@ import { addOrder } from 'redux/order/operations';
 import { useNavigate } from 'react-router-dom';
 import { setPhone } from 'redux/auth/authSlice';
 import { Modal } from 'components/Modal';
+import FlipNumbers from 'react-flip-numbers';
 
 export const RightSideBar = () => {
   const [orderOption, setOrderOption] = useState('dinein');
@@ -30,6 +31,8 @@ export const RightSideBar = () => {
   const [customerPhone, setCustomerPhone] = useState('');
   const [noteText, setNoteText] = useState('');
   const [addNoteShow, setAddNoteShow] = useState(false);
+
+  const [time, updateTime] = useState('4,123,111');
 
   const navigate = useNavigate();
 
@@ -201,7 +204,7 @@ export const RightSideBar = () => {
                 <div className={s.orderOption_detail_change}>
                   <div>
                     <p className={s.orderOption_detail_food_name}>
-                      {title.slice(0, 30)}
+                      {title.slice(0, 26)}
                     </p>
                     <div className={s.orderOption_detail_sup_change}>
                       <div className={s.orderOption_detail_sub_change}>
@@ -220,10 +223,17 @@ export const RightSideBar = () => {
                           />
                         </button>
                         <p className={s.orderOption_detail_quantity}>
-                          {quantity}
+                          <FlipNumbers
+                            height={18}
+                            width={18}
+                            duration={1}
+                            play
+                            numbers={`${quantity}`}
+                          />
                         </p>
+
                         <button
-                          disabled={quantity >= 10}
+                          disabled={quantity >= 9}
                           onClick={() => dispatch(incrementDishQuantity(_id))}
                           className={s.orderOption_detail_change_btn}
                         >
