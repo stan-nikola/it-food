@@ -1,19 +1,20 @@
 .historyContainer {
   display: flex;
-  justify-content: space-between;
-  padding: 24px 12px 26px;
+
   border: var(--border-main);
   border-top: none;
+  height: 85vh;
+}
+.historyCardWrapper {
+  width: 80%;
+  height: 80vh;
 }
 
 .order_loading {
   display: flex;
   flex-direction: column;
-  width: 80%;
-
-  border: var(--border-main);
   padding: 18px 3px 12px 18px;
-  height: 83vh;
+  width: 100%;
 }
 .order_loading_line {
   background-color: var(--second-load-color) !important;

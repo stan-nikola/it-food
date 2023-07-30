@@ -230,9 +230,11 @@
   padding: 12px 8px 12px 8px;
   border-bottom: var(--border-main);
   height: calc(100vh - 440px);
+  cursor: grab;
 
   /* ===== Scrollbar CSS ===== */
   /* Firefox */
+
   overflow-y: scroll;
   scroll-behavior: smooth;
 

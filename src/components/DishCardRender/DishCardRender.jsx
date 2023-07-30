@@ -14,6 +14,7 @@ import { selectFavorite } from 'redux/auth/selectors';
 
 import { ItemCard } from 'components/ItemCard';
 import { DishCardSkeleton } from 'components/DishCardSkeleton';
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 export const DishCardRender = () => {
   const dispatch = useDispatch();
@@ -134,7 +135,12 @@ export const DishCardRender = () => {
 
   return (
     <>
-      <ul className={s.container}>
+      <ScrollContainer
+        hideScrollbars={false}
+        horizontal={false}
+        component="ul"
+        className={s.container}
+      >
         <>
           {dishIsLoaded ? (
             <>
@@ -161,7 +167,7 @@ export const DishCardRender = () => {
             </>
           )}
         </>
-      </ul>
+      </ScrollContainer>
     </>
   );
 };

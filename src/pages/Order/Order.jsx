@@ -39,7 +39,8 @@ export const Order = () => {
   const [isTipChangeShow, setIsTipChangeShow] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const [currentOrderId, setCurrentOrderId] = useState(null);
-  const [orderNote, setOrderNote] = useState(null);
+  const [orderNote, setOrderNote] = useState('');
+  const [orderOption, setOrderOption] = useState(null);
 
   const { user, isLoggedIn } = useAuth();
   const { lastOrder, orderLoading, orderError } = useOrder();
@@ -54,8 +55,16 @@ export const Order = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (orderedDish?.length === 0) {
+      dispatch(deleteOrder({ _id }));
+      setToastMessage('Order successfully deleted!');
+    }
+  }, [_id, dispatch, orderedDish]);
+
+  useEffect(() => {
+    setOrderOption(option);
     setOrderNote(note);
-  }, [note]);
+  }, [note, option]);
 
   useEffect(() => {
     setCurrentOrderId(prev => prev !== orderId && orderId);
@@ -129,12 +138,16 @@ export const Order = () => {
         email,
         orderedDish: confirmDishes,
         note: orderNote,
+        option: orderOption,
       })
     );
 
     setToastMessage(
       'Thank you! Order successfully confirmed! We will contact you soon '
     );
+  };
+  const handleOptionChange = option => {
+    setOrderOption(option);
   };
 
   const calculatedGiftCoin =
@@ -147,20 +160,48 @@ export const Order = () => {
           <div className={s.orderDetails}>
             <div className={s.orderDetailsData}>
               <h1 className={s.orderDetailTitle}>Order details</h1>
-              <p>
-                <span
+              <div className={s.orderOption_wrapper}>
+                <button
+                  id="dinein"
+                  onClick={e => handleOptionChange(e.target.id)}
                   className={`${s.orderOption} ${
-                    (option === 'dinein' && s.orderOption_dineIn) ||
-                    (option === 'delivery' && s.orderOption_delivery) ||
-                    (option === 'pickup' && s.orderOption_pickup)
+                    orderOption === 'dinein' && s.orderOption_dineIn
                   }`}
+                  type="button"
                 >
-                  {option === 'dinein' ? 'dine in' : option}
-                </span>
-              </p>
+                  DINE IN
+                </button>
+
+                <button
+                  id="delivery"
+                  onClick={e => handleOptionChange(e.target.id)}
+                  className={`${s.orderOption} ${
+                    orderOption === 'delivery' && s.orderOption_delivery
+                  }`}
+                  type="button"
+                >
+                  DELIVERY
+                </button>
+
+                <button
+                  id="pickup"
+                  onClick={e => handleOptionChange(e.target.id)}
+                  className={`${s.orderOption} ${
+                    orderOption === 'pickup' && s.orderOption_pickup
+                  }`}
+                  type="button"
+                >
+                  PICKUP
+                </button>
+              </div>
             </div>
 
-            <ul className={s.orderOption_detail}>
+            <ul
+              hideScrollbars={false}
+              horizontal={false}
+              component="ul"
+              className={s.orderOption_detail}
+            >
               {orderedDish.map(item => (
                 <OrderCardRender key={item._id || item.id} props={item} />
               ))}

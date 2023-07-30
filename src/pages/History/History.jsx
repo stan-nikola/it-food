@@ -13,6 +13,7 @@ import { deleteUserOrder } from 'redux/order/orderSlice';
 import { NoContentHistory } from 'components/NoContentHistory';
 import { HistoryRightSideBar } from 'components/HistoryRightSideBar';
 import { LinearProgress } from '@mui/material';
+import { PageTypeBar } from 'components/PageTypeBar';
 
 export const History = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -67,7 +68,7 @@ export const History = () => {
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
       },
-      { rootMargin: '10px' }
+      { rootMargin: '50px' }
     );
     target && observer.observe(target);
     return () => observer.disconnect();
@@ -79,11 +80,15 @@ export const History = () => {
         <>
           {userOrder.length > 0 ? (
             <>
-              <HistoryCardRender
-                func={target => setTarget(target)}
-                userOrder={userOrder}
-                orderLoading={orderLoading}
-              />
+              <div className={s.historyCardWrapper}>
+                <PageTypeBar />
+                <HistoryCardRender
+                  func={target => setTarget(target)}
+                  userOrder={userOrder}
+                  orderLoading={orderLoading}
+                />
+              </div>
+
               <HistoryRightSideBar orderCount={orderCount} />
             </>
           ) : (
