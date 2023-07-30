@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useMemo, useState } from 'react';
+import FlipNumbers from 'react-flip-numbers';
 
 import { CircularProgress } from '@mui/material';
 
@@ -23,7 +24,8 @@ import { addOrder } from 'redux/order/operations';
 import { useNavigate } from 'react-router-dom';
 import { setPhone } from 'redux/auth/authSlice';
 import { Modal } from 'components/Modal';
-import FlipNumbers from 'react-flip-numbers';
+
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 export const RightSideBar = () => {
   const [orderOption, setOrderOption] = useState('dinein');
@@ -186,7 +188,12 @@ export const RightSideBar = () => {
         </button>
       </div>
       {filteredDish.length > 0 ? (
-        <ul className={s.orderOption_detail}>
+        <ScrollContainer
+          hideScrollbars={false}
+          horizontal={false}
+          component="ul"
+          className={s.orderOption_detail}
+        >
           <li>
             <p className={s.orderOption_text}>Orders details</p>
           </li>
@@ -246,7 +253,7 @@ export const RightSideBar = () => {
               </li>
             ))}
           </>
-        </ul>
+        </ScrollContainer>
       ) : (
         <p className={s.orderOption_placeholder}>
           To order a dish, click the Order Now button

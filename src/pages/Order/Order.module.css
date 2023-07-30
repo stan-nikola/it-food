@@ -25,7 +25,7 @@
   display: flex;
   border: var(--border-main);
   border-top: none;
-  height: 83vh;
+  height: 85vh;
 }
 
 .orderDetails {
@@ -37,37 +37,56 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 12px;
+  align-items: baseline;
 }
 
 .orderDetailTitle {
   font-weight: var(--font-weight-l);
   color: var(--main-text-color);
 }
+.orderOption_wrapper {
+  display: flex;
+}
 
 .orderOption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: transparent;
+  margin: 0;
+
+  cursor: pointer;
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: 32px;
-  width: 167px;
-  height: 45px;
+  font-weight: var(--font-weight-l);
+  font-size: var(--font-size-ml);
+  width: 120px;
+  height: 36px;
+  border: var(--border-fifth);
   border-radius: var(--border-radius-main);
-
-  box-shadow: var(--box-shadow-main);
-
+  color: var(--secondary-text-color);
   padding: 0 8px;
-  margin-right: 4px;
+
+  transition: color 250ms linear, box-shadow 250ms linear, border 250ms linear;
+}
+
+.orderOption:not(:last-child) {
+  margin-right: 8px;
 }
 .orderOption_dineIn {
+  box-shadow: var(--box-shadow-main);
   border: 2px solid var(--first-option-color);
   color: var(--first-option-color);
 }
 
 .orderOption_delivery {
+  box-shadow: var(--box-shadow-main);
   border: 2px solid var(--second-option-color);
   color: var(--second-option-color);
 }
 
 .orderOption_pickup {
+  box-shadow: var(--box-shadow-main);
   border: 2px solid var(--third-option-color);
   color: var(--third-option-color);
 }
@@ -80,7 +99,7 @@
   scroll-behavior: smooth;
   scrollbar-width: auto;
   scrollbar-color: var(--scroll-color) var(--third-text-color);
-
+  cursor: grab;
   margin-bottom: 12px;
 }
 
@@ -119,6 +138,20 @@
   color: var(--secondary-text-color);
 }
 .orderOption_note_input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  width: 108px;
+  height: 96px;
+  border-radius: var(--border-radius-main);
+  border: var(--border-fifth);
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+  transition: color 250ms linear, box-shadow 250ms linear, border 250ms linear;
   border: var(--border-main);
   border-radius: var(--border-radius-main);
   height: 81px;

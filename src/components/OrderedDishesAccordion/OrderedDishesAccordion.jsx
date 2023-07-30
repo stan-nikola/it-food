@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import s from './OrderedDishesAccordion.module.css';
-import { useDraggable } from 'react-use-draggable-scroll';
+
 import { AiFillCaretDown } from 'react-icons/ai';
 import { AccordionItems } from './AccordionItems';
 
 export const OrderedDishesAccordion = ({ orderedDish }) => {
   const [target, setTarget] = useState(null);
   const [dishesShow, setDishesShow] = useState(false);
-  const containerRef = useRef(null);
-
-  const { events } = useDraggable(containerRef);
 
   useEffect(() => {
     return () => {
@@ -37,8 +34,6 @@ export const OrderedDishesAccordion = ({ orderedDish }) => {
         }`}
       >
         <div
-          {...events}
-          ref={containerRef}
           onClick={handleClick}
           className={`${s.dishes_content} 
           ${dishesShow && s.dishes_content_show}`}
