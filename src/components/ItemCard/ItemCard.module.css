@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 100%;
+  /* height: 100%; */
   /* height: 330px; */
   width: 219px;
 
@@ -19,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   padding: 0;
   border: none;
   background-color: var(--secondary-background-color);
@@ -58,12 +58,19 @@
   border: none;
 }
 
-.icon {
-  size: 40px;
-  width: 40px;
-  /* height: 40px; */
+.favoriteIcon:hover {
+  cursor: pointer;
+} 
+
+
+.icon svg {
   vertical-align: middle;
+  width: 25px;
+  height: 25px;
+  color: red;
 }
+
+
 
 .moreInfo {
   position: absolute;
@@ -71,9 +78,12 @@
   left: 27px;
 }
 
+
 .foodName {
   /* margin-top: 12px; */
   margin-top: 10px;
+    flex-grow: 1;
+
   /* font-family: 'Poppins'; */
   font-weight: var(--font-weight-l);
   font-size: var(--font-size-m);
@@ -189,6 +199,7 @@
 
 .modalDataWrapper {
   display: flex;
+  position: relative;
   /* margin-top: 20px; */
 }
 
@@ -200,6 +211,24 @@
   /* border: var(--border-fourth); */
   /* border-style: hidden; */
 }
+
+.modalFavIconWrapper svg {
+  position: absolute;
+  top: 295px;
+  left: 295px;
+  width: 40px;
+  height: 40px;
+
+  margin: 0;
+  padding: 5px;
+     
+  color: red;  
+  background-color: var(--button-color-disabled);
+  box-shadow: var(--box-shadow-secondary);
+  border-radius: var(--border-radius-third);
+  border: none;
+}
+
 
 .modalDataTextWrapper {
   margin-left: 35px;
@@ -253,6 +282,7 @@
 .buttonsModalWrapper {
   display: flex;
   justify-content: space-evenly;
+  width: 623px;
   margin-top: 25px;
 }
 

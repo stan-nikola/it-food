@@ -23,21 +23,26 @@ export const DishTypeBar = () => {
 
     default:
       actualButtons = [...buttonsMain];
+    // actualButtons = [];
   }
 
   // console.log('actualButtons=', actualButtons);
 
   return (
     <ul className={css.wrapper}>
-      {actualButtons.map(item => {
-        // const { _id } = item;
-
-        return (
-          <li key={item}>
-            <DishTypeButton name={item} />
-          </li>
-        );
-      })}
+      {category !== 'favorite' ? (
+        actualButtons.map(item => {
+          return (
+            <li key={item}>
+              <DishTypeButton name={item} />
+            </li>
+          );
+        })
+      ) : (
+        <li>
+          <p className={css.slogan}>Enjoy your favorite dishes!</p>
+        </li>
+      )}
     </ul>
   );
 };
