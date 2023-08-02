@@ -32,6 +32,7 @@ import { mainToast, orderToast } from 'constants/toastConfig';
 import { Cash, Gift, MasterCard, Visa } from 'images';
 import { Modal } from 'components/Modal';
 import { OrderCardRender } from 'components/OrderCardRender';
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 export const Order = () => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
@@ -196,16 +197,17 @@ export const Order = () => {
               </div>
             </div>
 
-            <ul
+            <ScrollContainer
               hideScrollbars={false}
               horizontal={false}
               component="ul"
               className={s.orderOption_detail}
+              draggingClassName={s.orderOption_detail_isGrab}
             >
               {orderedDish.map(item => (
                 <OrderCardRender key={item._id || item.id} props={item} />
               ))}
-            </ul>
+            </ScrollContainer>
             <div className={s.orderOption_bottom}>
               <div className={s.orderOption_note}>
                 <p>Note</p>

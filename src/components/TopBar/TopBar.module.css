@@ -6,9 +6,9 @@
   position: absolute;
   padding: 20px;
   width: 374px;
-  top: 1%;
-  left: 70%;
-  transform: translate(0%, 0%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--secondary-background-color);
   border-radius: var(--border-radius-main);
   transition: opacity 250ms linear, transform 250ms linear;
@@ -16,7 +16,7 @@
 }
 
 .modal_unmount {
-  transform: translate(0%, 50%);
+  transform: translate(-50%, 50%);
   opacity: 0;
 }
 

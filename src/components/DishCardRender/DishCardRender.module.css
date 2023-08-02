@@ -17,6 +17,10 @@
   scrollbar-color: #c2c2c2 #ffffff;
 }
 
+.container_isDrag {
+  cursor: grabbing;
+}
+
 /* Chrome, Edge, and Safari */
 .container::-webkit-scrollbar {
   width: 9px;

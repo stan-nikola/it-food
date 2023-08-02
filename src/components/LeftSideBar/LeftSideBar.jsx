@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import s from './LeftSideBar.module.css';
+import signUpStyles from '../TopBar/TopBar.module.css';
 
 // import { LogInForm } from 'components/AuthForm';
 
@@ -12,11 +13,21 @@ import { MdFavoriteBorder } from 'react-icons/md';
 import { DessertDishIcon, MainDishIcon, MeatDishIcon } from 'images';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useAuth } from 'components/hooks/useAuth';
+import { SignUpForm } from 'components/AuthForm';
+import { Modal } from 'components/Modal';
 
 export const LeftSideBar = () => {
   const userToken = useSelector(selectToken);
 
   const [favInfoShow, setFavInfoShow] = useState(false);
+  const [signUpFormShow, setSignUpFormShow] = useState(false);
+
+  const { isLoggedIn } = useAuth();
+
+  const modalToggle = () => {
+    setSignUpFormShow(false);
+  };
 
   const favInfoToggle = () => {
     setFavInfoShow(prev => !prev);
@@ -63,29 +74,43 @@ export const LeftSideBar = () => {
           onMouseOver={favInfoToggle}
           onMouseOut={favInfoToggle}
         >
-          <NavLink
-            to="favorite"
-            className={({ isActive }) =>
-              userToken
-                ? ` ${s.link} ${isActive && s.link_active} `
-                : ` ${s.link} ${s.link_disable} `
-            }
+          {isLoggedIn ? (
+            <NavLink
+              to="favorite"
+              className={({ isActive }) =>
+                ` ${s.link} ${isActive && s.link_active} `
+              }
 
-            // className={({ isActive }) =>
-            //   ` ${s.link} ${isActive && s.link_active} `
-            // }
-          >
-            <MdFavoriteBorder />
-            <p>Favorite</p>
-          </NavLink>
+              // className={({ isActive }) =>
+              //   ` ${s.link} ${isActive && s.link_active} `
+              // }
+            >
+              <MdFavoriteBorder />
+              <p>Favorite</p>
+            </NavLink>
+          ) : (
+            <button
+              onClick={() => setSignUpFormShow(prev => !prev)}
+              className={s.link}
+              type="button"
+            >
+              <MdFavoriteBorder />
+              <p>Favorite</p>
+            </button>
+          )}
 
           {favInfoShow && !userToken && (
             <p className={s.favInfo}>
-              To review your Favorite dishes you must LOG IN first!
+              To review your Favorite dishes you must SIGN UP first!
             </p>
           )}
         </li>
       </ul>
+      {signUpFormShow && (
+        <Modal modalToggle={modalToggle} styles={signUpStyles}>
+          <SignUpForm />
+        </Modal>
+      )}
     </section>
   );
 };

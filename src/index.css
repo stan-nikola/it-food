@@ -145,3 +145,7 @@ textarea {
 
   transition: all 500ms linear;
 }
+
+.indiana-dragging {
+  cursor: grabbing;
+}
