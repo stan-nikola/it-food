@@ -30,7 +30,7 @@ export const LogOutForm = ({ modalToggle }) => {
   const [userPhone, setUserPhone] = useState(phone);
   const [handleError, setHandleError] = useState(null);
 
-  const [showEditProfile, setShowEditProfile] = useState(true);
+  const [showEditProfile, setShowEditProfile] = useState(false);
 
   useEffect(() => {
     setHandleError(null);
@@ -42,7 +42,7 @@ export const LogOutForm = ({ modalToggle }) => {
 
   useEffect(() => {
     !isLoading && setAvatarImage(null);
-    !isLoading && setShowEditProfile(prev => !prev);
+    !isLoading && setShowEditProfile(false);
   }, [isError, isLoading, modalToggle]);
 
   useEffect(() => {
