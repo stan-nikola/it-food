@@ -103,6 +103,10 @@
   margin-bottom: 12px;
 }
 
+.orderOption_detail_isGrab {
+  cursor: grabbing;
+}
+
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
 

@@ -13,6 +13,9 @@
   scrollbar-width: auto;
   scrollbar-color: var(--scroll-color) var(--third-text-color);
 }
+.order_card_wrapper_isGrab {
+  cursor: grabbing;
+}
 
 /* Chrome, Edge, and Safari */
 .order_card_wrapper::-webkit-scrollbar {

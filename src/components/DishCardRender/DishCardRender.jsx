@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useSearchParams } from 'react-router-dom';
 
+import ScrollContainer from 'react-indiana-drag-scroll';
 import s from './DishCardRender.module.css';
 
 import { getDishesByCategory } from 'redux/dish/operations';
@@ -14,7 +15,6 @@ import { selectFavorite } from 'redux/auth/selectors';
 
 import { ItemCard } from 'components/ItemCard';
 import { DishCardSkeleton } from 'components/DishCardSkeleton';
-import ScrollContainer from 'react-indiana-drag-scroll';
 
 export const DishCardRender = () => {
   const dispatch = useDispatch();
@@ -140,6 +140,7 @@ export const DishCardRender = () => {
         horizontal={false}
         component="ul"
         className={s.container}
+        draggingClassName={s.container_isDrag}
       >
         <>
           {dishIsLoaded ? (

@@ -19,6 +19,7 @@ export const HistoryCardRender = ({ userOrder, func, orderLoading }) => {
         component="ul"
         innerRef={target}
         className={s.order_card_wrapper}
+        draggingClassName={s.order_card_wrapper_isGrab}
       >
         {userOrder.map(item => (
           <HistoryCardRenderItems key={item._id} props={item} />

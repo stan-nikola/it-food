@@ -241,6 +241,9 @@
   scrollbar-width: auto;
   scrollbar-color: var(--scroll-color) var(--third-text-color);
 }
+.orderOption_detail_isGrab {
+  cursor: grabbing;
+}
 
 /* Chrome, Edge, and Safari */
 .orderOption_detail::-webkit-scrollbar {
