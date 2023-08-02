@@ -30,7 +30,7 @@ export const LogOutForm = ({ modalToggle }) => {
   const [userPhone, setUserPhone] = useState(phone);
   const [handleError, setHandleError] = useState(null);
 
-  const [showEditProfile, setShowEditProfile] = useState(false);
+  const [showEditProfile, setShowEditProfile] = useState(true);
 
   useEffect(() => {
     setHandleError(null);
