@@ -14,8 +14,9 @@ import {
 import { useOrder } from 'components/hooks/useOrder';
 
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md';
-import { IconContext } from 'react-icons';
+// import { IconContext } from 'react-icons';
 import { selectFavorite } from 'redux/auth/selectors';
+import { selectToken } from '../../redux/auth/selectors';
 
 import { Modal } from 'components/Modal';
 import { MoreInfo } from './MoreInfo/MoreInfo';
@@ -27,6 +28,8 @@ export const ItemCard = ({ dish }) => {
   const [isFavorite, setIsFavorite] = useState();
 
   const { _id: id, description, preview, thumb, title, price } = dish;
+
+  const userToken = useSelector(selectToken);
 
   const dispatch = useDispatch();
 
@@ -98,54 +101,43 @@ export const ItemCard = ({ dish }) => {
               <MoreInfo styles={css} />
             </div>
           )}
-          <h1 className={css.foodName}>{title}</h1>
+          {/* <h1 className={css.foodName}>{title}</h1> */}
         </button>
         <div className={css.favoriteIconWraper}>
           {!isFavorite ? (
             <button
               onClick={() => {
                 // console.log('id for tranfer = ', id);
-                dispatch(addFavoriteDishes(id));
+                if (userToken) {
+                  dispatch(addFavoriteDishes(id));
+                }
+
                 // isFavoriteToggle();
                 // moreInfoToggle();
               }}
-              // onClick={() => {
-              //   dispatch(addDish(id));
-              //   modalToggle();
-              // }}
               type="button"
               className={css.favoriteIcon}
             >
-              {/* <MdFavoriteBorder className={css.icon} /> */}
-              <IconContext.Provider
-                value={{
-                  style: {
-                    verticalAlign: 'middle',
-                    color: 'red',
-                    width: '25',
-                    height: '25',
-                  },
-                }}
-                // { color: 'blue', width: '35', className: 'icon' }}
-              >
-                <div>
-                  <MdFavoriteBorder />
-                </div>
-              </IconContext.Provider>
+              <div className={css.icon}>
+                <MdFavoriteBorder />
+              </div>
+
               {/* <MdFavoriteBorder value={{ className: 'icon' }} /> */}
             </button>
           ) : (
             <button
               onClick={() => {
                 dispatch(deleteFromFavoriteDishes(id));
-                // dispatch(getFavoriteDishes('favorite'));
                 // isFavoriteToggle();
                 // moreInfoToggle();
               }}
               type="button"
               className={css.favoriteIcon}
             >
-              <IconContext.Provider
+              <div className={css.icon}>
+                <MdFavorite />
+              </div>
+              {/* <IconContext.Provider
                 value={{
                   style: {
                     verticalAlign: 'middle',
@@ -158,20 +150,17 @@ export const ItemCard = ({ dish }) => {
                 <div>
                   <MdFavorite />
                 </div>
-              </IconContext.Provider>
+              </IconContext.Provider> */}
               {/* <MdFavorite /> */}
             </button>
           )}
-          {/* <MdFavoriteBorder />
-              <MdFavorite /> */}
         </div>
+
+        <h1 className={css.foodName}>{title}</h1>
 
         <p className={css.foodPrice}>Price: $ {price}</p>
 
         <div className={css.buttonsWrapper}>
-          {/* <button onClick={modalToggle} type="button" className={css.button}>
-            More info
-          </button> */}
           <button
             onClick={() => dispatch(addDish(id))}
             type="button"
@@ -193,6 +182,11 @@ export const ItemCard = ({ dish }) => {
                 src={thumb}
                 alt={title}
               />
+              {isFavorite && (
+                <div className={css.modalFavIconWrapper}>
+                  <MdFavorite />
+                </div>
+              )}
               <div className={css.modalDataTextWrapper}>
                 <h2 className={css.foodNameModal}>{title}</h2>
 
@@ -245,3 +239,7 @@ export const ItemCard = ({ dish }) => {
     </>
   );
 };
+
+/* <p className={css.cardFavInfo}>
+   Only logged users can add dishes to Favorites
+ </p>; */

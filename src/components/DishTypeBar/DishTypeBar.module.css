@@ -11,6 +11,15 @@
   border-left: none;
 }
 
+.slogan {
+  text-align: center;
+    font-size: var(--font-size-m);
+    line-height: 150%;
+    color: var(--main-text-color);
+}
+
+
+
 /* .active {
   font-weight: var(--font-weight-l);
   color: var(--accent-color);
