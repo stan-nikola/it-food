@@ -16,9 +16,12 @@ import { changeUserData } from 'redux/user/operations';
 import { mainToast } from 'constants/toastConfig';
 import { error } from 'redux/auth/authSlice';
 import { deleteUserOrder } from 'redux/order/orderSlice';
+// import { useNavigate } from 'react-router-dom';
+// import { eraseFavorite } from 'redux/dish/dishSlice';
 
 export const LogOutForm = ({ modalToggle }) => {
   const { user, isError, isLoading } = useAuth();
+  // const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -31,6 +34,8 @@ export const LogOutForm = ({ modalToggle }) => {
   const [handleError, setHandleError] = useState(null);
 
   const [showEditProfile, setShowEditProfile] = useState(false);
+
+  // const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     setHandleError(null);
@@ -56,8 +61,9 @@ export const LogOutForm = ({ modalToggle }) => {
   const handleLogOut = () => {
     dispatch(deleteUserOrder());
     dispatch(logOut());
-
     modalToggle();
+    // navigate('/home/main?category=all');
+    // dispatch(eraseFavorite());
   };
 
   const handleAvatarChange = e => {

@@ -222,7 +222,14 @@ export const ItemCard = ({ dish }) => {
                       <button
                         onClick={() => {
                           // console.log('id for tranfer = ', id);
-                          dispatch(addFavoriteDishes(id));
+                          if (isLoggedIn) {
+                            dispatch(addFavoriteDishes(id));
+                          } else {
+                            setAddNoteShow(prev => !prev);
+                            setTimeout(() => {
+                              setSignUpFormShow(prev => !prev);
+                            }, 100);
+                          }
                           // isFavoriteToggle();
                           // moreInfoToggle();
                         }}
