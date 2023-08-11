@@ -6,5 +6,5 @@
 
 ### Link to the backend GitHub -https://github.com/Alex-S17/it-food-backend
 
-![N|Solid](https://www.google.com/url?sa=i&url=https%3A%2F%2Ficonscout.com%2Ficon%2Freact-1&psig=AOvVaw3cZhSrPK4-FzV_TGumYAUS&ust=1691864392168000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCOj895ac1YADFQAAAAAdAAAAABAE)
-![N|Solid](https://w7.pngwing.com/pngs/1005/334/png-transparent-express-js-node-js-javascript-session-web-application-others.png)
+![N|Solid](https://cdn.iconscout.com/icon/free/png-256/free-react-1-282599.png?f=webp)
+![N|Solid](https://miro.medium.com/v2/resize:fit:365/1*Jr3NFSKTfQWRUyjblBSKeg.png)
