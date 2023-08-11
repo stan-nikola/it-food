@@ -1,7 +1,14 @@
 {
   "files": {
-    "main.css": "/it-food/static/css/main.3759fefb.css",
-    "main.js": "/it-food/static/js/main.8cc2853b.js",
+    "main.css": "/it-food/static/css/main.f47a7549.css",
+    "main.js": "/it-food/static/js/main.8557356d.js",
+    "static/css/994.916aec29.chunk.css": "/it-food/static/css/994.916aec29.chunk.css",
+    "static/js/994.674a61b3.chunk.js": "/it-food/static/js/994.674a61b3.chunk.js",
+    "static/css/559.c56e6dd3.chunk.css": "/it-food/static/css/559.c56e6dd3.chunk.css",
+    "static/js/559.685fba0f.chunk.js": "/it-food/static/js/559.685fba0f.chunk.js",
+    "static/css/543.e0d520b0.chunk.css": "/it-food/static/css/543.e0d520b0.chunk.css",
+    "static/js/543.48aed8f3.chunk.js": "/it-food/static/js/543.48aed8f3.chunk.js",
+    "static/js/820.b8d9a889.chunk.js": "/it-food/static/js/820.b8d9a889.chunk.js",
     "static/media/Background@3x.jpg": "/it-food/static/media/Background@3x.4de9226cb8ec2b509b78.jpg",
     "static/media/Background@2x.jpg": "/it-food/static/media/Background@2x.565bb93d5fd9e838768a.jpg",
     "static/media/Background@1x.jpg": "/it-food/static/media/Background@1x.77731f58c7e2f483b2e9.jpg",
@@ -14,11 +21,18 @@
     "static/media/master-card.svg": "/it-food/static/media/master-card.7b9d88f24cfed8be8b1c15709e2196ec.svg",
     "index.html": "/it-food/index.html",
     "static/media/giftCard.svg": "/it-food/static/media/giftCard.93e9513ef2539d36285be0dcbcc160a4.svg",
-    "main.3759fefb.css.map": "/it-food/static/css/main.3759fefb.css.map",
-    "main.8cc2853b.js.map": "/it-food/static/js/main.8cc2853b.js.map"
+    "main.f47a7549.css.map": "/it-food/static/css/main.f47a7549.css.map",
+    "main.8557356d.js.map": "/it-food/static/js/main.8557356d.js.map",
+    "994.916aec29.chunk.css.map": "/it-food/static/css/994.916aec29.chunk.css.map",
+    "994.674a61b3.chunk.js.map": "/it-food/static/js/994.674a61b3.chunk.js.map",
+    "559.c56e6dd3.chunk.css.map": "/it-food/static/css/559.c56e6dd3.chunk.css.map",
+    "559.685fba0f.chunk.js.map": "/it-food/static/js/559.685fba0f.chunk.js.map",
+    "543.e0d520b0.chunk.css.map": "/it-food/static/css/543.e0d520b0.chunk.css.map",
+    "543.48aed8f3.chunk.js.map": "/it-food/static/js/543.48aed8f3.chunk.js.map",
+    "820.b8d9a889.chunk.js.map": "/it-food/static/js/820.b8d9a889.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3759fefb.css",
-    "static/js/main.8cc2853b.js"
+    "static/css/main.f47a7549.css",
+    "static/js/main.8557356d.js"
   ]
 }
