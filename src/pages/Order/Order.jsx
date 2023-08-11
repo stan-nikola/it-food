@@ -34,7 +34,7 @@ import { Modal } from 'components/Modal';
 import { OrderCardRender } from 'components/OrderCardRender';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
-export const Order = () => {
+const Order = () => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [tipAmount, setTipAmount] = useState(5);
   const [isTipChangeShow, setIsTipChangeShow] = useState(false);
@@ -204,6 +204,7 @@ export const Order = () => {
               className={s.orderOption_detail}
               draggingClassName={s.orderOption_detail_isGrab}
             >
+
               {orderedDish.map(item => (
                 <OrderCardRender key={item._id || item.id} props={item} />
               ))}
@@ -390,3 +391,5 @@ export const Order = () => {
     </section>
   );
 };
+
+export default Order;
