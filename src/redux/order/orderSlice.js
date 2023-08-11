@@ -103,9 +103,7 @@ export const orderSlice = createSlice({
         state.orderLoading = false;
       })
       .addCase(addOrder.rejected, (state, action) => {
-        console.log(action);
-
-        // state.orderError = action.payload.message;
+        state.orderError = action?.payload?.message;
         state.orderLoading = false;
         state.isOrderAdded = false;
       })
