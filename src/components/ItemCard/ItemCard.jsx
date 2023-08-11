@@ -59,7 +59,7 @@ export const ItemCard = ({ dish }) => {
   };
 
   useEffect(() => {
-    if (arrayOfFavoriteID.includes(id)) {
+    if (arrayOfFavoriteID?.includes(id)) {
       setIsFavorite(true);
     } else setIsFavorite(false);
     // console.log('isFavorite=', isFavorite);
