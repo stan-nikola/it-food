@@ -33,7 +33,7 @@ import { Cash, Gift, MasterCard, Visa } from 'images';
 import { Modal } from 'components/Modal';
 import { OrderCardRender } from 'components/OrderCardRender';
 
-export const Order = () => {
+const Order = () => {
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [tipAmount, setTipAmount] = useState(5);
   const [isTipChangeShow, setIsTipChangeShow] = useState(false);
@@ -196,12 +196,7 @@ export const Order = () => {
               </div>
             </div>
 
-            <ul
-              hideScrollbars={false}
-              horizontal={false}
-              component="ul"
-              className={s.orderOption_detail}
-            >
+            <ul className={s.orderOption_detail}>
               {orderedDish.map(item => (
                 <OrderCardRender key={item._id || item.id} props={item} />
               ))}
@@ -388,3 +383,5 @@ export const Order = () => {
     </section>
   );
 };
+
+export default Order;

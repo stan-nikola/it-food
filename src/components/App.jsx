@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
@@ -8,9 +8,9 @@ import { useAuth } from './hooks/useAuth';
 import { Layout } from './Layout';
 import { DishBlock } from './MainBlock';
 
-import { Dashboard } from 'pages/Dashboard';
-import { Order } from 'pages/Order';
-import { History } from 'pages/History';
+const Dashboard = lazy(() => import('../pages/Dashboard/Dashboard'));
+const Order = lazy(() => import('../pages/Order/Order'));
+const History = lazy(() => import('../pages/History/History'));
 
 export const App = () => {
   const dispatch = useDispatch();
