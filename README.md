@@ -1,1 +1,1 @@
-# React
+# Food Ordering Application. The application features user registration, user profile photo and information editing, and the ability to modify current order details. Additionally, there is a mechanism for non-registered users to make purchases.
