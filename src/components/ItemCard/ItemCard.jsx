@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 import css from './ItemCard.module.css';
+import topBarCss from '../TopBar/TopBar.module.css';
 
 import { addDish } from 'redux/order/orderSlice';
 import {
@@ -20,12 +21,17 @@ import { selectToken } from '../../redux/auth/selectors';
 
 import { Modal } from 'components/Modal';
 import { MoreInfo } from './MoreInfo/MoreInfo';
+import { useAuth } from 'components/hooks/useAuth';
+import { SignUpForm } from 'components/AuthForm';
 
 export const ItemCard = ({ dish }) => {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
   const [addNoteShow, setAddNoteShow] = useState(false);
+
   const [moreInfoShow, setMoreInfoShow] = useState(false);
   const [isFavorite, setIsFavorite] = useState();
+
+  const [signUpFormShow, setSignUpFormShow] = useState(false);
 
   const { _id: id, description, preview, thumb, title, price } = dish;
 
@@ -34,24 +40,26 @@ export const ItemCard = ({ dish }) => {
   const dispatch = useDispatch();
 
   const { orderedDish } = useOrder();
+  const { isLoggedIn } = useAuth();
 
   const arrayOfFavoriteID = useSelector(selectFavorite);
   // console.log('arrayOfFavoriteID=', arrayOfFavoriteID);
 
   const modalToggle = () => {
-    setAddNoteShow(prev => !prev);
+    setAddNoteShow(false);
+    setSignUpFormShow(false);
   };
 
   const moreInfoToggle = () => {
     setMoreInfoShow(prev => !prev);
   };
 
-  // const isFavoriteToggle = () => {
-  //   setIsFavorite(prev => !prev);
-  // };
+  const isFavoriteToggle = () => {
+    setIsFavorite(prev => !prev);
+  };
 
   useEffect(() => {
-    if (arrayOfFavoriteID.includes(id)) {
+    if (arrayOfFavoriteID?.includes(id)) {
       setIsFavorite(true);
     } else setIsFavorite(false);
     // console.log('isFavorite=', isFavorite);
@@ -80,7 +88,11 @@ export const ItemCard = ({ dish }) => {
         // onMouseOver={moreInfoToggle}
         // onMouseOut={moreInfoToggle}
       >
-        <button type="button" onClick={modalToggle} className={css.wrapper}>
+        <button
+          type="button"
+          onClick={() => setAddNoteShow(prev => !prev)}
+          className={css.wrapper}
+        >
           <div
             className={css.imageWrapper}
             onMouseOver={moreInfoToggle}
@@ -104,40 +116,42 @@ export const ItemCard = ({ dish }) => {
           {/* <h1 className={css.foodName}>{title}</h1> */}
         </button>
         <div className={css.favoriteIconWraper}>
-          {!isFavorite ? (
-            <button
-              onClick={() => {
-                // console.log('id for tranfer = ', id);
-                if (userToken) {
-                  dispatch(addFavoriteDishes(id));
-                }
+          {isLoggedIn ? (
+            <>
+              {!isFavorite ? (
+                <button
+                  onClick={() => {
+                    // console.log('id for tranfer = ', id);
+                    if (userToken) {
+                      dispatch(addFavoriteDishes(id));
+                    }
 
-                // isFavoriteToggle();
-                // moreInfoToggle();
-              }}
-              type="button"
-              className={css.favoriteIcon}
-            >
-              <div className={css.icon}>
-                <MdFavoriteBorder />
-              </div>
+                    isFavoriteToggle();
+                    moreInfoToggle();
+                  }}
+                  type="button"
+                  className={css.favoriteIcon}
+                >
+                  <div className={css.icon}>
+                    <MdFavoriteBorder />
+                  </div>
 
-              {/* <MdFavoriteBorder value={{ className: 'icon' }} /> */}
-            </button>
-          ) : (
-            <button
-              onClick={() => {
-                dispatch(deleteFromFavoriteDishes(id));
-                // isFavoriteToggle();
-                // moreInfoToggle();
-              }}
-              type="button"
-              className={css.favoriteIcon}
-            >
-              <div className={css.icon}>
-                <MdFavorite />
-              </div>
-              {/* <IconContext.Provider
+                  {/* <MdFavoriteBorder value={{ className: 'icon' }} /> */}
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    dispatch(deleteFromFavoriteDishes(id));
+                    isFavoriteToggle();
+                    moreInfoToggle();
+                  }}
+                  type="button"
+                  className={css.favoriteIcon}
+                >
+                  <div className={css.icon}>
+                    <MdFavorite />
+                  </div>
+                  {/* <IconContext.Provider
                 value={{
                   style: {
                     verticalAlign: 'middle',
@@ -151,7 +165,17 @@ export const ItemCard = ({ dish }) => {
                   <MdFavorite />
                 </div>
               </IconContext.Provider> */}
-              {/* <MdFavorite /> */}
+                  {/* <MdFavorite /> */}
+                </button>
+              )}
+            </>
+          ) : (
+            <button
+              onClick={() => setSignUpFormShow(prev => !prev)}
+              type="button"
+              className={css.favoriteIcon}
+            >
+              <MdFavoriteBorder className={css.favorite_button_disable} />
             </button>
           )}
         </div>
@@ -171,69 +195,72 @@ export const ItemCard = ({ dish }) => {
         </div>
       </div>
 
-      {addNoteShow && (
-        <Modal modalToggle={modalToggle} styles={css}>
-          <div className={css.modalWrapper}>
-            <div className={css.modalDataWrapper}>
-              <img
-                // className={`${!isImgLoaded && css.image_hide}`}
-                className={css.imageModal}
-                // onLoad={() => setIsImgLoaded(prev => !prev)}
-                src={thumb}
-                alt={title}
-              />
-              {isFavorite && (
-                <div className={css.modalFavIconWrapper}>
-                  <MdFavorite />
-                </div>
-              )}
-              <div className={css.modalDataTextWrapper}>
-                <h2 className={css.foodNameModal}>{title}</h2>
+      {(addNoteShow || signUpFormShow) && (
+        <Modal modalToggle={modalToggle} styles={addNoteShow ? css : topBarCss}>
+          {addNoteShow && (
+            <div className={css.modalWrapper}>
+              <div className={css.modalDataWrapper}>
+                <img
+                  // className={`${!isImgLoaded && css.image_hide}`}
+                  className={css.imageModal}
+                  // onLoad={() => setIsImgLoaded(prev => !prev)}
+                  src={thumb}
+                  alt={title}
+                />
+                {isFavorite && (
+                  <div className={css.modalFavIconWrapper}>
+                    <MdFavorite />
+                  </div>
+                )}
+                <div className={css.modalDataTextWrapper}>
+                  <h2 className={css.foodNameModal}>{title}</h2>
 
-                <p className={css.descriptionModal}>{description}</p>
-                <p className={css.foodPriceModal}>Price: $ {price}</p>
-                <div className={css.buttonsModalWrapper}>
-                  {!isFavorite ? (
+                  <p className={css.descriptionModal}>{description}</p>
+                  <p className={css.foodPriceModal}>Price: $ {price}</p>
+                  <div className={css.buttonsModalWrapper}>
+                    {!isFavorite ? (
+                      <button
+                        onClick={() => {
+                          // console.log('id for tranfer = ', id);
+                          dispatch(addFavoriteDishes(id));
+                          // isFavoriteToggle();
+                          // moreInfoToggle();
+                        }}
+                        type="button"
+                        className={css.buttonModal}
+                      >
+                        Add to favorite
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          dispatch(deleteFromFavoriteDishes(id));
+                          // dispatch(getFavoriteDishes('favorite'));
+                          // isFavoriteToggle();
+                          // moreInfoToggle();
+                        }}
+                        type="button"
+                        className={css.buttonModal}
+                      >
+                        Remove from favorite
+                      </button>
+                    )}
                     <button
                       onClick={() => {
-                        console.log('id for tranfer = ', id);
-                        dispatch(addFavoriteDishes(id));
-                        // isFavoriteToggle();
-                        // moreInfoToggle();
+                        dispatch(addDish(id));
+                        modalToggle();
                       }}
                       type="button"
                       className={css.buttonModal}
                     >
-                      Add to favorite
+                      Order now
                     </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        dispatch(deleteFromFavoriteDishes(id));
-                        // dispatch(getFavoriteDishes('favorite'));
-                        // isFavoriteToggle();
-                        // moreInfoToggle();
-                      }}
-                      type="button"
-                      className={css.buttonModal}
-                    >
-                      Remove from favorite
-                    </button>
-                  )}
-                  <button
-                    onClick={() => {
-                      dispatch(addDish(id));
-                      modalToggle();
-                    }}
-                    type="button"
-                    className={css.buttonModal}
-                  >
-                    Order now
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
+          {signUpFormShow && <SignUpForm />}
         </Modal>
       )}
     </>

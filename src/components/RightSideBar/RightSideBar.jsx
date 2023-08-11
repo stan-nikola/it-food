@@ -193,6 +193,7 @@ export const RightSideBar = () => {
           horizontal={false}
           component="ul"
           className={s.orderOption_detail}
+          draggingClassName={s.orderOption_detail_isGrab}
         >
           <li>
             <p className={s.orderOption_text}>Orders details</p>

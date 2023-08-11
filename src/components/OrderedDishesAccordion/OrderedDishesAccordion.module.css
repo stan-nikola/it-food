@@ -54,6 +54,10 @@
   width: 315px;
 }
 
+.dishes_content_isGrab {
+  cursor: grabbing;
+}
+
 .dishes_content_show {
   position: absolute;
   overflow: visible;
