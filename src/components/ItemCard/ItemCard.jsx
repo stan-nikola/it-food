@@ -43,7 +43,6 @@ export const ItemCard = ({ dish }) => {
   const { isLoggedIn } = useAuth();
 
   const arrayOfFavoriteID = useSelector(selectFavorite);
-  // console.log('arrayOfFavoriteID=', arrayOfFavoriteID);
 
   const modalToggle = () => {
     setAddNoteShow(false);
@@ -66,20 +65,6 @@ export const ItemCard = ({ dish }) => {
   }, [arrayOfFavoriteID, id]);
 
   const isDishOrdered = orderedDish.some(item => item.id === id);
-
-  // //Получаем точку
-  // const point = document.querySelector('#card');
-  // console.log('point=', point);
-
-  // //Вешаем обработчик
-  // //срабатывает при заходе курсора на элемент
-  // point.addEventListener('mouseover', function () {
-  //   this.style.backgroundColor = 'gray';
-  // });
-  // //срабатывает при уходе курсора с элемента
-  // // point.addEventListener('mouseout', function () {
-  // //   this.style.backgroundColor = 'white';
-  // // });
 
   return (
     <>

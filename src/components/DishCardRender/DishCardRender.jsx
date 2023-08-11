@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -17,6 +17,7 @@ import { ItemCard } from 'components/ItemCard';
 import { DishCardSkeleton } from 'components/DishCardSkeleton';
 import { useAuth } from 'components/hooks/useAuth';
 import { eraseFavorite } from 'redux/dish/dishSlice';
+import { selectFavorite } from 'redux/auth/selectors';
 
 export const DishCardRender = () => {
   const { isLoggedIn } = useAuth();
@@ -25,58 +26,31 @@ export const DishCardRender = () => {
   const dispatch = useDispatch();
   const { category } = useParams();
 
-  // console.log('category=', category);
-
   const [searchParams] = useSearchParams();
   const dishCategory = searchParams.get('category') ?? '';
   const userSearch = searchParams.get('search') ?? '';
 
-  // console.log('userSearch in the Render =', userSearch);
-
-  // console.log('dishCategory=', dishCategory);
-  // console.log('category=', category);
-
   const { dish, dishIsLoaded } = useDish();
 
-  // const { favorite } = useAuth();
-  // console.log('FAVOR=', favorite);
-
-  // const arrayOfFavoriteID = useSelector(selectFavorite);
-
-  // const arrayOfFavoriteID = useSelector(
-  //   state => state.user.favorite.arrayOfFavoriteID
-  // );
-  // console.log('xxx=', arrayOfFavoriteID);
+  const arrayOfFavoriteID = useSelector(selectFavorite);
 
   let dishCollection = [];
 
   const numberOfCards = Array.from(Array(8).keys());
-
-  // useEffect(() => {
-  //   if (category === 'favorite') {
-  //     dispatch(getFavoriteDishes(category));
-  //     return;
-  //   }
-  //   dispatch(getDishesByCategory(category));
-  // }, [category, dispatch]);
 
   useEffect(() => {
     if (category === 'favorite' && isLoggedIn) {
       dispatch(getFavoriteDishes(category));
       return;
     }
-
-  }, [category, dispatch, isLoggedIn]);
+  }, [arrayOfFavoriteID, isLoggedIn, category, dispatch]);
 
   useEffect(() => {
     if (category === 'favorite' && !isLoggedIn) {
       navigate('/home/main?category=all');
       dispatch(eraseFavorite());
     }
-  
-
   }, [category, dispatch, isLoggedIn, navigate]);
-
 
   useEffect(() => {
     dispatch(getDishesByCategory(category));
@@ -127,28 +101,6 @@ export const DishCardRender = () => {
     }
   }
 
-  // if (dishCategory.toLowerCase() !== 'all') {
-  //   collectionForRender = dishCollection.filter(
-  //     dish => dish.category === dishCategory
-  //   );
-  // }
-
-  // console.log('collectionForRender=', collectionForRender);
-
-  // //Получаем точку
-  // const point = document.querySelector('#card');
-  // console.log('point=', point);
-
-  // //Вешаем обработчик
-  // //срабатывает при заходе курсора на элемент
-  // point.addEventListener('mouseover', function () {
-  //   this.style.backgroundColor = 'gray';
-  // });
-  // //срабатывает при уходе курсора с элемента
-  // // point.addEventListener('mouseout', function () {
-  // //   this.style.backgroundColor = 'white';
-  // // });
-
   return (
     <>
       <ScrollContainer
@@ -173,10 +125,9 @@ export const DishCardRender = () => {
             <>
               {collectionForRender.map(item => {
                 const { _id } = item;
-                // console.log('_id123=', _id);
 
                 return (
-                  <li key={_id} className="">
+                  <li key={_id}>
                     <ItemCard dish={item} />
                   </li>
                 );
