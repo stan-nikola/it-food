@@ -68,7 +68,7 @@ const History = () => {
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
       },
-      { rootMargin: '400px' }
+      { rootMargin: '50px' }
     );
     target && observer.observe(target);
     return () => observer.disconnect();

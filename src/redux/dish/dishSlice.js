@@ -9,6 +9,12 @@ export const dishSlice = createSlice({
     isDishLoaded: false,
   },
 
+  reducers: {
+    eraseFavorite(state, action) {
+      state.collections.favorite = [];
+    },
+  },
+
   extraReducers: builder => {
     builder
       .addCase(getDishesByCategory.pending, (state, action) => {
@@ -67,3 +73,4 @@ export const dishSlice = createSlice({
 });
 
 export const dishReducer = dishSlice.reducer;
+export const { eraseFavorite } = dishSlice.actions;
