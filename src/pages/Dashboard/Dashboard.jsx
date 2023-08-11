@@ -4,7 +4,7 @@ import s from './Dashboard.module.css';
 import { LeftSideBar } from 'components/LeftSideBar';
 import { RightSideBar } from 'components/RightSideBar';
 
-export const Dashboard = () => {
+const Dashboard = () => {
   return (
     <div className={s.container}>
       <LeftSideBar />
@@ -13,3 +13,5 @@ export const Dashboard = () => {
     </div>
   );
 };
+
+export default Dashboard;

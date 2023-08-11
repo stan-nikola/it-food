@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import ScrollContainer from 'react-indiana-drag-scroll';
@@ -11,7 +11,7 @@ import { getFavoriteDishes } from 'redux/user/operations';
 import { useDish } from 'components/hooks/useDish';
 // import { useAuth } from 'components/hooks/useAuth';
 
-import { selectFavorite } from 'redux/auth/selectors';
+// import { selectFavorite } from 'redux/auth/selectors';
 
 import { ItemCard } from 'components/ItemCard';
 import { DishCardSkeleton } from 'components/DishCardSkeleton';
@@ -41,7 +41,7 @@ export const DishCardRender = () => {
   // const { favorite } = useAuth();
   // console.log('FAVOR=', favorite);
 
-  const arrayOfFavoriteID = useSelector(selectFavorite);
+  // const arrayOfFavoriteID = useSelector(selectFavorite);
 
   // const arrayOfFavoriteID = useSelector(
   //   state => state.user.favorite.arrayOfFavoriteID
@@ -65,14 +65,18 @@ export const DishCardRender = () => {
       dispatch(getFavoriteDishes(category));
       return;
     }
-  }, [arrayOfFavoriteID, isLoggedIn, category, dispatch]);
+
+  }, [category, dispatch, isLoggedIn]);
 
   useEffect(() => {
     if (category === 'favorite' && !isLoggedIn) {
       navigate('/home/main?category=all');
       dispatch(eraseFavorite());
     }
+  
+
   }, [category, dispatch, isLoggedIn, navigate]);
+
 
   useEffect(() => {
     dispatch(getDishesByCategory(category));

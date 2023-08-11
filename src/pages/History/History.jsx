@@ -15,7 +15,7 @@ import { HistoryRightSideBar } from 'components/HistoryRightSideBar';
 import { LinearProgress } from '@mui/material';
 import { PageTypeBar } from 'components/PageTypeBar';
 
-export const History = () => {
+const History = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isIntersecting, setIsIntersecting] = useState(false);
 
@@ -113,3 +113,5 @@ export const History = () => {
     </section>
   );
 };
+
+export default History;
