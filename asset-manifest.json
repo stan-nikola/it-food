@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/it-food/static/css/main.38ae5939.css",
-    "main.js": "/it-food/static/js/main.d8921590.js",
+    "main.js": "/it-food/static/js/main.4e87376d.js",
     "static/css/994.916aec29.chunk.css": "/it-food/static/css/994.916aec29.chunk.css",
     "static/js/994.674a61b3.chunk.js": "/it-food/static/js/994.674a61b3.chunk.js",
     "static/css/559.c56e6dd3.chunk.css": "/it-food/static/css/559.c56e6dd3.chunk.css",
@@ -22,7 +22,7 @@
     "index.html": "/it-food/index.html",
     "static/media/giftCard.svg": "/it-food/static/media/giftCard.93e9513ef2539d36285be0dcbcc160a4.svg",
     "main.38ae5939.css.map": "/it-food/static/css/main.38ae5939.css.map",
-    "main.d8921590.js.map": "/it-food/static/js/main.d8921590.js.map",
+    "main.4e87376d.js.map": "/it-food/static/js/main.4e87376d.js.map",
     "994.916aec29.chunk.css.map": "/it-food/static/css/994.916aec29.chunk.css.map",
     "994.674a61b3.chunk.js.map": "/it-food/static/js/994.674a61b3.chunk.js.map",
     "559.c56e6dd3.chunk.css.map": "/it-food/static/css/559.c56e6dd3.chunk.css.map",
@@ -33,6 +33,6 @@
   },
   "entrypoints": [
     "static/css/main.38ae5939.css",
-    "static/js/main.d8921590.js"
+    "static/js/main.4e87376d.js"
   ]
 }
